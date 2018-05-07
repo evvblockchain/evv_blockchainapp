@@ -33,8 +33,8 @@ export class LocationService {
    arePointsNear(point1, point2) {
        point1=new google.maps.LatLng(point1.lat,point1.long);
        point2=new google.maps.LatLng(point2.lat,point2.long);
-    var sw = new google.maps.LatLng(point2.lat() - 0.005, point2.lng() - 0.005);
-    var ne = new google.maps.LatLng(point2.lat() + 0.005, point2.lng() + 0.005);
+    var sw = new google.maps.LatLng(point2.lat() - 0.0005, point2.lng() - 0.0005);
+    var ne = new google.maps.LatLng(point2.lat() + 0.0005, point2.lng() + 0.0005);
     var bounds = new google.maps.LatLngBounds(sw, ne);
     if (bounds.contains (point1))
     	return true;
