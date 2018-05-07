@@ -1,0 +1,43 @@
+<section class="checkin-section" >
+
+  <div class="app-sub-header" *ngFor="let agent of agentData | async">
+<h4>Welcome {{agent.name}}</h4>
+<img src="data:image/jpg;base64,{{agent.photo}}" alt="" class="user-avatar">
+  </div>
+  <div *ngFor="let client of clientdata | async">
+  <div class="time-container">
+    <h4>
+      {{client.timing.date | date}}
+    </h4>
+    <h3>
+        {{ time  | date:'h:mm a'}}
+    </h3>
+  </div>
+
+
+  <div class="client-container text-white" >
+    <div class="row">
+      <div class="col-9 vertical-center"  >
+        <div>Client Name: {{client.clientname}}</div>
+        <div>ID: {{client.clientid}}</div>
+        <div>Address:  {{client.Address}}</div>
+
+      </div>
+      <div class="col-3 vertical-center">
+        <img src="assets/images/info-icon.png" alt="" class="img-fluid">
+      </div>
+    </div>  </div>
+
+  
+  
+
+  <div class="map-container">
+    <agm-map [zoom]="15" [latitude]="client.location.lat" [longitude]="client.location.long">
+      <agm-marker [latitude]="client.location.lat" [longitude]="client.location.long"></agm-marker>
+      <agm-circle [latitude]="client.location.lat" [longitude]="client.location.long" [radius]="10"></agm-circle>
+    </agm-map>
+  </div></div>
+  <div class="footer-container" (click)="takeSelfie();">
+   <h4>Checkin</h4>
+  </div>
+</section>

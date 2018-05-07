@@ -1,0 +1,40 @@
+
+
+.login-bg{
+    background-image: url(../../assets/images/login-bg.jpg);
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.login-card{
+    background-color:transparent;
+  margin-top: 100px;
+  border: none;
+}
+.app-logo{
+    height: 100px;
+}
+.form-control, .form-control:focus,.form-control:active{
+    border: none;
+    background: none;
+    border-bottom: 1px solid;
+    color: #fff;
+    border-radius: 0;
+    text-decoration-color: #fff;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff;
+    opacity: 1; /* Firefox */
+}
+.btn-rounded{
+    width: 200px;
+    border-radius: 25px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    border-color: #fff;
+    color: #fff;
+}

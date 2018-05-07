@@ -1,0 +1,127 @@
+import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute,Router} from "@angular/router";
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs/Observable';
+import { Globals } from '../globals';
+import { AngularFirestore,AngularFirestoreCollection  } from 'angularfire2/firestore';
+import {LocationService} from '../services/location.service';
+import {TierionService} from '../services/tierion.service';
+declare let cordova: any;
+declare let  navigator: any;
+
+@Component({
+  selector: 'app-verify',
+  templateUrl: './verify.component.html',
+  styleUrls: ['./verify.component.css']
+})
+export class VerifyComponent implements OnInit {
+  public base64Image : string;
+  currentlocation:any;
+  clientLocation:any;
+  checkinDataToSave:any;
+  prodcollection: AngularFirestoreCollection<any> = this.db.collection('agent_c_inout');
+  constructor(private db: AngularFirestore,
+    private route: ActivatedRoute,
+    private spinnerService: Ng4LoadingSpinnerService,
+    private authService: AuthService,
+    private globals: Globals,
+    private locationService: LocationService,
+  private tierionService: TierionService,
+  private router: Router) { 
+
+    this.route.params.subscribe( params => {
+      console.log(params);
+      this.base64Image=params['imagePath']
+      this.spinnerService.hide();
+    });
+    
+  }
+
+  ngOnInit() {
+  }
+  verifyImage(){
+    this.spinnerService.show();
+   this.clientLocation =this.globals.clientdata[0];
+    this.authService.getFaceId(this.base64Image).subscribe(res => {
+      
+      if(res!=undefined && res.length>0){
+        this.authService.verifyImage(res[0].faceId,this.globals.loggedUserFaceId).subscribe(result =>{
+          console.log(result);
+          if(result!=undefined){
+            this.spinnerService.hide();
+            if(result.confidence>0.5){
+             this.locationService.getCurrentLocation((value)=>{
+               if (this.locationService.arePointsNear(value,this.clientLocation.location)){
+                  this.createCheckinData(value);
+                  
+               }
+                  else
+                  alert('Please makes sure you have reached the client location before checkin.');
+            
+             },(value) => {
+              alert('Failed to find your location.');
+            })  
+            }
+            else{
+              alert('Face verification has been failed. Please try with your own another selfie.');
+            }
+          }
+        })
+      }
+      else{
+        this.spinnerService.hide();
+        alert('There is no face detected in the captured image.');
+      }
+    });
+  }
+
+  saveCheckinDataToFireBase(isUpdate){
+    var date=new Date();
+    var dateStamp=(date.getMonth() + 1) + '' + date.getDate() + '' +  date.getFullYear();
+    
+    this.prodcollection.doc(dateStamp.toString()).set( this.checkinDataToSave)
+      .catch((err) => {
+      console.log(err);
+    })
+    if(!isUpdate)
+    this.saveCheckinToBlockChain( this.checkinDataToSave);
+  }
+  saveCheckinToBlockChain(dataToSave){
+    this.tierionService.saveCheckinToBlockChain(dataToSave).subscribe(bcResponse =>{
+      console.log(bcResponse);
+      var blockChainData={
+        bcid:bcResponse.id,
+        accountId:bcResponse.accountId,
+        datastoreId:bcResponse.datastoreId,
+        sha256:bcResponse.sha256,
+        status:bcResponse.status,
+        timestamp:bcResponse.timestamp,
+      }
+      this.checkinDataToSave.blockChanData=blockChainData;
+      this.saveCheckinDataToFireBase(true);
+      alert('You are successfully checked in.');
+      this.router.navigate(['dashboard/checkout']);
+    });
+    
+  }
+  createCheckinData(locationData){
+    this.checkinDataToSave={
+      datastoreId:7103,
+      agentId: this.globals.agentData[0].agentId,
+      agentName: this.globals.agentData[0].name,
+      inoutInfo:{
+        intime:new Date(),
+        inloc:locationData
+      },
+      clientId:this.globals.clientdata[0].clientid,
+      clientName:this.globals.clientdata[0].clientname,
+
+    };
+    this.saveCheckinDataToFireBase(false);
+
+  }
+
+
+
+}

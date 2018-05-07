@@ -1,0 +1,16 @@
+<nav class="app-nav-bar navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" (click)="sidenav.toggle()" class="hamburger">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand text-white" href="#">{{config.appTitle}}</a>
+
+</nav>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="slide">
+
+    <app-menu  (click)="sidenav.close()"></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content> 
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
