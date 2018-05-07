@@ -1,3 +1,21 @@
-<p>
-  history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works!
-</p>
+<div class="history-section">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let history of historyData | async">
+      <div class="row">
+          <div class="col-9 vertical-center"  >
+             <h5> {{history.inoutInfo.intime | date }}</h5>
+             <p>In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>
+              Client Name: {{history.clientName }} </p>
+
+            
+            </div>
+            <div class="col-3 vertical-center">
+                <button type="button" class="btn btn-primary" (click)="verifyData(history)">Verify</button>
+               
+            </div>
+      </div>
+    </li>
+  
+
+  </ul>
+</div>

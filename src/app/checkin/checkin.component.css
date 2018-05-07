@@ -42,10 +42,7 @@
     padding: 15px 0;
     
 }
-.vertical-center{
-    margin-top: auto;
-margin-bottom: auto;
-}
+
 agm-map {
     height: calc(100vh - 400px);
   }

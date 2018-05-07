@@ -346,7 +346,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".checkin-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}\n.user-avatar{\n    width: 80px;\n    border-radius: 50%;\n    position: absolute;\n    bottom: -57px;\n    left: 40%;\n}\n.time-container{\n    text-align: center;\n    margin-top: 60px;\n}\n.client-container{\n    background: #4472c4;\n    padding: 5px 10px;\n}\n.client-container .row{\n    margin: 0;\n}\n.client-info{\n    width: 80%;\n}\n.client-image{\n    width: 20%;\n}\n.client-image img{\n    width: 80px;\n}\n.footer-container{\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: #70ad47;\n    text-align: center;\n    color: #fff;\n    padding: 15px 0;\n    \n}\n.vertical-center{\n    margin-top: auto;\nmargin-bottom: auto;\n}\nagm-map {\n    height: calc(100vh - 400px);\n  }", ""]);
+exports.push([module.i, ".checkin-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}\n.user-avatar{\n    width: 80px;\n    border-radius: 50%;\n    position: absolute;\n    bottom: -57px;\n    left: 40%;\n}\n.time-container{\n    text-align: center;\n    margin-top: 60px;\n}\n.client-container{\n    background: #4472c4;\n    padding: 5px 10px;\n}\n.client-container .row{\n    margin: 0;\n}\n.client-info{\n    width: 80%;\n}\n.client-image{\n    width: 20%;\n}\n.client-image img{\n    width: 80px;\n}\n.footer-container{\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: #70ad47;\n    text-align: center;\n    color: #fff;\n    padding: 15px 0;\n    \n}\nagm-map {\n    height: calc(100vh - 400px);\n  }", ""]);
 
 // exports
 
@@ -817,7 +817,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works! history works!\n</p>\n"
+module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.inoutInfo.intime | date }}</h5>\n             <p>In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>\n              Client Name: {{history.clientName }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history)\">Verify</button>\n               \n            </div>\n      </div>\n    </li>\n  \n\n  </ul>\n</div>"
 
 /***/ }),
 
@@ -827,6 +827,8 @@ module.exports = "<p>\n  history works! history works! history works! history wo
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HistoryComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_tierion_service__ = __webpack_require__("../../../../../src/app/services/tierion.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -837,10 +839,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var HistoryComponent = /** @class */ (function () {
-    function HistoryComponent() {
+    function HistoryComponent(db, tierionService) {
+        this.db = db;
+        this.tierionService = tierionService;
     }
     HistoryComponent.prototype.ngOnInit = function () {
+        this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentName', '==', 'Jince'); }).valueChanges();
+        this.historyData.subscribe(function (result) {
+            console.log(result);
+        });
+    };
+    HistoryComponent.prototype.verifyData = function (history) {
+        if (history.blockChanData !== undefined) {
+            this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(function (result) {
+                console.log(result);
+            });
+        }
     };
     HistoryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -848,7 +865,8 @@ var HistoryComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/history/history.component.html"),
             styles: [__webpack_require__("../../../../../src/app/history/history.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */],
+            __WEBPACK_IMPORTED_MODULE_2__services_tierion_service__["a" /* TierionService */]])
     ], HistoryComponent);
     return HistoryComponent;
 }());
@@ -1336,6 +1354,15 @@ var TierionService = /** @class */ (function () {
             return (res.json());
         });
     };
+    TierionService.prototype.getDataFromTierionAndValidate = function (dataId) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */](__WEBPACK_IMPORTED_MODULE_1__config_app_config__["a" /* config */].TierionAPI.Header);
+        var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var dataToSave = dataId;
+        return this.http.get(__WEBPACK_IMPORTED_MODULE_1__config_app_config__["a" /* config */].TierionAPI.URL + 'records/' + dataToSave, options)
+            .map(function (res) {
+            return (res.json());
+        });
+    };
     TierionService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
@@ -1432,19 +1459,22 @@ var VerifyComponent = /** @class */ (function () {
                 _this.authService.verifyImage(res[0].faceId, _this.globals.loggedUserFaceId).subscribe(function (result) {
                     console.log(result);
                     if (result != undefined) {
-                        _this.spinnerService.hide();
                         if (result.confidence > 0.5) {
                             _this.locationService.getCurrentLocation(function (value) {
                                 if (_this.locationService.arePointsNear(value, _this.clientLocation.location)) {
                                     _this.createCheckinData(value);
                                 }
-                                else
+                                else {
+                                    _this.spinnerService.hide();
                                     alert('Please makes sure you have reached the client location before checkin.');
+                                }
                             }, function (value) {
+                                _this.spinnerService.hide();
                                 alert('Failed to find your location.');
                             });
                         }
                         else {
+                            _this.spinnerService.hide();
                             alert('Face verification has been failed. Please try with your own another selfie.');
                         }
                     }
@@ -1480,6 +1510,7 @@ var VerifyComponent = /** @class */ (function () {
             };
             _this.checkinDataToSave.blockChanData = blockChainData;
             _this.saveCheckinDataToFireBase(true);
+            _this.spinnerService.hide();
             alert('You are successfully checked in.');
             _this.router.navigate(['dashboard/checkout']);
         });

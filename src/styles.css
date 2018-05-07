@@ -26,3 +26,7 @@
     position: relative;
     padding: 20px 0;
 }
+.vertical-center{
+    margin-top: auto;
+margin-bottom: auto;
+}

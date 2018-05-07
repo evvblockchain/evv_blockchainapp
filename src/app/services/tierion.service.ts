@@ -18,5 +18,14 @@ export class TierionService {
           return (res.json());
         })
     }
+    getDataFromTierionAndValidate(dataId){
+        const headers=new Headers(config.TierionAPI.Header);
+        const options=new RequestOptions({headers});
+        const dataToSave=dataId;
+        return this.http.get(config.TierionAPI.URL+'records/'+dataToSave,options)
+        .map(res =>{ 
+          return (res.json());
+        })
+    }
   
 }

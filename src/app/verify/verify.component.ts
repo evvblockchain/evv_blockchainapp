@@ -49,21 +49,25 @@ export class VerifyComponent implements OnInit {
         this.authService.verifyImage(res[0].faceId,this.globals.loggedUserFaceId).subscribe(result =>{
           console.log(result);
           if(result!=undefined){
-            this.spinnerService.hide();
+            
             if(result.confidence>0.5){
              this.locationService.getCurrentLocation((value)=>{
                if (this.locationService.arePointsNear(value,this.clientLocation.location)){
                   this.createCheckinData(value);
                   
                }
-                  else
+                  else{
+                    this.spinnerService.hide();
                   alert('Please makes sure you have reached the client location before checkin.');
+                  }
             
              },(value) => {
+              this.spinnerService.hide();
               alert('Failed to find your location.');
             })  
             }
             else{
+              this.spinnerService.hide();
               alert('Face verification has been failed. Please try with your own another selfie.');
             }
           }
@@ -100,6 +104,7 @@ export class VerifyComponent implements OnInit {
       }
       this.checkinDataToSave.blockChanData=blockChainData;
       this.saveCheckinDataToFireBase(true);
+      this.spinnerService.hide();
       alert('You are successfully checked in.');
       this.router.navigate(['dashboard/checkout']);
     });

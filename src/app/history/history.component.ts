@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import {TierionService} from '../services/tierion.service';
 
 @Component({
   selector: 'app-history',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  public historyData: Observable<any[]>;
+  constructor(private db: AngularFirestore,
+    private tierionService: TierionService) { }
 
   ngOnInit() {
+
+    this.historyData = this.db.collection('/agent_c_inout',ref => ref.where('agentName', '==', 'Jince')).valueChanges();
+    this.historyData.subscribe(result => {
+      console.log(result);
+    });
+
+  }
+
+  verifyData(history){
+    if(history.blockChanData!==undefined){
+    this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(result =>{
+      console.log(result);
+    })
+  }
   }
 
 }
