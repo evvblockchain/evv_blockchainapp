@@ -11,6 +11,7 @@ import {TierionService} from '../services/tierion.service';
 export class HistoryComponent implements OnInit {
 
   public historyData: Observable<any[]>;
+  verified:any;
   constructor(private db: AngularFirestore,
     private tierionService: TierionService) { }
 
@@ -26,9 +27,17 @@ export class HistoryComponent implements OnInit {
   verifyData(history){
     if(history.blockChanData!==undefined){
     this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(result =>{
-      console.log(result);
+      var inoutInfoBc=(JSON.parse(result.data.inoutinfo));
+      var bcInTime=(new Date(inoutInfoBc.intime));
+      var localInTime=(history.inoutInfo.intime);
+      if(bcInTime.getTime()==localInTime.getTime()){
+        this.verified=true;
+      }
+      else
+      this.verified=false;
     })
   }
+  return this.verified;
   }
 
 }
