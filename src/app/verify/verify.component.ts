@@ -89,7 +89,7 @@ export class VerifyComponent implements OnInit {
     var date=new Date();
     var dateStamp=(date.getMonth() + 1) + '' + date.getDate() + '' +  date.getFullYear();
     
-    this.prodcollection.doc(dateStamp.toString()).set( this.checkinDataToSave)
+    this.prodcollection.doc(dateStamp.toString()).update( this.checkinDataToSave)
       .catch((err) => {
       console.log(err);
     })
@@ -110,12 +110,20 @@ export class VerifyComponent implements OnInit {
       this.checkinDataToSave.blockChanData=blockChainData;
       this.saveCheckinDataToFireBase(true);
       this.spinnerService.hide();
+
+      if(this.globals.isCheckIn){
       alert('You are successfully checked in.');
       this.router.navigate(['dashboard/checkout']);
+      }else{
+        alert('You are successfully checked out.');
+        this.router.navigate(['dashboard/history']);
+      }
     });
     
   }
   createCheckinData(locationData){
+
+    if(this.globals.isCheckIn){
     this.checkinDataToSave={
       datastoreId:7103,
       agentId: this.globals.agentData[0].agentId,
@@ -128,6 +136,23 @@ export class VerifyComponent implements OnInit {
       clientName:this.globals.clientdata[0].clientname,
 
     };
+    this.globals.checkinDate=new Date();
+  }else{
+    this.checkinDataToSave={
+      datastoreId:7103,
+      agentId: this.globals.agentData[0].agentId,
+      agentName: this.globals.agentData[0].name,
+      inoutInfo:{
+        intime:this.globals.checkinDate,
+        outtime:new Date(),
+        inloc:locationData
+      },
+      clientId:this.globals.clientdata[0].clientid,
+      clientName:this.globals.clientdata[0].clientname,
+
+    };
+    
+  }
     this.saveCheckinDataToFireBase(false);
 
   }

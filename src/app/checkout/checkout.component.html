@@ -37,11 +37,11 @@
     <div class="row">
       <div class="col-6 vertical-center" style="border-right: 1px solid;" >
         <h5>Todays working hours</h5>
-        <h2>{{totalHours}} Hrs</h2>
+        <h3>{{totalHours}} Hrs</h3>
       </div>
       <div class="col-6 vertical-center"  >
           <h5>Todays working hours</h5>
-        <h2>{{totalHours}} Hrs</h2>
+        <h3>{{workingSession}}</h3>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
       <agm-marker [latitude]="client.location.lat" [longitude]="client.location.long"></agm-marker>
     </agm-map>
   </div>--></div> 
-  <div class="footer-container" (click)="saveCheckinData();">
+  <div class="footer-container"(click)="takeSelfie();">
    <h4>Checkout</h4>
   </div>
 </section>

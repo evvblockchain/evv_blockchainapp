@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Globals } from '../globals';
 import { MessageService } from '../services/message.service';
 import {ClockService} from '../services/clock.service';
+import {CameraService} from '../services/camera.service';
 
 declare let cordova: any;
 declare let  navigator: any;
@@ -37,7 +38,8 @@ export class CheckinComponent implements OnInit {
     private spinnerService: Ng4LoadingSpinnerService,
     private router: Router,private globals: Globals,
     private messageService: MessageService,
-    private clockService: ClockService) { 
+    private clockService: ClockService,
+  private cameraService: CameraService) { 
     this.spinnerService.show();
     
   }
@@ -72,38 +74,15 @@ export class CheckinComponent implements OnInit {
       console.log(result)})
   }
   takeSelfie(){
+    this.globals.isCheckIn=true;
+    this.cameraService.takePicture(value=>{
+      this.spinnerService.show();
+      this.router.navigate(['dashboard/verify',value]);
 
-    if (typeof(<any>cordova) !== 'undefined') {
-      console.log(cordova);
-      const cameraOptions = {
-        destinationType: (<any> Camera).DestinationType.DATA_URL,
-        quality: 25,
-        encodingType: Camera.EncodingType.JPEG,
-        correctOrientation: true,
-        cameraDirection:Camera.Direction.FRONT
-      };
-      console.log(navigator);
-      // (<any> navigator).camera.getPicture(cameraOptions).then((imageData) => {
-      //   // imageData is a base64 encoded string
-      //     this.base64Image = "data:image/jpeg;base64," + imageData;
-      //     this.router.navigate(['dashboard/verify']);
-      // }, (err) => {
-      //     console.log(err);
-      // });
-      
-      (<any> navigator).camera.getPicture((value) => {
-        //alert(value);
-        this.spinnerService.show();
-        this.router.navigate(['dashboard/verify',value]);
-      }, 
-      (value) => {
-        alert(value);
-      },cameraOptions)
-  
-    }
-    
-  
-    
+    },(value) => {
+      this.spinnerService.hide();
+      alert(value);
+    })  
   }
   
   

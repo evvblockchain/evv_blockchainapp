@@ -8,4 +8,6 @@ export class Globals {
   loggedUserFaceId: string='';
    clientdata: any;
    agentData: any;
+   checkinDate:any;
+   isCheckIn:any;
 }

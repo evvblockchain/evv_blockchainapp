@@ -36,7 +36,7 @@ import { MessageService } from './services/message.service';
 import {ClockService} from './services/clock.service';
 import {LocationService} from './services/location.service';
 import {TierionService} from './services/tierion.service';
-
+import {CameraService} from './services/camera.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +76,8 @@ import {TierionService} from './services/tierion.service';
               MessageService,
               ClockService,
               LocationService,
-              TierionService],
+              TierionService,
+              CameraService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

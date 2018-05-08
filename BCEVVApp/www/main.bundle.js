@@ -249,12 +249,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__services_clock_service__ = __webpack_require__("../../../../../src/app/services/clock.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_location_service__ = __webpack_require__("../../../../../src/app/services/location.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__ = __webpack_require__("../../../../../src/app/services/tierion.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_camera_service__ = __webpack_require__("../../../../../src/app/services/camera.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -327,7 +329,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_28__services_message_service__["a" /* MessageService */],
                 __WEBPACK_IMPORTED_MODULE_29__services_clock_service__["a" /* ClockService */],
                 __WEBPACK_IMPORTED_MODULE_30__services_location_service__["a" /* LocationService */],
-                __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__["a" /* TierionService */]],
+                __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__["a" /* TierionService */],
+                __WEBPACK_IMPORTED_MODULE_32__services_camera_service__["a" /* CameraService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -377,6 +380,7 @@ module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_message_service__ = __webpack_require__("../../../../../src/app/services/message.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_clock_service__ = __webpack_require__("../../../../../src/app/services/clock.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_camera_service__ = __webpack_require__("../../../../../src/app/services/camera.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -394,8 +398,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var CheckinComponent = /** @class */ (function () {
-    function CheckinComponent(db, authService, spinnerService, router, globals, messageService, clockService) {
+    function CheckinComponent(db, authService, spinnerService, router, globals, messageService, clockService, cameraService) {
         this.db = db;
         this.authService = authService;
         this.spinnerService = spinnerService;
@@ -403,6 +408,7 @@ var CheckinComponent = /** @class */ (function () {
         this.globals = globals;
         this.messageService = messageService;
         this.clockService = clockService;
+        this.cameraService = cameraService;
         this.today = Date.now();
         this.title = 'My first AGM project';
         this.lat = 51.678418;
@@ -437,31 +443,14 @@ var CheckinComponent = /** @class */ (function () {
     };
     CheckinComponent.prototype.takeSelfie = function () {
         var _this = this;
-        if (typeof cordova !== 'undefined') {
-            console.log(cordova);
-            var cameraOptions = {
-                destinationType: Camera.DestinationType.DATA_URL,
-                quality: 25,
-                encodingType: Camera.EncodingType.JPEG,
-                correctOrientation: true,
-                cameraDirection: Camera.Direction.FRONT
-            };
-            console.log(navigator);
-            // (<any> navigator).camera.getPicture(cameraOptions).then((imageData) => {
-            //   // imageData is a base64 encoded string
-            //     this.base64Image = "data:image/jpeg;base64," + imageData;
-            //     this.router.navigate(['dashboard/verify']);
-            // }, (err) => {
-            //     console.log(err);
-            // });
-            navigator.camera.getPicture(function (value) {
-                //alert(value);
-                _this.spinnerService.show();
-                _this.router.navigate(['dashboard/verify', value]);
-            }, function (value) {
-                alert(value);
-            }, cameraOptions);
-        }
+        this.globals.isCheckIn = true;
+        this.cameraService.takePicture(function (value) {
+            _this.spinnerService.show();
+            _this.router.navigate(['dashboard/verify', value]);
+        }, function (value) {
+            _this.spinnerService.hide();
+            alert(value);
+        });
     };
     CheckinComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -473,7 +462,8 @@ var CheckinComponent = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__["Ng4LoadingSpinnerService"],
             __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_5__globals__["a" /* Globals */],
             __WEBPACK_IMPORTED_MODULE_6__services_message_service__["a" /* MessageService */],
-            __WEBPACK_IMPORTED_MODULE_7__services_clock_service__["a" /* ClockService */]])
+            __WEBPACK_IMPORTED_MODULE_7__services_clock_service__["a" /* ClockService */],
+            __WEBPACK_IMPORTED_MODULE_8__services_camera_service__["a" /* CameraService */]])
     ], CheckinComponent);
     return CheckinComponent;
 }());
@@ -503,7 +493,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/checkout/checkout.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async \">\n<h4>Welcome {{agent.name}}</h4>\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\n  </div>\n  <div *ngFor=\"let client of clientdata | async\">\n  <div class=\"time-container\">\n    <h4>\n      {{client.timing.date | date}}\n    </h4>\n    <h3>\n      {{ time  | date:'h:mm a'}}\n    </h3>\n  </div>\n\n\n  <div class=\"client-container text-white\" >\n    <div class=\"row\">\n      <div class=\"col-9 vertical-center\"  >\n        <div>Client Name: {{client.clientname}}</div>\n        <div>ID: {{client.clientid}}</div>\n        <div>Address:  {{client.Address}}</div>\n\n      </div>\n      <div class=\"col-3 vertical-center\">\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\">\n      </div>\n    </div>  </div>\n\n\n  \n  <div class=\"timer-container container\">\n    <div class=\"text-center\">  <h4>You are in work mode</h4>\n    </div>\n  \n    <div class=\"row\">\n      <div class=\"col-6 vertical-center\" style=\"border-right: 1px solid;\" >\n        <h5>Todays working hours</h5>\n        <h2>{{totalHours}} Hrs</h2>\n      </div>\n      <div class=\"col-6 vertical-center\"  >\n          <h5>Todays working hours</h5>\n        <h2>{{totalHours}} Hrs</h2>\n      </div>\n    </div>\n  </div>\n\n  <!-- <div class=\"map-container\">\n    <agm-map [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\n    </agm-map>\n  </div>--></div> \n  <div class=\"footer-container\" (click)=\"saveCheckinData();\">\n   <h4>Checkout</h4>\n  </div>\n</section>"
+module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async \">\n<h4>Welcome {{agent.name}}</h4>\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\n  </div>\n  <div *ngFor=\"let client of clientdata | async\">\n  <div class=\"time-container\">\n    <h4>\n      {{client.timing.date | date}}\n    </h4>\n    <h3>\n      {{ time  | date:'h:mm a'}}\n    </h3>\n  </div>\n\n\n  <div class=\"client-container text-white\" >\n    <div class=\"row\">\n      <div class=\"col-9 vertical-center\"  >\n        <div>Client Name: {{client.clientname}}</div>\n        <div>ID: {{client.clientid}}</div>\n        <div>Address:  {{client.Address}}</div>\n\n      </div>\n      <div class=\"col-3 vertical-center\">\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\">\n      </div>\n    </div>  </div>\n\n\n  \n  <div class=\"timer-container container\">\n    <div class=\"text-center\">  <h4>You are in work mode</h4>\n    </div>\n  \n    <div class=\"row\">\n      <div class=\"col-6 vertical-center\" style=\"border-right: 1px solid;\" >\n        <h5>Todays working hours</h5>\n        <h3>{{totalHours}} Hrs</h3>\n      </div>\n      <div class=\"col-6 vertical-center\"  >\n          <h5>Todays working hours</h5>\n        <h3>{{workingSession}}</h3>\n      </div>\n    </div>\n  </div>\n\n  <!-- <div class=\"map-container\">\n    <agm-map [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\n    </agm-map>\n  </div>--></div> \n  <div class=\"footer-container\"(click)=\"takeSelfie();\">\n   <h4>Checkout</h4>\n  </div>\n</section>"
 
 /***/ }),
 
@@ -514,11 +504,15 @@ module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CheckoutComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner__ = __webpack_require__("../../../../ng4-loading-spinner/ng4-loading-spinner.umd.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_clock_service__ = __webpack_require__("../../../../../src/app/services/clock.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_timer__ = __webpack_require__("../../../../rxjs/_esm5/add/observable/timer.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng4_loading_spinner__ = __webpack_require__("../../../../ng4-loading-spinner/ng4-loading-spinner.umd.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng4_loading_spinner___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng4_loading_spinner__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_clock_service__ = __webpack_require__("../../../../../src/app/services/clock.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_camera_service__ = __webpack_require__("../../../../../src/app/services/camera.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -534,14 +528,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
+
 var CheckoutComponent = /** @class */ (function () {
-    function CheckoutComponent(globals, spinnerService, authService, db, clockService) {
+    function CheckoutComponent(globals, spinnerService, authService, db, clockService, cameraService, router) {
         this.globals = globals;
         this.spinnerService = spinnerService;
         this.authService = authService;
         this.db = db;
         this.clockService = clockService;
+        this.cameraService = cameraService;
+        this.router = router;
         this.today = Date.now();
+        this.workingSession = "00:00:00 Hrs";
         this.prodcollection = this.db.collection('agent_c_inout');
         this.spinnerService.show();
     }
@@ -566,6 +567,23 @@ var CheckoutComponent = /** @class */ (function () {
             // this.messageService.sendMessage(result[0].clientname);
             console.log(result);
         });
+        var timer = __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["a" /* Observable */].timer(1000, 1000);
+        var checkinTime = this.globals.checkinDate ? this.globals.checkinDate : new Date();
+        var dif = new Date().getTime() - checkinTime.getTime();
+        var Seconds_from_T1_to_T2 = dif / 1000;
+        var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+        timer.subscribe(function (t) {
+            _this.workingSession = t;
+            t = Seconds_from_T1_to_T2;
+            var hours = Math.floor(t / 3600);
+            var minutes = Math.floor((t % 3600) / 60);
+            var seconds = Math.floor(t % 60);
+            hours = minutes < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            _this.workingSession = hours + ":" + minutes + ":" + seconds + ' Hrs';
+            Seconds_from_T1_to_T2++;
+        });
     };
     CheckoutComponent.prototype.saveCheckinData = function () {
         var date = new Date();
@@ -587,6 +605,17 @@ var CheckoutComponent = /** @class */ (function () {
             console.log(err);
         });
     };
+    CheckoutComponent.prototype.takeSelfie = function () {
+        var _this = this;
+        this.globals.isCheckIn = false;
+        this.cameraService.takePicture(function (value) {
+            _this.spinnerService.show();
+            _this.router.navigate(['dashboard/verify', value]);
+        }, function (value) {
+            _this.spinnerService.hide();
+            alert(value);
+        });
+    };
     CheckoutComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-checkout',
@@ -594,10 +623,12 @@ var CheckoutComponent = /** @class */ (function () {
             styles: [__webpack_require__("../../../../../src/app/checkout/checkout.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* Globals */],
-            __WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner__["Ng4LoadingSpinnerService"],
-            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_3_angularfire2_firestore__["a" /* AngularFirestore */],
-            __WEBPACK_IMPORTED_MODULE_5__services_clock_service__["a" /* ClockService */]])
+            __WEBPACK_IMPORTED_MODULE_6_ng4_loading_spinner__["Ng4LoadingSpinnerService"],
+            __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__["a" /* AngularFirestore */],
+            __WEBPACK_IMPORTED_MODULE_7__services_clock_service__["a" /* ClockService */],
+            __WEBPACK_IMPORTED_MODULE_8__services_camera_service__["a" /* CameraService */],
+            __WEBPACK_IMPORTED_MODULE_9__angular_router__["b" /* Router */]])
     ], CheckoutComponent);
     return CheckoutComponent;
 }());
@@ -817,7 +848,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.inoutInfo.intime | date }}</h5>\n             <p>In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>\n              Client Name: {{history.clientName }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history)\">Verify</button>\n                 {{verifyData(history)}}\n            </div>\n      </div>\n    </li>\n  \n\n  </ul>\n</div>"
+module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.inoutInfo.intime | date }}</h5>\n             <p>Check In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>\n              Check Out Time: {{history.inoutInfo.outtime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientName }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>\n          \n      </div>\n    </li>\n  \n\n  </ul>\n</div>"
 
 /***/ }),
 
@@ -852,8 +883,10 @@ var HistoryComponent = /** @class */ (function () {
             console.log(result);
         });
     };
-    HistoryComponent.prototype.verifyData = function (history) {
+    HistoryComponent.prototype.verifyData = function (history, element, text) {
         var _this = this;
+        element.textContent = text;
+        element.disabled = true;
         if (history.blockChanData !== undefined) {
             this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(function (result) {
                 var inoutInfoBc = (JSON.parse(result.data.inoutinfo));
@@ -864,9 +897,29 @@ var HistoryComponent = /** @class */ (function () {
                 }
                 else
                     _this.verified = false;
+                history.isVerified = _this.verified;
             });
         }
+        else
+            history.isVerified = false;
         return this.verified;
+    };
+    HistoryComponent.prototype.calculateHours = function (history) {
+        if (history.inoutInfo.intime != undefined && history.inoutInfo.outtime) {
+            var intime = history.inoutInfo.intime ? history.inoutInfo.intime : new Date();
+            var outtime = history.inoutInfo.outtime ? history.inoutInfo.outtime : new Date();
+            var dif = outtime.getTime() - intime.getTime();
+            var Seconds_from_T1_to_T2 = dif / 1000;
+            var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+            var hours = Math.floor(Seconds_from_T1_to_T2 / 3600);
+            var minutes = Math.floor((Seconds_from_T1_to_T2 % 3600) / 60);
+            var seconds = Math.floor(Seconds_from_T1_to_T2 % 60);
+            hours = minutes < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            var hrsWorked = hours + ":" + minutes + ":" + seconds + ' Hrs';
+            return hrsWorked;
+        }
     };
     HistoryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -1199,6 +1252,62 @@ var AuthService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/services/camera.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CameraService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CameraService = /** @class */ (function () {
+    function CameraService() {
+    }
+    CameraService.prototype.takePicture = function (cameraSuccess, cameraFailed) {
+        if (typeof cordova !== 'undefined') {
+            console.log(cordova);
+            var cameraOptions = {
+                destinationType: Camera.DestinationType.DATA_URL,
+                quality: 25,
+                encodingType: Camera.EncodingType.JPEG,
+                correctOrientation: true,
+                cameraDirection: Camera.Direction.FRONT
+            };
+            console.log(navigator);
+            // (<any> navigator).camera.getPicture(cameraOptions).then((imageData) => {
+            //   // imageData is a base64 encoded string
+            //     this.base64Image = "data:image/jpeg;base64," + imageData;
+            //     this.router.navigate(['dashboard/verify']);
+            // }, (err) => {
+            //     console.log(err);
+            // });
+            navigator.camera.getPicture(function (value) {
+                //alert(value);
+                cameraSuccess(value);
+            }, function (value) {
+                cameraFailed(value);
+            }, cameraOptions);
+        }
+    };
+    CameraService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], CameraService);
+    return CameraService;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/services/clock.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1496,13 +1605,14 @@ var VerifyComponent = /** @class */ (function () {
             else {
                 _this.spinnerService.hide();
                 alert('There is no face detected in the captured image.');
+                _this._location.back();
             }
         });
     };
     VerifyComponent.prototype.saveCheckinDataToFireBase = function (isUpdate) {
         var date = new Date();
         var dateStamp = (date.getMonth() + 1) + '' + date.getDate() + '' + date.getFullYear();
-        this.prodcollection.doc(dateStamp.toString()).set(this.checkinDataToSave)
+        this.prodcollection.doc(dateStamp.toString()).update(this.checkinDataToSave)
             .catch(function (err) {
             console.log(err);
         });
@@ -1524,22 +1634,45 @@ var VerifyComponent = /** @class */ (function () {
             _this.checkinDataToSave.blockChanData = blockChainData;
             _this.saveCheckinDataToFireBase(true);
             _this.spinnerService.hide();
-            alert('You are successfully checked in.');
-            _this.router.navigate(['dashboard/checkout']);
+            if (_this.globals.isCheckIn) {
+                alert('You are successfully checked in.');
+                _this.router.navigate(['dashboard/checkout']);
+            }
+            else {
+                alert('You are successfully checked out.');
+                _this.router.navigate(['dashboard/history']);
+            }
         });
     };
     VerifyComponent.prototype.createCheckinData = function (locationData) {
-        this.checkinDataToSave = {
-            datastoreId: 7103,
-            agentId: this.globals.agentData[0].agentId,
-            agentName: this.globals.agentData[0].name,
-            inoutInfo: {
-                intime: new Date(),
-                inloc: locationData
-            },
-            clientId: this.globals.clientdata[0].clientid,
-            clientName: this.globals.clientdata[0].clientname,
-        };
+        if (this.globals.isCheckIn) {
+            this.checkinDataToSave = {
+                datastoreId: 7103,
+                agentId: this.globals.agentData[0].agentId,
+                agentName: this.globals.agentData[0].name,
+                inoutInfo: {
+                    intime: new Date(),
+                    inloc: locationData
+                },
+                clientId: this.globals.clientdata[0].clientid,
+                clientName: this.globals.clientdata[0].clientname,
+            };
+            this.globals.checkinDate = new Date();
+        }
+        else {
+            this.checkinDataToSave = {
+                datastoreId: 7103,
+                agentId: this.globals.agentData[0].agentId,
+                agentName: this.globals.agentData[0].name,
+                inoutInfo: {
+                    intime: this.globals.checkinDate,
+                    outtime: new Date(),
+                    inloc: locationData
+                },
+                clientId: this.globals.clientdata[0].clientid,
+                clientName: this.globals.clientdata[0].clientname,
+            };
+        }
         this.saveCheckinDataToFireBase(false);
     };
     VerifyComponent = __decorate([

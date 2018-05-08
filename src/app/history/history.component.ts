@@ -44,5 +44,26 @@ export class HistoryComponent implements OnInit {
   history.isVerified=false;
   return this.verified;
   }
+  calculateHours(history){
+
+    if(history.inoutInfo.intime!=undefined && history.inoutInfo.outtime){
+   var  intime=history.inoutInfo.intime?history.inoutInfo.intime:new Date();
+   var outtime=history.inoutInfo.outtime?history.inoutInfo.outtime:new Date();
+   var dif =  outtime.getTime()-intime.getTime();
+
+    var Seconds_from_T1_to_T2 = dif / 1000;
+    var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
+
+    let hours:any = Math.floor(Seconds_from_T1_to_T2 / 3600)
+    let minutes:any = Math.floor((Seconds_from_T1_to_T2 % 3600)/60);
+   let seconds:any = Math.floor(Seconds_from_T1_to_T2 % 60);
+  
+    hours = minutes < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+   var hrsWorked=hours + ":" + minutes + ":" + seconds+' Hrs';
+   return hrsWorked;
+    }
+  }
 
 }

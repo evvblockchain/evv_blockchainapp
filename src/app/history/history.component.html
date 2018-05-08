@@ -4,7 +4,9 @@
       <div class="row">
           <div class="col-9 vertical-center"  >
              <h5> {{history.inoutInfo.intime | date }}</h5>
-             <p>In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>
+             <p>Check In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>
+              Check Out Time: {{history.inoutInfo.outtime | date :'h:mm a' }}<br>
+              Hours Worked: {{calculateHours(history)}}<br>
               Client Name: {{history.clientName }} </p>
 
             
