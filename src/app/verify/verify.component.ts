@@ -7,6 +7,8 @@ import { Globals } from '../globals';
 import { AngularFirestore,AngularFirestoreCollection  } from 'angularfire2/firestore';
 import {LocationService} from '../services/location.service';
 import {TierionService} from '../services/tierion.service';
+import {Location} from '@angular/common';
+
 declare let cordova: any;
 declare let  navigator: any;
 
@@ -28,7 +30,8 @@ export class VerifyComponent implements OnInit {
     private globals: Globals,
     private locationService: LocationService,
   private tierionService: TierionService,
-  private router: Router) { 
+  private router: Router,
+  private _location: Location) { 
 
     this.route.params.subscribe( params => {
       console.log(params);
@@ -69,6 +72,7 @@ export class VerifyComponent implements OnInit {
             else{
               this.spinnerService.hide();
               alert('Face verification has been failed. Please try with your own another selfie.');
+              this._location.back();
             }
           }
         })
@@ -76,6 +80,7 @@ export class VerifyComponent implements OnInit {
       else{
         this.spinnerService.hide();
         alert('There is no face detected in the captured image.');
+        this._location.back();
       }
     });
   }

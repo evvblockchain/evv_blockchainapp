@@ -817,7 +817,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.inoutInfo.intime | date }}</h5>\n             <p>In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>\n              Client Name: {{history.clientName }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history)\">Verify</button>\n               \n            </div>\n      </div>\n    </li>\n  \n\n  </ul>\n</div>"
+module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.inoutInfo.intime | date }}</h5>\n             <p>In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>\n              Client Name: {{history.clientName }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history)\">Verify</button>\n                 {{verifyData(history)}}\n            </div>\n      </div>\n    </li>\n  \n\n  </ul>\n</div>"
 
 /***/ }),
 
@@ -853,11 +853,20 @@ var HistoryComponent = /** @class */ (function () {
         });
     };
     HistoryComponent.prototype.verifyData = function (history) {
+        var _this = this;
         if (history.blockChanData !== undefined) {
             this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(function (result) {
-                console.log(result);
+                var inoutInfoBc = (JSON.parse(result.data.inoutinfo));
+                var bcInTime = (new Date(inoutInfoBc.intime));
+                var localInTime = (history.inoutInfo.intime);
+                if (bcInTime.getTime() == localInTime.getTime()) {
+                    _this.verified = true;
+                }
+                else
+                    _this.verified = false;
             });
         }
+        return this.verified;
     };
     HistoryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -1413,6 +1422,7 @@ module.exports = "<section class=\"verify-section\" >\n\n    <div class=\"app-su
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_location_service__ = __webpack_require__("../../../../../src/app/services/location.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_tierion_service__ = __webpack_require__("../../../../../src/app/services/tierion.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1430,8 +1440,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var VerifyComponent = /** @class */ (function () {
-    function VerifyComponent(db, route, spinnerService, authService, globals, locationService, tierionService, router) {
+    function VerifyComponent(db, route, spinnerService, authService, globals, locationService, tierionService, router, _location) {
         var _this = this;
         this.db = db;
         this.route = route;
@@ -1441,6 +1452,7 @@ var VerifyComponent = /** @class */ (function () {
         this.locationService = locationService;
         this.tierionService = tierionService;
         this.router = router;
+        this._location = _location;
         this.prodcollection = this.db.collection('agent_c_inout');
         this.route.params.subscribe(function (params) {
             console.log(params);
@@ -1476,6 +1488,7 @@ var VerifyComponent = /** @class */ (function () {
                         else {
                             _this.spinnerService.hide();
                             alert('Face verification has been failed. Please try with your own another selfie.');
+                            _this._location.back();
                         }
                     }
                 });
@@ -1542,7 +1555,8 @@ var VerifyComponent = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_4__globals__["a" /* Globals */],
             __WEBPACK_IMPORTED_MODULE_6__services_location_service__["a" /* LocationService */],
             __WEBPACK_IMPORTED_MODULE_7__services_tierion_service__["a" /* TierionService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+            __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_8__angular_common__["Location"]])
     ], VerifyComponent);
     return VerifyComponent;
 }());

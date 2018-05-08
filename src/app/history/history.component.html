@@ -9,10 +9,14 @@
 
             
             </div>
-            <div class="col-3 vertical-center">
-                <button type="button" class="btn btn-primary" (click)="verifyData(history)">Verify</button>
-                 {{verifyData(history)}}
+            <div class="col-3 vertical-center float-right">
+                <button type="button" class="btn btn-primary" (click)="verifyData(history,$event.target, 'verifying')" [hidden]="history.isVerified || history.isVerified==false">Verify</button>
+                <img   src="assets/images/success.png" alt="" [hidden]="!history.isVerified || history.isVerified==undefined">
+                <img  src="assets/images/error.png" alt="" [hidden]="history.isVerified || history.isVerified==undefined">
+       
+                
             </div>
+          
       </div>
     </li>
   

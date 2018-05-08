@@ -24,7 +24,9 @@ export class HistoryComponent implements OnInit {
 
   }
 
-  verifyData(history){
+  verifyData(history, element, text){
+    element.textContent = text;
+    element.disabled = true;
     if(history.blockChanData!==undefined){
     this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(result =>{
       var inoutInfoBc=(JSON.parse(result.data.inoutinfo));
@@ -32,11 +34,14 @@ export class HistoryComponent implements OnInit {
       var localInTime=(history.inoutInfo.intime);
       if(bcInTime.getTime()==localInTime.getTime()){
         this.verified=true;
+        
       }
       else
       this.verified=false;
+      history.isVerified=this.verified;
     })
-  }
+  }else
+  history.isVerified=false;
   return this.verified;
   }
 
