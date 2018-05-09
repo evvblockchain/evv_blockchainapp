@@ -1,3 +1,25 @@
-<p>
-  clientinfo works!
-</p>
+<div class="clientinfo-section">
+  <div class="row">
+    <div class="col-12 title">Client Information</div> 
+ </div>
+ <div class="row"> 
+  <div class="col-12 label">Name:   {{clientInfo.clientname}}</div>
+  <div class="col-12 label"> ID :   {{clientInfo.clientid}} </div>
+  <div class="col-12 label">DOB :   {{clientInfo.dob}}</div>
+
+  <div class="col-12 label extraTopMargin">Service Offered : {{clientInfo.service}}</div>
+  <div class="col-12 label">Date:   {{clientInfo.timing?.date}}</div>
+  <div class="col-12 label">Assigned Check in time:   {{clientInfo.timing?.intime}}</div>
+  <div class="col-12 label">Assigned Check out time:  {{clientInfo.timing?.outtime}}</div>
+  <div class="col-12 label">Allocated hours:   {{clientInfo.DOB}}</div>
+
+  <div class="col-12 label extraTopMargin">Address  : {{clientInfo.Address}}</div>
+ </div>
+ 
+<div class="map-container">
+  <agm-map [zoom]="15" [latitude]="clientInfo.location?.lat" [longitude]="clientInfo.location?.long">
+    <agm-marker [latitude]="clientInfo.location?.lat" [longitude]="clientInfo.location?.long"></agm-marker>
+    <agm-circle [latitude]="clientInfo.location?.lat" [longitude]="clientInfo.location?.long" [radius]="10"></agm-circle>
+  </agm-map>
+</div> 
+</div>
