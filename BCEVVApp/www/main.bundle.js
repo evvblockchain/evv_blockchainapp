@@ -1612,10 +1612,18 @@ var VerifyComponent = /** @class */ (function () {
     VerifyComponent.prototype.saveCheckinDataToFireBase = function (isUpdate) {
         var date = new Date();
         var dateStamp = (date.getMonth() + 1) + '' + date.getDate() + '' + date.getFullYear();
-        this.prodcollection.doc(dateStamp.toString()).update(this.checkinDataToSave)
-            .catch(function (err) {
-            console.log(err);
-        });
+        if (this.globals.isCheckIn) {
+            this.prodcollection.doc(dateStamp.toString()).set(this.checkinDataToSave)
+                .catch(function (err) {
+                console.log(err);
+            });
+        }
+        else {
+            this.prodcollection.doc(dateStamp.toString()).update(this.checkinDataToSave)
+                .catch(function (err) {
+                console.log(err);
+            });
+        }
         if (!isUpdate)
             this.saveCheckinToBlockChain(this.checkinDataToSave);
     };
