@@ -9,6 +9,7 @@ import {LocationService} from '../services/location.service';
 import {TierionService} from '../services/tierion.service';
 import {Location} from '@angular/common';
 
+
 declare let cordova: any;
 declare let  navigator: any;
 
@@ -112,6 +113,7 @@ export class VerifyComponent implements OnInit {
         sha256:bcResponse.sha256,
         status:bcResponse.status,
         timestamp:bcResponse.timestamp,
+        datainBc:bcResponse.data
       }
       this.checkinDataToSave.blockChanData=blockChainData;
       this.saveCheckinDataToFireBase(true);
@@ -132,29 +134,28 @@ export class VerifyComponent implements OnInit {
     if(this.globals.isCheckIn){
     this.checkinDataToSave={
       datastoreId:7103,
-      agentId: this.globals.agentData[0].agentId,
-      agentName: this.globals.agentData[0].name,
-      inoutInfo:{
-        intime:new Date(),
-        inloc:locationData
-      },
-      clientId:this.globals.clientdata[0].clientid,
-      clientName:this.globals.clientdata[0].clientname,
+      agentid: this.globals.agentData[0].agentId,
+      agentname: this.globals.agentData[0].name,
+      clientid:this.globals.clientdata[0].clientid,
+      clientname:this.globals.clientdata[0].clientname,
+      checkintime:new Date(),
+      latlocation:locationData.lat,
+      longlocation:locationData.long,
 
     };
     this.globals.checkinDate=new Date();
   }else{
     this.checkinDataToSave={
       datastoreId:7103,
-      agentId: this.globals.agentData[0].agentId,
-      agentName: this.globals.agentData[0].name,
-      inoutInfo:{
-        intime:this.globals.checkinDate,
-        outtime:new Date(),
-        inloc:locationData
-      },
-      clientId:this.globals.clientdata[0].clientid,
-      clientName:this.globals.clientdata[0].clientname,
+      agentid: this.globals.agentData[0].agentId,
+      agentname: this.globals.agentData[0].name,
+      clientid:this.globals.clientdata[0].clientid,
+      clientname:this.globals.clientdata[0].clientname,
+      checkintime:this.globals.checkinDate,
+      latlocation:locationData.lat,
+      longlocation:locationData.long,
+      checkouttime:new Date(),
+    
 
     };
     

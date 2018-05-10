@@ -3,11 +3,11 @@
     <li class="list-group-item" *ngFor="let history of historyData | async">
       <div class="row">
           <div class="col-9 vertical-center"  >
-             <h5> {{history.inoutInfo.intime | date }}</h5>
-             <p>Check In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>
-              Check Out Time: {{history.inoutInfo.outtime | date :'h:mm a' }}<br>
+             <h5> {{history.checkintime | date }}</h5>
+             <p>Check In Time: {{history.checkintime | date :'h:mm a' }} <br>
+              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>
               Hours Worked: {{calculateHours(history)}}<br>
-              Client Name: {{history.clientName }} </p>
+              Client Name: {{history.clientname }} </p>
 
             
             </div>
@@ -17,11 +17,12 @@
                 <img  src="assets/images/error.png" alt="" [hidden]="history.isVerified || history.isVerified==undefined">
        
                 
-            </div>
+            </div>  
           
       </div>
     </li>
   
 
   </ul>
+  
 </div>

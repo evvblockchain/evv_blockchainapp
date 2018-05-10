@@ -362,7 +362,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/checkin/checkin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\n<h4>Welcome {{agent.name}}</h4>\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\n  </div>\n  <div *ngFor=\"let client of clientdata | async\">\n  <div class=\"time-container\">\n    <h4>\n      {{client.timing.date | date}}\n    </h4>\n    <h3>\n        {{ time  | date:'h:mm a'}}\n    </h3>\n  </div>\n\n\n  <div class=\"client-container text-white\" >\n    <div class=\"row\">\n      <div class=\"col-9 vertical-center\"  >\n        <div>Client Name: {{client.clientname}}</div>\n        <div>ID: {{client.clientid}}</div>\n        <div>Address:  {{client.Address}}</div>\n\n      </div>\n      <div class=\"col-3 vertical-center\">\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\">\n      </div>\n    </div>  </div>\n\n  \n  \n\n  <div class=\"map-container\">\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\n    </agm-map>\n  </div></div>\n  <div class=\"footer-container\" (click)=\"takeSelfie();\">\n   <h4>Checkin</h4>\n  </div>\n</section>"
+module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\n<h4>Welcome {{agent.name}}</h4>\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\n  </div>\n  <div *ngFor=\"let client of clientdata | async\">\n  <div class=\"time-container\">\n    <h4>\n      {{client.timing.date | date}}\n    </h4>\n    <h3>\n        {{ time  | date:'h:mm a'}}\n    </h3>\n  </div>\n\n\n  <div class=\"client-container text-white\" >\n    <div class=\"row\">\n      <div class=\"col-9 vertical-center\"  >\n        <div>Client Name: {{client.clientname}}</div>\n        <div>ID: {{client.clientid}}</div>\n        <div>Address:  {{client.Address}}</div>\n\n      </div>\n      <div class=\"col-3 vertical-center\">\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\">\n      </div>\n    </div>  </div>\n\n  \n  \n\n  <div class=\"map-container\">\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\n    </agm-map>\n  </div></div>\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\n   <h4>Checkin</h4>\n  </Button>\n</section>"
 
 /***/ }),
 
@@ -493,7 +493,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/checkout/checkout.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async \">\n<h4>Welcome {{agent.name}}</h4>\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\n  </div>\n  <div *ngFor=\"let client of clientdata | async\">\n  <div class=\"time-container\">\n    <h4>\n      {{client.timing.date | date}}\n    </h4>\n    <h3>\n      {{ time  | date:'h:mm a'}}\n    </h3>\n  </div>\n\n\n  <div class=\"client-container text-white\" >\n    <div class=\"row\">\n      <div class=\"col-9 vertical-center\"  >\n        <div>Client Name: {{client.clientname}}</div>\n        <div>ID: {{client.clientid}}</div>\n        <div>Address:  {{client.Address}}</div>\n\n      </div>\n      <div class=\"col-3 vertical-center\">\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\">\n      </div>\n    </div>  </div>\n\n\n  \n  <div class=\"timer-container container\">\n    <div class=\"text-center\">  <h4>You are in work mode</h4>\n    </div>\n  \n    <div class=\"row\">\n      <div class=\"col-6 vertical-center\" style=\"border-right: 1px solid;\" >\n        <h5>Todays working hours</h5>\n        <h3>{{totalHours}} Hrs</h3>\n      </div>\n      <div class=\"col-6 vertical-center\"  >\n          <h5>Todays working hours</h5>\n        <h3>{{workingSession}}</h3>\n      </div>\n    </div>\n  </div>\n\n  <!-- <div class=\"map-container\">\n    <agm-map [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\n    </agm-map>\n  </div>--></div> \n  <div class=\"footer-container\"(click)=\"takeSelfie();\">\n   <h4>Checkout</h4>\n  </div>\n</section>"
+module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async \">\n<h4>Welcome {{agent.name}}</h4>\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\n  </div>\n  <div *ngFor=\"let client of clientdata | async\">\n  <div class=\"time-container\">\n    <h4>\n      {{client.timing.date | date}}\n    </h4>\n    <h3>\n      {{ time  | date:'h:mm a'}}\n    </h3>\n  </div>\n\n\n  <div class=\"client-container text-white\" >\n    <div class=\"row\">\n      <div class=\"col-9 vertical-center\"  >\n        <div>Client Name: {{client.clientname}}</div>\n        <div>ID: {{client.clientid}}</div>\n        <div>Address:  {{client.Address}}</div>\n\n      </div>\n      <div class=\"col-3 vertical-center\">\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\">\n      </div>\n    </div>  </div>\n\n\n  \n  <div class=\"timer-container container\">\n    <div class=\"text-center\">  <h4>You are in work mode</h4>\n    </div>\n  \n    <div class=\"row\">\n      <div class=\"col-6 vertical-center\" style=\"border-right: 1px solid;\" >\n        <h5>Todays working hours</h5>\n        <h3>{{totalHours}} Hrs</h3>\n      </div>\n      <div class=\"col-6 vertical-center\"  >\n          <h5>Todays working hours</h5>\n        <h3>{{workingSession}}</h3>\n      </div>\n    </div>\n  </div>\n\n  <!-- <div class=\"map-container\">\n    <agm-map [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\n    </agm-map>\n  </div>--></div> \n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\n   <h4>Checkout</h4>\n  </Button>\n</section>"
 
 /***/ }),
 
@@ -848,7 +848,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.inoutInfo.intime | date }}</h5>\n             <p>Check In Time: {{history.inoutInfo.intime | date :'h:mm a' }} <br>\n              Check Out Time: {{history.inoutInfo.outtime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientName }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>\n          \n      </div>\n    </li>\n  \n\n  </ul>\n</div>"
+module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }} <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n  \n\n  </ul>\n  \n</div>"
 
 /***/ }),
 
@@ -878,7 +878,7 @@ var HistoryComponent = /** @class */ (function () {
         this.tierionService = tierionService;
     }
     HistoryComponent.prototype.ngOnInit = function () {
-        this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentName', '==', 'Jince'); }).valueChanges();
+        this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentname', '==', 'Jince'); }).valueChanges();
         this.historyData.subscribe(function (result) {
             console.log(result);
         });
@@ -889,9 +889,9 @@ var HistoryComponent = /** @class */ (function () {
         element.disabled = true;
         if (history.blockChanData !== undefined) {
             this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(function (result) {
-                var inoutInfoBc = (JSON.parse(result.data.inoutinfo));
-                var bcInTime = (new Date(inoutInfoBc.intime));
-                var localInTime = (history.inoutInfo.intime);
+                // var inoutInfoBc=(JSON.parse(result.data.inoutinfo));
+                var bcInTime = (new Date(result.data.checkintime));
+                var localInTime = new Date(result.data.checkouttime);
                 if (bcInTime.getTime() == localInTime.getTime()) {
                     _this.verified = true;
                 }
@@ -905,9 +905,9 @@ var HistoryComponent = /** @class */ (function () {
         return this.verified;
     };
     HistoryComponent.prototype.calculateHours = function (history) {
-        if (history.inoutInfo.intime != undefined && history.inoutInfo.outtime) {
-            var intime = history.inoutInfo.intime ? history.inoutInfo.intime : new Date();
-            var outtime = history.inoutInfo.outtime ? history.inoutInfo.outtime : new Date();
+        if (history.checkintime != undefined && history.checkouttime) {
+            var intime = history.checkintime ? history.checkintime : new Date();
+            var outtime = history.checkouttime ? history.checkouttime : new Date();
             var dif = outtime.getTime() - intime.getTime();
             var Seconds_from_T1_to_T2 = dif / 1000;
             var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
@@ -1638,6 +1638,7 @@ var VerifyComponent = /** @class */ (function () {
                 sha256: bcResponse.sha256,
                 status: bcResponse.status,
                 timestamp: bcResponse.timestamp,
+                datainBc: bcResponse.data
             };
             _this.checkinDataToSave.blockChanData = blockChainData;
             _this.saveCheckinDataToFireBase(true);
@@ -1656,29 +1657,27 @@ var VerifyComponent = /** @class */ (function () {
         if (this.globals.isCheckIn) {
             this.checkinDataToSave = {
                 datastoreId: 7103,
-                agentId: this.globals.agentData[0].agentId,
-                agentName: this.globals.agentData[0].name,
-                inoutInfo: {
-                    intime: new Date(),
-                    inloc: locationData
-                },
-                clientId: this.globals.clientdata[0].clientid,
-                clientName: this.globals.clientdata[0].clientname,
+                agentid: this.globals.agentData[0].agentId,
+                agentname: this.globals.agentData[0].name,
+                clientid: this.globals.clientdata[0].clientid,
+                clientname: this.globals.clientdata[0].clientname,
+                checkintime: new Date(),
+                latlocation: locationData.lat,
+                longlocation: locationData.long,
             };
             this.globals.checkinDate = new Date();
         }
         else {
             this.checkinDataToSave = {
                 datastoreId: 7103,
-                agentId: this.globals.agentData[0].agentId,
-                agentName: this.globals.agentData[0].name,
-                inoutInfo: {
-                    intime: this.globals.checkinDate,
-                    outtime: new Date(),
-                    inloc: locationData
-                },
-                clientId: this.globals.clientdata[0].clientid,
-                clientName: this.globals.clientdata[0].clientname,
+                agentid: this.globals.agentData[0].agentId,
+                agentname: this.globals.agentData[0].name,
+                clientid: this.globals.clientdata[0].clientid,
+                clientname: this.globals.clientdata[0].clientname,
+                checkintime: this.globals.checkinDate,
+                latlocation: locationData.lat,
+                longlocation: locationData.long,
+                checkouttime: new Date(),
             };
         }
         this.saveCheckinDataToFireBase(false);
