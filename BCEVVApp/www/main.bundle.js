@@ -250,12 +250,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_location_service__ = __webpack_require__("../../../../../src/app/services/location.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__ = __webpack_require__("../../../../../src/app/services/tierion.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_camera_service__ = __webpack_require__("../../../../../src/app/services/camera.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -330,7 +332,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_29__services_clock_service__["a" /* ClockService */],
                 __WEBPACK_IMPORTED_MODULE_30__services_location_service__["a" /* LocationService */],
                 __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__["a" /* TierionService */],
-                __WEBPACK_IMPORTED_MODULE_32__services_camera_service__["a" /* CameraService */]],
+                __WEBPACK_IMPORTED_MODULE_32__services_camera_service__["a" /* CameraService */],
+                __WEBPACK_IMPORTED_MODULE_33__angular_common__["DatePipe"]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -860,6 +863,9 @@ module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_tierion_service__ = __webpack_require__("../../../../../src/app/services/tierion.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sha_js__ = __webpack_require__("../../../../sha.js/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sha_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_sha_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -872,10 +878,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var HistoryComponent = /** @class */ (function () {
-    function HistoryComponent(db, tierionService) {
+    function HistoryComponent(db, tierionService, datePipe) {
         this.db = db;
         this.tierionService = tierionService;
+        this.datePipe = datePipe;
     }
     HistoryComponent.prototype.ngOnInit = function () {
         this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentname', '==', 'Jince'); }).valueChanges();
@@ -891,18 +900,31 @@ var HistoryComponent = /** @class */ (function () {
             this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(function (result) {
                 // var inoutInfoBc=(JSON.parse(result.data.inoutinfo));
                 var bcInTime = (new Date(result.data.checkintime));
-                var localInTime = new Date(result.data.checkouttime);
-                if (bcInTime.getTime() == localInTime.getTime()) {
-                    _this.verified = true;
-                }
-                else
-                    _this.verified = false;
-                history.isVerified = _this.verified;
+                return _this.createObjectForHashComparison(history);
             });
         }
         else
             history.isVerified = false;
         return this.verified;
+    };
+    HistoryComponent.prototype.createObjectForHashComparison = function (history) {
+        var localCheckInData = {
+            agentid: history.agentid,
+            agentname: history.agentname,
+            clientid: history.clientid,
+            clientname: history.clientname,
+            checkintime: this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy hh:mm:ss a'),
+            latlocation: history.latlocation.toString(),
+            longlocation: history.longlocation.toString(),
+            checkouttime: this.datePipe.transform(new Date(history.checkouttime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy hh:mm:ss a'),
+        };
+        var dateUTC = this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy hh:mm:ss a');
+        var sha256Data = __WEBPACK_IMPORTED_MODULE_4_sha_js__('sha256').update(JSON.stringify(localCheckInData)).digest('hex');
+        if (history.blockChanData.sha256 === sha256Data) {
+            history.isVerified = true;
+        }
+        else
+            history.isVerified = false;
     };
     HistoryComponent.prototype.calculateHours = function (history) {
         if (history.checkintime != undefined && history.checkouttime) {
@@ -925,10 +947,12 @@ var HistoryComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-history',
             template: __webpack_require__("../../../../../src/app/history/history.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/history/history.component.css")]
+            styles: [__webpack_require__("../../../../../src/app/history/history.component.css")],
+            providers: [__WEBPACK_IMPORTED_MODULE_3__angular_common__["DatePipe"]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */],
-            __WEBPACK_IMPORTED_MODULE_2__services_tierion_service__["a" /* TierionService */]])
+            __WEBPACK_IMPORTED_MODULE_2__services_tierion_service__["a" /* TierionService */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_common__["DatePipe"]])
     ], HistoryComponent);
     return HistoryComponent;
 }());

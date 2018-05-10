@@ -47,10 +47,10 @@ export class HistoryComponent implements OnInit {
       agentname:history.agentname,
       clientid:history.clientid,
       clientname:history.clientname,
-      checkintime:this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT','')),'M/dd/yyyy hh:mm:ss a'),
+      checkintime:this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT','')),'M/dd/yyyy h:mm:ss a'),
       latlocation:history.latlocation.toString(),
       longlocation:history.longlocation.toString(),
-      checkouttime:this.datePipe.transform(new Date(history.checkouttime.toUTCString().replace(' GMT','')),'M/dd/yyyy hh:mm:ss a'),
+      checkouttime:this.datePipe.transform(new Date(history.checkouttime.toUTCString().replace(' GMT','')),'M/dd/yyyy h:mm:ss a'),
     }
     var dateUTC= this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT','')),'M/dd/yyyy hh:mm:ss a');
     var sha256Data=shajs('sha256').update(JSON.stringify(localCheckInData)).digest('hex')
