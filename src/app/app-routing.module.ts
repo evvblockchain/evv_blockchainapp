@@ -8,6 +8,7 @@ import { HistoryComponent } from './history/history.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { VerifyComponent } from './verify/verify.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -32,6 +33,9 @@ const routes: Routes = [
       {
         path:'verify/:imagePath',
         component: VerifyComponent,
+      },{
+        path:'clientInfo',
+        component: ClientinfoComponent,
       }
     ]
   }

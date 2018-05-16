@@ -84,6 +84,11 @@ export class CheckinComponent implements OnInit {
       alert(value);
     })  
   }
+
+  onInfoClick(){
+    console.log("onInfoClick");
+    this.router.navigate(['dashboard/clientInfo']);
+  }
   
   
 }

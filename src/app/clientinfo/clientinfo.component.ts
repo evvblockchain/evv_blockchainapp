@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Router } from '@angular/router';
+import { Globals } from '../globals';
+import { MessageService } from '../services/message.service';
+import {ClockService} from '../services/clock.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-clientinfo',
@@ -7,9 +15,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientinfoComponent implements OnInit {
 
-  constructor() { }
+  clientInfo : any = {};
+  lat: number = 51.678418;
+  lng: number = 7.809007;
+  public clientdata: Observable<any[]>;
+  
+
+  constructor(private db: AngularFirestore,private authService: AuthService,
+    private spinnerService: Ng4LoadingSpinnerService,
+    private router: Router,private globals: Globals,
+    private messageService: MessageService) { 
+    this.spinnerService.show();
+    
+  }
 
   ngOnInit() {
+
+    this.clientdata = this.db.collection('/clientlist').valueChanges();
+    console.log(this.clientdata);
+    this.clientdata.subscribe(result => {
+      
+      this.spinnerService.hide();
+      this.globals.clientdata= result;
+  
+
+      console.log("Client Data",result);
+      if(result.length >= 1){
+       this.clientInfo = result[0];
+      }
+    });
+    
   }
 
 }
