@@ -5,6 +5,10 @@ import {TierionService} from '../services/tierion.service';
 import { DatePipe } from '@angular/common';
 import * as shajs from 'sha.js';
 import { Globals } from '../globals';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {ViewChild, ElementRef } from '@angular/core';
+import { window } from 'rxjs/operators/window';
+import {WindowRef} from '../services/window.ref.service';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -12,17 +16,27 @@ import { Globals } from '../globals';
   providers: [DatePipe]
  
 })
-export class HistoryComponent implements OnInit {
 
+export class HistoryComponent implements OnInit {
+  @ViewChild('modalContent') modalContent:ElementRef;
+  @ViewChild('FailedmodalContent') FailedmodalContent:ElementRef;
   public historyData: Observable<any[]>;
   public agentData: Observable<any[]>;
   historyLength=0;
   userRole;
   verified:any;
+  closeResult: string;
+  terionResultId:any;
+  nativeWindow: any
   constructor(private db: AngularFirestore,
     private tierionService: TierionService,
     private datePipe: DatePipe,
-    private globals: Globals) { }
+    private globals: Globals,
+    private modalService: NgbModal,
+    private winRef: WindowRef) { 
+
+      this.nativeWindow = winRef.getNativeWindow();
+    }
 
   ngOnInit() {
     this.userRole= this.globals.agentData[0].role;
@@ -50,6 +64,8 @@ export class HistoryComponent implements OnInit {
     if(history.blockChanData!==undefined){
     this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(result =>{
      // var inoutInfoBc=(JSON.parse(result.data.inoutinfo));
+     this.terionResultId=result.blockchain_receipt.anchors[0].sourceId;
+     console.log(result);
       var bcInTime=(new Date(result.data.checkintime));
       return this.createObjectForHashComparison(history)
     })
@@ -72,9 +88,12 @@ export class HistoryComponent implements OnInit {
     var sha256Data=shajs('sha256').update(JSON.stringify(localCheckInData)).digest('hex')
     if(history.blockChanData.sha256===sha256Data){
       history.isVerified=true;
+      this.open(this.modalContent);
     }
-    else
+    else{
     history.isVerified=false;
+    this.open(this.FailedmodalContent);
+    }
   }
   calculateHours(history){
 
@@ -96,6 +115,29 @@ export class HistoryComponent implements OnInit {
    var hrsWorked=hours + ":" + minutes + ":" + seconds+' Hrs';
    return hrsWorked;
     }
+  }
+
+  open(content) {
+    this.modalService.open(content, { centered: true }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+  viewBCTransaction(){
+    var newWindow = this.nativeWindow.open('https://www.blocktrail.com/BTC/tx/' + this.terionResultId,'_blank');
+   // newWindow.location = 'https://www.blocktrail.com/BTC/tx/' + this.terionResultId;
+    //window.open("https://www.blocktrail.com/BTC/tx/"+this.terionResultId)
   }
 
 }

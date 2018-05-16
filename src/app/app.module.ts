@@ -38,6 +38,7 @@ import {LocationService} from './services/location.service';
 import {TierionService} from './services/tierion.service';
 import {CameraService} from './services/camera.service';
 import { DatePipe } from '@angular/common';
+import {WindowRef} from './services/window.ref.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +80,8 @@ import { DatePipe } from '@angular/common';
               LocationService,
               TierionService,
               CameraService,
-              DatePipe],
+              DatePipe,
+              WindowRef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

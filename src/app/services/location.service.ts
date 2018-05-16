@@ -4,6 +4,13 @@ import {} from '@types/googlemaps';
 declare let cordova: any;
 
 @Injectable()
+export class WindowRef {
+  constructor() {}
+
+  getNativeWindow() {
+      return window;
+  }
+}
 export class LocationService {
 
   constructor() {

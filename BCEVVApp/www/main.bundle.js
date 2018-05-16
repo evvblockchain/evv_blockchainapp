@@ -88,15 +88,17 @@ var AppHeaderComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__checkin_checkin_component__ = __webpack_require__("../../../../../src/app/checkin/checkin.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__history_history_component__ = __webpack_require__("../../../../../src/app/history/history.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__checkout_checkout_component__ = __webpack_require__("../../../../../src/app/checkout/checkout.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__verify_verify_component__ = __webpack_require__("../../../../../src/app/verify/verify.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__clientinfo_clientinfo_component__ = __webpack_require__("../../../../../src/app/clientinfo/clientinfo.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__history_history_component__ = __webpack_require__("../../../../../src/app/history/history.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__checkout_checkout_component__ = __webpack_require__("../../../../../src/app/checkout/checkout.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__verify_verify_component__ = __webpack_require__("../../../../../src/app/verify/verify.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -120,15 +122,18 @@ var routes = [
             },
             {
                 path: 'history',
-                component: __WEBPACK_IMPORTED_MODULE_5__history_history_component__["a" /* HistoryComponent */],
+                component: __WEBPACK_IMPORTED_MODULE_6__history_history_component__["a" /* HistoryComponent */],
             },
             {
                 path: 'checkout',
-                component: __WEBPACK_IMPORTED_MODULE_6__checkout_checkout_component__["a" /* CheckoutComponent */],
+                component: __WEBPACK_IMPORTED_MODULE_7__checkout_checkout_component__["a" /* CheckoutComponent */],
             },
             {
                 path: 'verify/:imagePath',
-                component: __WEBPACK_IMPORTED_MODULE_7__verify_verify_component__["a" /* VerifyComponent */],
+                component: __WEBPACK_IMPORTED_MODULE_8__verify_verify_component__["a" /* VerifyComponent */],
+            }, {
+                path: 'clientInfo',
+                component: __WEBPACK_IMPORTED_MODULE_5__clientinfo_clientinfo_component__["a" /* ClientinfoComponent */],
             }
         ]
     }
@@ -251,12 +256,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__ = __webpack_require__("../../../../../src/app/services/tierion.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_camera_service__ = __webpack_require__("../../../../../src/app/services/camera.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__services_window_ref_service__ = __webpack_require__("../../../../../src/app/services/window.ref.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -315,7 +322,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_14_angularfire2_database__["a" /* AngularFireDatabaseModule */],
                 __WEBPACK_IMPORTED_MODULE_13_angularfire2_firestore__["b" /* AngularFirestoreModule */],
                 __WEBPACK_IMPORTED_MODULE_15_angularfire2_auth__["b" /* AngularFireAuthModule */],
-                __WEBPACK_IMPORTED_MODULE_17__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_17__ng_bootstrap_ng_bootstrap__["c" /* NgbModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_21__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
                 __WEBPACK_IMPORTED_MODULE_19__angular_forms__["c" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_20_ng4_loading_spinner__["Ng4LoadingSpinnerModule"].forRoot(),
@@ -333,7 +340,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_30__services_location_service__["a" /* LocationService */],
                 __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__["a" /* TierionService */],
                 __WEBPACK_IMPORTED_MODULE_32__services_camera_service__["a" /* CameraService */],
-                __WEBPACK_IMPORTED_MODULE_33__angular_common__["DatePipe"]],
+                __WEBPACK_IMPORTED_MODULE_33__angular_common__["DatePipe"],
+                __WEBPACK_IMPORTED_MODULE_34__services_window_ref_service__["a" /* WindowRef */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -365,7 +373,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/checkin/checkin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"checkin-section\" >\n\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\n<h4>Welcome {{agent.name}}</h4>\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\n  </div>\n  <div *ngFor=\"let client of clientdata | async\">\n  <div class=\"time-container\">\n    <h4>\n      {{client.timing.date | date}}\n    </h4>\n    <h3>\n        {{ time  | date:'h:mm a'}}\n    </h3>\n  </div>\n\n\n  <div class=\"client-container text-white\" >\n    <div class=\"row\">\n      <div class=\"col-9 vertical-center\"  >\n        <div>Client Name: {{client.clientname}}</div>\n        <div>ID: {{client.clientid}}</div>\n        <div>Address:  {{client.Address}}</div>\n\n      </div>\n      <div class=\"col-3 vertical-center\">\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\">\n      </div>\n    </div>  </div>\n\n  \n  \n\n  <div class=\"map-container\">\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\n    </agm-map>\n  </div></div>\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\n   <h4>Checkin</h4>\n  </Button>\n</section>"
+module.exports = "<section class=\"checkin-section\" >\r\n\r\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\r\n<h4>Welcome {{agent.name}}</h4>\r\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\r\n  </div>\r\n  <div *ngFor=\"let client of clientdata | async\">\r\n  <div class=\"time-container\">\r\n    <h4>\r\n      {{client.timing.date | date}}\r\n    </h4>\r\n    <h3>\r\n        {{ time  | date:'h:mm a'}}\r\n    </h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"client-container text-white\" >\r\n    <div class=\"row\">\r\n      <div class=\"col-9 vertical-center\"  >\r\n        <div>Client Name: {{client.clientname}}</div>\r\n        <div>ID: {{client.clientid}}</div>\r\n        <div>Address:  {{client.Address}}</div>\r\n\r\n      </div>\r\n      <div class=\"col-3 vertical-center\">\r\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\" (click)=\"onInfoClick()\">\r\n      </div>\r\n    </div>  </div>\r\n\r\n  \r\n  \r\n\r\n  <div class=\"map-container\">\r\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\r\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\r\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\r\n    </agm-map>\r\n  </div></div>\r\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\r\n   <h4>Checkin</h4>\r\n  </Button>\r\n</section>"
 
 /***/ }),
 
@@ -454,6 +462,10 @@ var CheckinComponent = /** @class */ (function () {
             _this.spinnerService.hide();
             alert(value);
         });
+    };
+    CheckinComponent.prototype.onInfoClick = function () {
+        console.log("onInfoClick");
+        this.router.navigate(['dashboard/clientInfo']);
     };
     CheckinComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -648,7 +660,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".title{\r\n    height: 70px;\r\n    background: #ffc000;\r\n    text-align: center;\r\n    position: relative;\r\n    padding: 20px 0;\r\n}\r\n.label{\r\n    margin-left: 20px;\r\n    margin-bottom: 15px;\r\n    margin-top: 5px;\r\n}\r\n.extraTopMargin{\r\n    margin-top: 20px;\r\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -661,7 +673,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/clientinfo/clientinfo.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  clientinfo works!\n</p>\n"
+module.exports = "<div class=\"clientinfo-section\">\r\n  <div class=\"row\">\r\n    <div class=\"col-12 title\">Client Information</div> \r\n </div>\r\n <div class=\"row card bg-light text-dark\"> \r\n   <div class=\"card-body\">\r\n  <div class=\"col-12 label\">Name:   {{clientInfo.clientname}}</div>\r\n  <div class=\"col-12 label\"> ID :   {{clientInfo.clientid}} </div>\r\n  <div class=\"col-12 label\">DOB :   {{clientInfo.dob}}</div>\r\n  </div>\r\n\r\n  <div class=\"card bg-light text-dark\">\r\n    <div class=\"card-body\">\r\n  <div class=\"col-12 label extraTopMargin\">Service Offered : {{clientInfo.service}}</div>\r\n  <div class=\"col-12 label\">Date:   {{clientInfo.timing?.date}}</div>\r\n  <div class=\"col-12 label\">Assigned Check in time:   {{clientInfo.timing?.intime}}</div>\r\n  <div class=\"col-12 label\">Assigned Check out time:  {{clientInfo.timing?.outtime}}</div>\r\n  <div class=\"col-12 label\">Allocated hours:   {{clientInfo.DOB}}</div>\r\n  </div>\r\n  </div>\r\n\r\n  <div class=\"card bg-light text-dark\">\r\n      <div class=\"card-body\">\r\n  <div class=\"col-12 label extraTopMargin\">Address  : {{clientInfo.Address}}</div>\r\n </div>\r\n </div>\r\n \r\n<div class=\"map-container\">\r\n  <agm-map [zoom]=\"15\" [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\">\r\n    <agm-marker [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\"></agm-marker>\r\n    <agm-circle [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\" [radius]=\"10\"></agm-circle>\r\n  </agm-map>\r\n</div> \r\n</div>\r\n"
 
 /***/ }),
 
@@ -671,6 +683,13 @@ module.exports = "<p>\n  clientinfo works!\n</p>\n"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ClientinfoComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__ = __webpack_require__("../../../../ng4-loading-spinner/ng4-loading-spinner.umd.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_message_service__ = __webpack_require__("../../../../../src/app/services/message.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -681,10 +700,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
+
+
 var ClientinfoComponent = /** @class */ (function () {
-    function ClientinfoComponent() {
+    function ClientinfoComponent(db, authService, spinnerService, router, globals, messageService) {
+        this.db = db;
+        this.authService = authService;
+        this.spinnerService = spinnerService;
+        this.router = router;
+        this.globals = globals;
+        this.messageService = messageService;
+        this.clientInfo = {};
+        this.lat = 51.678418;
+        this.lng = 7.809007;
+        this.spinnerService.show();
     }
     ClientinfoComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.clientdata = this.db.collection('/clientlist').valueChanges();
+        console.log(this.clientdata);
+        this.clientdata.subscribe(function (result) {
+            _this.spinnerService.hide();
+            _this.globals.clientdata = result;
+            console.log("Client Data", result);
+            if (result.length >= 1) {
+                _this.clientInfo = result[0];
+            }
+        });
     };
     ClientinfoComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -692,7 +738,10 @@ var ClientinfoComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/clientinfo/clientinfo.component.html"),
             styles: [__webpack_require__("../../../../../src/app/clientinfo/clientinfo.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__["a" /* AngularFirestore */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__["Ng4LoadingSpinnerService"],
+            __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_5__globals__["a" /* Globals */],
+            __WEBPACK_IMPORTED_MODULE_6__services_message_service__["a" /* MessageService */]])
     ], ClientinfoComponent);
     return ClientinfoComponent;
 }());
@@ -851,7 +900,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>Select Agent</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n  \n</div>"
+module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>Select Agent</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n  \n</div>\n\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\n    <div class=\"modal-header text-center\">\n      <h4 class=\"modal-title\">EVV</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body text-center\">\n      <p>Verification Success&hellip;</p>\n      <img   src=\"assets/images/success.png\" alt=\"\">\n    <p [hidden]=\"!terionResultId\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\n         </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n    </div>\n  </ng-template>\n  <hr>\n  "
 
 /***/ }),
 
@@ -867,6 +916,8 @@ module.exports = "<div class=\"history-section\">\n    <div class=\"row text-cen
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sha_js__ = __webpack_require__("../../../../sha.js/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sha_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_sha_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_window_ref_service__ = __webpack_require__("../../../../../src/app/services/window.ref.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -882,13 +933,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var HistoryComponent = /** @class */ (function () {
-    function HistoryComponent(db, tierionService, datePipe, globals) {
+    function HistoryComponent(db, tierionService, datePipe, globals, modalService, winRef) {
         this.db = db;
         this.tierionService = tierionService;
         this.datePipe = datePipe;
         this.globals = globals;
+        this.modalService = modalService;
+        this.winRef = winRef;
         this.historyLength = 0;
+        this.nativeWindow = winRef.getNativeWindow();
     }
     HistoryComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -917,6 +974,8 @@ var HistoryComponent = /** @class */ (function () {
         if (history.blockChanData !== undefined) {
             this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(function (result) {
                 // var inoutInfoBc=(JSON.parse(result.data.inoutinfo));
+                _this.terionResultId = result.blockchain_receipt.anchors[0].sourceId;
+                console.log(result);
                 var bcInTime = (new Date(result.data.checkintime));
                 return _this.createObjectForHashComparison(history);
             });
@@ -940,6 +999,7 @@ var HistoryComponent = /** @class */ (function () {
         var sha256Data = __WEBPACK_IMPORTED_MODULE_4_sha_js__('sha256').update(JSON.stringify(localCheckInData)).digest('hex');
         if (history.blockChanData.sha256 === sha256Data) {
             history.isVerified = true;
+            this.open(this.modalContent);
         }
         else
             history.isVerified = false;
@@ -961,6 +1021,34 @@ var HistoryComponent = /** @class */ (function () {
             return hrsWorked;
         }
     };
+    HistoryComponent.prototype.open = function (content) {
+        var _this = this;
+        this.modalService.open(content, { centered: true }).result.then(function (result) {
+            _this.closeResult = "Closed with: " + result;
+        }, function (reason) {
+            _this.closeResult = "Dismissed " + _this.getDismissReason(reason);
+        });
+    };
+    HistoryComponent.prototype.getDismissReason = function (reason) {
+        if (reason === __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].ESC) {
+            return 'by pressing ESC';
+        }
+        else if (reason === __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        }
+        else {
+            return "with: " + reason;
+        }
+    };
+    HistoryComponent.prototype.viewBCTransaction = function () {
+        var newWindow = this.nativeWindow.open('https://www.blocktrail.com/BTC/tx/' + this.terionResultId, '_blank');
+        // newWindow.location = 'https://www.blocktrail.com/BTC/tx/' + this.terionResultId;
+        //window.open("https://www.blocktrail.com/BTC/tx/"+this.terionResultId)
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('modalContent'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
+    ], HistoryComponent.prototype, "modalContent", void 0);
     HistoryComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-history',
@@ -971,7 +1059,9 @@ var HistoryComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */],
             __WEBPACK_IMPORTED_MODULE_2__services_tierion_service__["a" /* TierionService */],
             __WEBPACK_IMPORTED_MODULE_3__angular_common__["DatePipe"],
-            __WEBPACK_IMPORTED_MODULE_5__globals__["a" /* Globals */]])
+            __WEBPACK_IMPORTED_MODULE_5__globals__["a" /* Globals */],
+            __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */],
+            __WEBPACK_IMPORTED_MODULE_7__services_window_ref_service__["a" /* WindowRef */]])
     ], HistoryComponent);
     return HistoryComponent;
 }());
@@ -1412,6 +1502,7 @@ var ClockService = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export WindowRef */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocationService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1423,6 +1514,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+var WindowRef = /** @class */ (function () {
+    function WindowRef() {
+    }
+    WindowRef.prototype.getNativeWindow = function () {
+        return window;
+    };
+    WindowRef = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], WindowRef);
+    return WindowRef;
+}());
 
 var LocationService = /** @class */ (function () {
     function LocationService() {
@@ -1451,10 +1555,6 @@ var LocationService = /** @class */ (function () {
             return true;
         return false;
     };
-    LocationService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [])
-    ], LocationService);
     return LocationService;
 }());
 
@@ -1549,6 +1649,39 @@ var TierionService = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
     ], TierionService);
     return TierionService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/window.ref.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WindowRef; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var WindowRef = /** @class */ (function () {
+    function WindowRef() {
+    }
+    WindowRef.prototype.getNativeWindow = function () {
+        return window;
+    };
+    WindowRef = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], WindowRef);
+    return WindowRef;
 }());
 
 

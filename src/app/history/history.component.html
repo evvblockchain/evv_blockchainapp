@@ -40,3 +40,41 @@
   </ul>
   
 </div>
+
+<ng-template #modalContent let-c="close" let-d="dismiss">
+    <div class="modal-header text-center">
+      <h4 class="modal-title">EVV</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+      <h4>Verification Success&hellip;</h4>
+      <p><img   src="assets/images/success.png" alt=""></p> 
+    <p [hidden]="!terionResultId">
+        <button type="button" class="btn btn-outline-dark" (click)="viewBCTransaction()">View Bitcoin transaction</button>
+         </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>
+
+  <ng-template #FailedmodalContent let-c="close" let-d="dismiss">
+      <div class="modal-header text-center">
+        <h4 class="modal-title">EVV</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <h4>Verification Failed&hellip;</h4>
+      <p> <img   src="assets/images/error.png" alt=""></p> 
+      <p [hidden]="!terionResultId">
+          <button type="button" class="btn btn-outline-dark" (click)="viewBCTransaction()">View Bitcoin transaction</button>
+           </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+      </div>
+    </ng-template>
+  <hr>
+  
