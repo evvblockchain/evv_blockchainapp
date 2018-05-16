@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {TierionService} from '../services/tierion.service';
 import { DatePipe } from '@angular/common';
 import * as shajs from 'sha.js';
+import { Globals } from '../globals';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -14,20 +15,35 @@ import * as shajs from 'sha.js';
 export class HistoryComponent implements OnInit {
 
   public historyData: Observable<any[]>;
+  public agentData: Observable<any[]>;
+  historyLength=0;
+  userRole;
   verified:any;
   constructor(private db: AngularFirestore,
     private tierionService: TierionService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private globals: Globals) { }
 
   ngOnInit() {
-
-    this.historyData = this.db.collection('/agent_c_inout',ref => ref.where('agentname', '==', 'Jince')).valueChanges();
-    this.historyData.subscribe(result => {
-      console.log(result);
-    });
+    this.userRole= this.globals.agentData[0].role;
+     this.agentData = this.db.collection('/evvagents', ref => ref.where('role', '==', "agent")).valueChanges();
+      if( this.globals.agentData[0].role=="agent"){
+        this.historyData = this.db.collection('/agent_c_inout',ref => ref.where('agentname', '==',  this.globals.agentData[0].name)).valueChanges();
+        this.historyData.subscribe(result => {
+          console.log(result);
+          this.historyLength=result.length;
+        });
+      } 
+   
 
   }
-
+  changeAction(agent){
+    this.historyData = this.db.collection('/agent_c_inout',ref => ref.where('agentname', '==', agent.name)).valueChanges();
+    this.historyData.subscribe(result => {
+      console.log(result);
+      this.historyLength=result.length;
+    });
+  }
   verifyData(history, element, text){
     element.textContent = text;
     element.disabled = true;

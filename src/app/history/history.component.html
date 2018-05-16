@@ -1,10 +1,23 @@
 <div class="history-section">
+    <div class="row text-center" [hidden]="userRole==='agent'">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select Agent</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button (click)="changeAction(agent)" class="dropdown-item"  *ngFor="let agent of agentData | async">{{agent.name}}</button>
+
+            </div>
+          </div>
+        </div>
+      
+      
+      </div>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let history of historyData | async">
       <div class="row">
           <div class="col-9 vertical-center"  >
              <h5> {{history.checkintime | date }}</h5>
-             <p>Check In Time: {{history.checkintime | date :'h:mm a' }} <br>
+             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>
               Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>
               Hours Worked: {{calculateHours(history)}}<br>
               Client Name: {{history.clientname }} </p>
@@ -21,6 +34,7 @@
           
       </div>
     </li>
+    <li class="list-group-item text-center" [hidden]="historyLength>0" >No Records Found</li>
   
 
   </ul>

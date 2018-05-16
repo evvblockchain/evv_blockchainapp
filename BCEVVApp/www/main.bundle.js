@@ -851,7 +851,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }} <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n  \n\n  </ul>\n  \n</div>"
+module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>Select Agent</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n  \n</div>"
 
 /***/ }),
 
@@ -866,6 +866,7 @@ module.exports = "<div class=\"history-section\">\n  <ul class=\"list-group\">\n
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sha_js__ = __webpack_require__("../../../../sha.js/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_sha_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_sha_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -880,16 +881,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HistoryComponent = /** @class */ (function () {
-    function HistoryComponent(db, tierionService, datePipe) {
+    function HistoryComponent(db, tierionService, datePipe, globals) {
         this.db = db;
         this.tierionService = tierionService;
         this.datePipe = datePipe;
+        this.globals = globals;
+        this.historyLength = 0;
     }
     HistoryComponent.prototype.ngOnInit = function () {
-        this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentname', '==', 'Jince'); }).valueChanges();
+        var _this = this;
+        this.userRole = this.globals.agentData[0].role;
+        this.agentData = this.db.collection('/evvagents', function (ref) { return ref.where('role', '==', "agent"); }).valueChanges();
+        if (this.globals.agentData[0].role == "agent") {
+            this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentname', '==', _this.globals.agentData[0].name); }).valueChanges();
+            this.historyData.subscribe(function (result) {
+                console.log(result);
+                _this.historyLength = result.length;
+            });
+        }
+    };
+    HistoryComponent.prototype.changeAction = function (agent) {
+        var _this = this;
+        this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentname', '==', agent.name); }).valueChanges();
         this.historyData.subscribe(function (result) {
             console.log(result);
+            _this.historyLength = result.length;
         });
     };
     HistoryComponent.prototype.verifyData = function (history, element, text) {
@@ -913,10 +931,10 @@ var HistoryComponent = /** @class */ (function () {
             agentname: history.agentname,
             clientid: history.clientid,
             clientname: history.clientname,
-            checkintime: this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy hh:mm:ss a'),
+            checkintime: this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy h:mm:ss a'),
             latlocation: history.latlocation.toString(),
             longlocation: history.longlocation.toString(),
-            checkouttime: this.datePipe.transform(new Date(history.checkouttime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy hh:mm:ss a'),
+            checkouttime: this.datePipe.transform(new Date(history.checkouttime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy h:mm:ss a'),
         };
         var dateUTC = this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy hh:mm:ss a');
         var sha256Data = __WEBPACK_IMPORTED_MODULE_4_sha_js__('sha256').update(JSON.stringify(localCheckInData)).digest('hex');
@@ -952,7 +970,8 @@ var HistoryComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */],
             __WEBPACK_IMPORTED_MODULE_2__services_tierion_service__["a" /* TierionService */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_common__["DatePipe"]])
+            __WEBPACK_IMPORTED_MODULE_3__angular_common__["DatePipe"],
+            __WEBPACK_IMPORTED_MODULE_5__globals__["a" /* Globals */]])
     ], HistoryComponent);
     return HistoryComponent;
 }());
@@ -994,10 +1013,12 @@ module.exports = "<!-- <app-app-header></app-app-header> -->\n<div class=\"conta
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__ = __webpack_require__("../../../../ng4-loading-spinner/ng4-loading-spinner.umd.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config_app_config__ = __webpack_require__("../../../../../src/app/config/app.config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner__ = __webpack_require__("../../../../ng4-loading-spinner/ng4-loading-spinner.umd.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_app_config__ = __webpack_require__("../../../../../src/app/config/app.config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1012,12 +1033,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(authService, router, spinnerService) {
+    function LoginComponent(db, authService, router, spinnerService, globals) {
+        this.db = db;
         this.authService = authService;
         this.router = router;
         this.spinnerService = spinnerService;
-        this.config = __WEBPACK_IMPORTED_MODULE_4__config_app_config__["a" /* config */];
+        this.globals = globals;
+        this.config = __WEBPACK_IMPORTED_MODULE_5__config_app_config__["a" /* config */];
         this.user = {
             email: 'jince.george@xe04.ey.com',
             password: 'test123'
@@ -1032,11 +1057,21 @@ var LoginComponent = /** @class */ (function () {
             .then(function (res) {
             console.log(res);
             _this.spinnerService.hide();
-            _this.router.navigate(['dashboard']);
+            _this.userData = _this.db.collection('/evvagents', function (ref) { return ref.where('email', '==', res.email); }).valueChanges();
+            _this.userData.subscribe(function (result) {
+                _this.globals.agentData = result;
+                _this.spinnerService.hide();
+                // this.messageService.sendMessage(result[0].clientname);
+                console.log(result);
+                if (result[0].role === "vendor")
+                    _this.router.navigate(['dashboard/history']);
+                else
+                    _this.router.navigate(['dashboard']);
+            });
         })
             .catch(function (err) {
             console.log('error: ' + err);
-            alert(__WEBPACK_IMPORTED_MODULE_4__config_app_config__["a" /* config */].messages.LOGIN_ERROR);
+            alert(__WEBPACK_IMPORTED_MODULE_5__config_app_config__["a" /* config */].messages.LOGIN_ERROR);
             _this.spinnerService.hide();
         });
     };
@@ -1046,7 +1081,11 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/login/login.component.html"),
             styles: [__webpack_require__("../../../../../src/app/login/login.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__["Ng4LoadingSpinnerService"]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__["a" /* AngularFirestore */],
+            __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_router__["b" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_4_ng4_loading_spinner__["Ng4LoadingSpinnerService"],
+            __WEBPACK_IMPORTED_MODULE_6__globals__["a" /* Globals */]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -1131,7 +1170,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/menu/menu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ul class=\"list-group\">\n    <li class=\"list-group-item\" routerLink=\"/dashboard\">Checkin</li>\n    <li class=\"list-group-item\" routerLink=\"/dashboard/history\">History</li>\n    <li class=\"list-group-item\" routerLink=\"/dashboard/checkout\">Checkout</li>\n    <li class=\"list-group-item\" routerLink=\"/\">Logout</li>\n\n  </ul>"
+module.exports = "<ul class=\"list-group\">\n    <!-- <li class=\"list-group-item\" routerLink=\"/dashboard\">Checkin</li> -->\n    <li class=\"list-group-item\" routerLink=\"/dashboard/history\">History</li>\n    <!-- <li class=\"list-group-item\" routerLink=\"/dashboard/checkout\">Checkout</li> -->\n    <li class=\"list-group-item\" routerLink=\"/\">Logout</li>\n\n  </ul>"
 
 /***/ }),
 
