@@ -24,7 +24,7 @@ export class VerifyComponent implements OnInit {
   clientLocation:any;
   checkinDataToSave:any;
   prodcollection: AngularFirestoreCollection<any> = this.db.collection('agent_c_inout');
-  emeotionCollection :AngularFirestoreCollection<any> = this.db.collection('agent_c_emotion');
+  emeotionCollection :AngularFirestoreCollection<any> = this.db.collection('agency-c-emotion');
   constructor(private db: AngularFirestore,
     private route: ActivatedRoute,
     private spinnerService: Ng4LoadingSpinnerService,
@@ -89,24 +89,26 @@ export class VerifyComponent implements OnInit {
   }
 
   saveEmotion(response : any){
-    
+    if(response != null && response !== undefined){
     var date=new Date();
     var dateStamp=(date.getMonth() + 1) + '' + date.getDate() + '' +  date.getFullYear();
     if(this.globals.isCheckIn){
       
-      var checkinData = { "checkin-emotion" :response.emotion.happiness};
-      this.prodcollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkinData)
+      var checkinData = { "checkin-emotion" :response[0].faceAttributes.emotion};
+      this.emeotionCollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkinData)
       .catch((err) => {
       console.log(err);
     })
     }else{
-      var checkoutData = { "checkout-emotion" :response.emotion.happiness};
-      this.prodcollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkinData)
+      var checkoutData = { "checkout-emotion" :response[0].faceAttributes.emotion};
+      this.emeotionCollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkoutData)
       .catch((err) => {
       console.log(err);
     })
     }
   }
+  }
+  
 
   
 
