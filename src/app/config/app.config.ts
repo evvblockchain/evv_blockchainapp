@@ -24,5 +24,12 @@ export const config = {
             "X-Api-Key":"kXizEl+B4/4wyLXkmpRI6TpbDa35T53yMv21BfGElRM="
         },
         "DataStoreId":"7103"
+    },
+    "SentimentalAnalysisAPI":{
+        "URL":"https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
+        "JSONtypeHeader":{
+            'Content-Type':'application/json',
+            'Ocp-Apim-Subscription-Key':'5da3576d216a430bb50973ad7c5b0068'
+          },
     }
 };

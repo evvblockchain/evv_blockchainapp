@@ -887,7 +887,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".drp-container{\r\n    margin: 10px 0;\r\n}", ""]);
 
 // exports
 
@@ -900,7 +900,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>Select Agent</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n  \n</div>\n\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\n    <div class=\"modal-header text-center\">\n      <h4 class=\"modal-title\">EVV</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body text-center\">\n      <h4>Verification Success&hellip;</h4>\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \n    <p [hidden]=\"!terionResultId\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\n         </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n    </div>\n  </ng-template>\n\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\n      <div class=\"modal-header text-center\">\n        <h4 class=\"modal-title\">EVV</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body text-center\">\n        <h4>Verification Failed&hellip;</h4>\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \n      <p [hidden]=\"!terionResultId\">\n          <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\n           </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n      </div>\n    </ng-template>\n  <hr>\n  "
+module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n  \n</div>\n\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\n    <div class=\"modal-header text-center\">\n      <h4 class=\"modal-title\">EVV</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body text-center\">\n      <h4>Verification Success&hellip;</h4>\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \n    <p [hidden]=\"!terionResultId\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\n         </div>\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n    </div>\n  </ng-template>\n\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\n      <div class=\"modal-header text-center\">\n        <h4 class=\"modal-title\">EVV</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body text-center\">\n        <h4>Verification Failed&hellip;</h4>\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\n           </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n      </div>\n    </ng-template>\n\n  "
 
 /***/ }),
 
@@ -945,6 +945,7 @@ var HistoryComponent = /** @class */ (function () {
         this.modalService = modalService;
         this.winRef = winRef;
         this.historyLength = 0;
+        this.selectedAgent = "Select Agent";
         this.nativeWindow = winRef.getNativeWindow();
     }
     HistoryComponent.prototype.ngOnInit = function () {
@@ -961,6 +962,7 @@ var HistoryComponent = /** @class */ (function () {
     };
     HistoryComponent.prototype.changeAction = function (agent) {
         var _this = this;
+        this.selectedAgent = agent.name;
         this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentname', '==', agent.name); }).valueChanges();
         this.historyData.subscribe(function (result) {
             console.log(result);
@@ -974,7 +976,7 @@ var HistoryComponent = /** @class */ (function () {
         if (history.blockChanData !== undefined) {
             this.tierionService.getDataFromTierionAndValidate(history.blockChanData.bcid).subscribe(function (result) {
                 // var inoutInfoBc=(JSON.parse(result.data.inoutinfo));
-                _this.terionResultId = result.blockchain_receipt.anchors[0].sourceId;
+                _this.terionResultId = result.blockchain_receipt ? result.blockchain_receipt.anchors[0].sourceId : null;
                 console.log(result);
                 var bcInTime = (new Date(result.data.checkintime));
                 return _this.createObjectForHashComparison(history);
@@ -1043,7 +1045,11 @@ var HistoryComponent = /** @class */ (function () {
         }
     };
     HistoryComponent.prototype.viewBCTransaction = function () {
-        var newWindow = this.nativeWindow.open('https://www.blocktrail.com/BTC/tx/' + this.terionResultId, '_blank');
+        var bcLink = 'https://www.blocktrail.com/BTC/tx/' + this.terionResultId;
+        if (typeof cordova !== 'undefined')
+            var ref = cordova.InAppBrowser.open(bcLink, '_blank', 'location=yes');
+        else
+            var newWindow = this.nativeWindow.open(bcLink + this.terionResultId, "_blank", "location=no,enableViewportScale=yes");
         // newWindow.location = 'https://www.blocktrail.com/BTC/tx/' + this.terionResultId;
         //window.open("https://www.blocktrail.com/BTC/tx/"+this.terionResultId)
     };

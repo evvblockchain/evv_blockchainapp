@@ -1,8 +1,8 @@
 <div class="history-section">
-    <div class="row text-center" [hidden]="userRole==='agent'">
+    <div class="row text-center drp-container" [hidden]="userRole==='agent'">
         <div class="col">
           <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select Agent</button>
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{selectedAgent}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button (click)="changeAction(agent)" class="dropdown-item"  *ngFor="let agent of agentData | async">{{agent.name}}</button>
 
@@ -12,6 +12,24 @@
       
       
       </div>
+
+      <div class="agent-info" [hidden]="!agentInfo" >
+        <div class="card" style="width: 100%;">
+          <img class="card-img-top" src="data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{agentInfo?agentInfo.name:''}}</h5>
+            <p>Client Feedback:</p>
+            <p><ngb-progressbar showValue="true" type="{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}" [value]="percentageOfFeedback"></ngb-progressbar></p>
+            <p>Attitude:</p>
+            <p><ngb-progressbar showValue="true" type="info" [value]="50"></ngb-progressbar></p>
+            <p>Punctuality:</p>
+            <p><ngb-progressbar showValue="true" type="warning" [value]="75"></ngb-progressbar></p>
+            <p>Dedication:</p>
+            <p><ngb-progressbar showValue="true" type="danger" [value]="100"></ngb-progressbar></p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let history of historyData | async">
       <div class="row">
@@ -20,7 +38,8 @@
              <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>
               Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>
               Hours Worked: {{calculateHours(history)}}<br>
-              Client Name: {{history.clientname }} </p>
+              Client Name: {{history.clientname }} <br>
+              Client Comment: {{history.client_comment }}</p>
 
             
             </div>
@@ -38,7 +57,7 @@
   
 
   </ul>
-  
+
 </div>
 
 <ng-template #modalContent let-c="close" let-d="dismiss">
@@ -54,6 +73,7 @@
     <p [hidden]="!terionResultId">
         <button type="button" class="btn btn-outline-dark" (click)="viewBCTransaction()">View Bitcoin transaction</button>
          </div>
+         <p class="text-center" [hidden]="terionResultId">Waiting For Response from Blockchain</p>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
     </div>
@@ -69,11 +89,11 @@
       <div class="modal-body text-center">
         <h4>Verification Failed&hellip;</h4>
       <p> <img   src="assets/images/error.png" alt=""></p> 
-    
+    <p class="text-center">There is a mismatch in the record with data in Blockchain.</p>
            </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
       </div>
     </ng-template>
-  <hr>
+
   

@@ -37,6 +37,14 @@ constructor(private _firebaseAuth: AngularFireAuth, private router: Router,priva
     })
    
  }
+ getSentimentsOfComments(clientComments){
+  const headers=new Headers(config.SentimentalAnalysisAPI.JSONtypeHeader);
+  const options=new RequestOptions({headers});
+  return this.http.post(config.SentimentalAnalysisAPI.URL,clientComments,options)
+  .map(res =>{ 
+    return (res.json());
+  })
+ }
 
  getFaceId(faceImageData:string) : Observable<any[]>{
   const headers=new Headers(config.FaceAPI.OctectTypeHeader);
