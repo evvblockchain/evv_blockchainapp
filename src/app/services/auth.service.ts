@@ -49,8 +49,7 @@ constructor(private _firebaseAuth: AngularFireAuth, private router: Router,priva
  getFaceId(faceImageData:string) : Observable<any[]>{
   const headers=new Headers(config.FaceAPI.OctectTypeHeader);
   const options=new RequestOptions({headers});
-
-  return this.http.post(config.FaceAPI.url+'detect',this._base64ToArrayBuffer(faceImageData),options)
+   return this.http.post(config.FaceAPI.url+'detect?returnFaceAttributes=emotion', this._base64ToArrayBuffer(faceImageData),options)
   .map(res =>{ 
    return (res.json());
   });
