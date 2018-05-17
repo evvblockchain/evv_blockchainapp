@@ -121,4 +121,9 @@ export class CheckoutComponent implements OnInit {
     })  
   }
 
+  onInfoClick(){
+    console.log("onInfoClick");
+    this.router.navigate(['dashboard/clientInfo']);
+  }
+
 }

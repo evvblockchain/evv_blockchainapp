@@ -24,6 +24,7 @@ export class VerifyComponent implements OnInit {
   clientLocation:any;
   checkinDataToSave:any;
   prodcollection: AngularFirestoreCollection<any> = this.db.collection('agent_c_inout');
+  emeotionCollection :AngularFirestoreCollection<any> = this.db.collection('agent_c_emotion');
   constructor(private db: AngularFirestore,
     private route: ActivatedRoute,
     private spinnerService: Ng4LoadingSpinnerService,
@@ -50,8 +51,9 @@ export class VerifyComponent implements OnInit {
     this.authService.getFaceId(this.base64Image).subscribe(res => {
       
       if(res!=undefined && res.length>0){
+        this.saveEmotion(res);
         this.authService.verifyImage(res[0].faceId,this.globals.loggedUserFaceId).subscribe(result =>{
-          console.log(result);
+          console.log("Image",result);
           if(result!=undefined){
             
             if(result.confidence>0.5){
@@ -85,6 +87,28 @@ export class VerifyComponent implements OnInit {
       }
     });
   }
+
+  saveEmotion(response : any){
+    
+    var date=new Date();
+    var dateStamp=(date.getMonth() + 1) + '' + date.getDate() + '' +  date.getFullYear();
+    if(this.globals.isCheckIn){
+      
+      var checkinData = { "checkin-emotion" :response.emotion.happiness};
+      this.prodcollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkinData)
+      .catch((err) => {
+      console.log(err);
+    })
+    }else{
+      var checkoutData = { "checkout-emotion" :response.emotion.happiness};
+      this.prodcollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkinData)
+      .catch((err) => {
+      console.log(err);
+    })
+    }
+  }
+
+  
 
   saveCheckinDataToFireBase(isUpdate){
     var date=new Date();
