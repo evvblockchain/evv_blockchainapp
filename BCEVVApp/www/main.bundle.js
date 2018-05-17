@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app-header/app-header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n"
+module.exports = "\n\n"
 
 /***/ }),
 
@@ -175,7 +175,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<ng4-loading-spinner> </ng4-loading-spinner>\r\n<router-outlet></router-outlet>\r\n"
+module.exports = "\n<ng4-loading-spinner> </ng4-loading-spinner>\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -360,7 +360,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".checkin-header{\r\n    height: 70px;\r\n    background: #ffc000;\r\n    text-align: center;\r\n    position: relative;\r\n}\r\n.user-avatar{\r\n    width: 80px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    bottom: -57px;\r\n    left: 40%;\r\n}\r\n.time-container{\r\n    text-align: center;\r\n    margin-top: 60px;\r\n}\r\n.client-container{\r\n    background: #4472c4;\r\n    padding: 5px 10px;\r\n}\r\n.client-container .row{\r\n    margin: 0;\r\n}\r\n.client-info{\r\n    width: 80%;\r\n}\r\n.client-image{\r\n    width: 20%;\r\n}\r\n.client-image img{\r\n    width: 80px;\r\n}\r\n.footer-container{\r\n    position: fixed;\r\n    bottom: 0;\r\n    width: 100%;\r\n    height: 60px;\r\n    background: #70ad47;\r\n    text-align: center;\r\n    color: #fff;\r\n    padding: 15px 0;\r\n    \r\n}\r\nagm-map {\r\n    height: calc(100vh - 400px);\r\n  }", ""]);
+exports.push([module.i, ".checkin-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}\n.user-avatar{\n    width: 80px;\n    border-radius: 50%;\n    position: absolute;\n    bottom: -57px;\n    left: 40%;\n}\n.time-container{\n    text-align: center;\n    margin-top: 60px;\n}\n.client-container{\n    background: #4472c4;\n    padding: 5px 10px;\n}\n.client-container .row{\n    margin: 0;\n}\n.client-info{\n    width: 80%;\n}\n.client-image{\n    width: 20%;\n}\n.client-image img{\n    width: 80px;\n}\n.footer-container{\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: #70ad47;\n    text-align: center;\n    color: #fff;\n    padding: 15px 0;\n    \n}\nagm-map {\n    height: calc(100vh - 400px);\n  }", ""]);
 
 // exports
 
@@ -784,6 +784,13 @@ var config = {
             "X-Api-Key": "kXizEl+B4/4wyLXkmpRI6TpbDa35T53yMv21BfGElRM="
         },
         "DataStoreId": "7103"
+    },
+    "SentimentalAnalysisAPI": {
+        "URL": "https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
+        "JSONtypeHeader": {
+            'Content-Type': 'application/json',
+            'Ocp-Apim-Subscription-Key': '5da3576d216a430bb50973ad7c5b0068'
+        },
     }
 };
 
@@ -798,7 +805,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".app-nav-bar{\r\n    background: #4472c4;\r\n   \r\n}\r\n\r\n.example-container {\r\n    width: 500px;\r\n    height: 300px;\r\n    border: 1px solid rgba(0, 0, 0, 0.5);\r\n  }\r\n\r\n.example-sidenav-content {\r\n    display: -webkit-box;\r\n    display: -ms-flexbox;\r\n    display: flex;\r\n    height: 100%;\r\n    -webkit-box-align: center;\r\n        -ms-flex-align: center;\r\n            align-items: center;\r\n    -webkit-box-pack: center;\r\n        -ms-flex-pack: center;\r\n            justify-content: center;\r\n  }\r\n\r\n.example-sidenav {\r\n    padding: 20px;\r\n  }\r\n\r\n.mat-sidenav-container{\r\n      height: 80%;\r\n  }\r\n\r\n.mat-drawer-container{\r\n      height: calc(100vh - 56px);\r\n     \r\n     \r\n  }\r\n\r\n.mat-drawer{\r\n      width: 45%;\r\n  }\r\n\r\n.mat-drawer-content{\r\n      padding:0;\r\n  }\r\n\r\n.hamburger{\r\n    background: none;\r\n    border: none;\r\n    color: #fff;\r\n  }", ""]);
+exports.push([module.i, ".app-nav-bar{\n    background: #4472c4;\n   \n}\n\n.example-container {\n    width: 500px;\n    height: 300px;\n    border: 1px solid rgba(0, 0, 0, 0.5);\n  }\n\n.example-sidenav-content {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    height: 100%;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n.example-sidenav {\n    padding: 20px;\n  }\n\n.mat-sidenav-container{\n      height: 80%;\n  }\n\n.mat-drawer-container{\n      height: calc(100vh - 56px);\n     \n     \n  }\n\n.mat-drawer{\n      width: 45%;\n  }\n\n.mat-drawer-content{\n      padding:0;\n  }\n\n.hamburger{\n    background: none;\n    border: none;\n    color: #fff;\n  }", ""]);
 
 // exports
 
@@ -811,7 +818,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"app-nav-bar navbar navbar-toggleable-md navbar-light bg-faded\">\r\n  <button class=\"navbar-toggler navbar-toggler-right\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavDropdown\" aria-controls=\"navbarNavDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" (click)=\"sidenav.toggle()\" class=\"hamburger\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n  </button>\r\n  <a class=\"navbar-brand text-white\" href=\"#\">{{config.appTitle}}</a>\r\n\r\n</nav>\r\n<mat-sidenav-container>\r\n  <mat-sidenav #sidenav mode=\"slide\">\r\n\r\n    <app-menu  (click)=\"sidenav.close()\"></app-menu>\r\n  </mat-sidenav>\r\n  <mat-sidenav-content> \r\n    <router-outlet></router-outlet>\r\n  </mat-sidenav-content>\r\n</mat-sidenav-container>\r\n"
+module.exports = "<nav class=\"app-nav-bar navbar navbar-toggleable-md navbar-light bg-faded\">\n  <button class=\"navbar-toggler navbar-toggler-right\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavDropdown\" aria-controls=\"navbarNavDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" (click)=\"sidenav.toggle()\" class=\"hamburger\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand text-white\" href=\"#\">{{config.appTitle}}</a>\n\n</nav>\n<mat-sidenav-container>\n  <mat-sidenav #sidenav mode=\"slide\">\n\n    <app-menu  (click)=\"sidenav.close()\"></app-menu>\n  </mat-sidenav>\n  <mat-sidenav-content> \n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n"
 
 /***/ }),
 
@@ -872,6 +879,20 @@ var Globals = /** @class */ (function () {
     function Globals() {
         this.role = 'test';
         this.loggedUserFaceId = '';
+        this.client_comments = {
+            "messages": [
+                "Happy",
+                "Sad",
+                "Average",
+                "Neutral",
+                "Not punctual",
+                "Very Good",
+                "Responsible",
+                "Kind person",
+                "Loved him",
+                "Hated him"
+            ]
+        };
     }
     Globals = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
@@ -891,7 +912,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".drp-container{\r\n    margin: 10px 0;\r\n}", ""]);
+exports.push([module.i, ".drp-container{\r\n    margin: 10px 0;\r\n}\r\n.agent-info .card{\r\n    margin: 0 auto;\r\n}", ""]);
 
 // exports
 
@@ -904,11 +925,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-<<<<<<< Updated upstream
-module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} </p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n  \n</div>\n\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\n    <div class=\"modal-header text-center\">\n      <h4 class=\"modal-title\">EVV</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body text-center\">\n      <h4>Verification Success&hellip;</h4>\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \n    <p [hidden]=\"!terionResultId\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\n         </div>\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n    </div>\n  </ng-template>\n\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\n      <div class=\"modal-header text-center\">\n        <h4 class=\"modal-title\">EVV</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body text-center\">\n        <h4>Verification Failed&hellip;</h4>\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\n           </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n      </div>\n    </ng-template>\n\n  "
-=======
-module.exports = "<div class=\"history-section\">\r\n    <div class=\"row text-center\" [hidden]=\"userRole==='agent'\">\r\n        <div class=\"col\">\r\n          <div ngbDropdown class=\"d-inline-block\">\r\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>Select Agent</button>\r\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\r\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      \r\n      \r\n      </div>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\r\n      <div class=\"row\">\r\n          <div class=\"col-9 vertical-center\"  >\r\n             <h5> {{history.checkintime | date }}</h5>\r\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\r\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\r\n              Hours Worked: {{calculateHours(history)}}<br>\r\n              Client Name: {{history.clientname }} </p>\r\n\r\n            \r\n            </div>\r\n            <div class=\"col-3 vertical-center float-right\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\r\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\r\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\r\n       \r\n                \r\n            </div>  \r\n          \r\n      </div>\r\n    </li>\r\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\r\n  \r\n\r\n  </ul>\r\n  \r\n</div>\r\n\r\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-header text-center\">\r\n      <h4 class=\"modal-title\">EVV</h4>\r\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n        <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-body text-center\">\r\n      <h4>Verification Success&hellip;</h4>\r\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \r\n    <p [hidden]=\"!terionResultId\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\r\n         </div>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\r\n      <div class=\"modal-header text-center\">\r\n        <h4 class=\"modal-title\">EVV</h4>\r\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body text-center\">\r\n        <h4>Verification Failed&hellip;</h4>\r\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \r\n    \r\n           </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n      </div>\r\n    </ng-template>\r\n  <hr>\r\n  "
->>>>>>> Stashed changes
+module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n\n      <div class=\"agent-info\" [hidden]=\"!agentInfo\" >\n        <div class=\"card\" style=\"width: 100%;\">\n          <img class=\"card-img-top\" src=\"data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}\" alt=\"Card image cap\">\n          <div class=\"card-body\">\n            <h5 class=\"card-title\">{{agentInfo?agentInfo.name:''}}</h5>\n            <p>Client Feedback:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}\" [value]=\"percentageOfFeedback\"></ngb-progressbar></p>\n            <p>Attitude:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"info\" [value]=\"50\"></ngb-progressbar></p>\n            <p>Punctuality:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"warning\" [value]=\"75\"></ngb-progressbar></p>\n            <p>Dedication:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"danger\" [value]=\"100\"></ngb-progressbar></p>\n            <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>\n          </div>\n        </div>\n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} <br>\n              Client Comment: {{history.client_comment }}</p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n\n</div>\n\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\n    <div class=\"modal-header text-center\">\n      <h4 class=\"modal-title\">EVV</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body text-center\">\n      <h4>Verification Success&hellip;</h4>\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \n    <p [hidden]=\"!terionResultId\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\n         </div>\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n    </div>\n  </ng-template>\n\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\n      <div class=\"modal-header text-center\">\n        <h4 class=\"modal-title\">EVV</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body text-center\">\n        <h4>Verification Failed&hellip;</h4>\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\n           </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n      </div>\n    </ng-template>\n\n  "
 
 /***/ }),
 
@@ -926,6 +943,7 @@ module.exports = "<div class=\"history-section\">\r\n    <div class=\"row text-c
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_window_ref_service__ = __webpack_require__("../../../../../src/app/services/window.ref.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -944,16 +962,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HistoryComponent = /** @class */ (function () {
-    function HistoryComponent(db, tierionService, datePipe, globals, modalService, winRef) {
+    function HistoryComponent(db, tierionService, datePipe, globals, modalService, winRef, _authService) {
         this.db = db;
         this.tierionService = tierionService;
         this.datePipe = datePipe;
         this.globals = globals;
         this.modalService = modalService;
         this.winRef = winRef;
+        this._authService = _authService;
         this.historyLength = 0;
+        this.agentInfo = null;
         this.selectedAgent = "Select Agent";
+        this.percentageOfFeedback = 0;
+        this.clientCommentsObj = {
+            "documents": []
+        };
         this.nativeWindow = winRef.getNativeWindow();
     }
     HistoryComponent.prototype.ngOnInit = function () {
@@ -971,10 +996,34 @@ var HistoryComponent = /** @class */ (function () {
     HistoryComponent.prototype.changeAction = function (agent) {
         var _this = this;
         this.selectedAgent = agent.name;
+        // this.clientCommentsObj.documents=[];
+        this.agentInfo = agent;
+        console.log(agent);
         this.historyData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentname', '==', agent.name); }).valueChanges();
         this.historyData.subscribe(function (result) {
             console.log(result);
             _this.historyLength = result.length;
+            _this.clientCommentsObj.documents = [];
+            if (result.length > 0) {
+                //this.clientCommentsObj
+                result.forEach(function (item, index) {
+                    _this.clientCommentsObj.documents.push({
+                        "language": "en",
+                        "id": index,
+                        "text": item.client_comment
+                    });
+                });
+                _this._authService.getSentimentsOfComments(_this.clientCommentsObj).subscribe(function (sentimentsResult) {
+                    console.log(sentimentsResult);
+                    var sentimentalValue = 0;
+                    if (sentimentsResult.documents.length > 0) {
+                        sentimentsResult.documents.forEach(function (item, index) {
+                            sentimentalValue += item.score;
+                        });
+                        _this.percentageOfFeedback = Math.round(sentimentalValue * 100 / sentimentsResult.documents.length);
+                    }
+                });
+            }
         });
     };
     HistoryComponent.prototype.verifyData = function (history, element, text) {
@@ -1081,7 +1130,8 @@ var HistoryComponent = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_3__angular_common__["DatePipe"],
             __WEBPACK_IMPORTED_MODULE_5__globals__["a" /* Globals */],
             __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */],
-            __WEBPACK_IMPORTED_MODULE_7__services_window_ref_service__["a" /* WindowRef */]])
+            __WEBPACK_IMPORTED_MODULE_7__services_window_ref_service__["a" /* WindowRef */],
+            __WEBPACK_IMPORTED_MODULE_8__services_auth_service__["a" /* AuthService */]])
     ], HistoryComponent);
     return HistoryComponent;
 }());
@@ -1099,7 +1149,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\r\n\r\n.login-bg{\r\n    background-image: url(" + escape(__webpack_require__("../../../../../src/assets/images/login-bg.jpg")) + ");\r\n    height: 100%;\r\n    position: fixed;\r\n    text-align: center;\r\n    font-size: 1.5rem;\r\n}\r\n.login-card{\r\n    background-color:transparent;\r\n  margin-top: 100px;\r\n  border: none;\r\n}\r\n.app-logo{\r\n    height: 100px;\r\n}\r\n.form-control, .form-control:focus,.form-control:active{\r\n    border: none;\r\n    background: none;\r\n    border-bottom: 1px solid;\r\n    color: #fff;\r\n    border-radius: 0;\r\n    -webkit-text-decoration-color: #fff;\r\n            text-decoration-color: #fff;\r\n    margin-bottom: 30px;\r\n    font-size: 1.2rem;\r\n    \r\n}\r\n::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\r\n    color: #fff;\r\n    opacity: 1; /* Firefox */\r\n}\r\n:-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\r\n    color: #fff;\r\n    opacity: 1; /* Firefox */\r\n}\r\n::-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\r\n    color: #fff;\r\n    opacity: 1; /* Firefox */\r\n}\r\n::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\r\n    color: #fff;\r\n    opacity: 1; /* Firefox */\r\n}\r\n.btn-rounded{\r\n    width: 200px;\r\n    border-radius: 25px;\r\n    background-color: transparent;\r\n    font-size: 1.2rem;\r\n    border-color: #fff;\r\n    color: #fff;\r\n}", ""]);
+exports.push([module.i, "\n\n.login-bg{\n    background-image: url(" + escape(__webpack_require__("../../../../../src/assets/images/login-bg.jpg")) + ");\n    height: 100%;\n    position: fixed;\n    text-align: center;\n    font-size: 1.5rem;\n}\n.login-card{\n    background-color:transparent;\n  margin-top: 100px;\n  border: none;\n}\n.app-logo{\n    height: 100px;\n}\n.form-control, .form-control:focus,.form-control:active{\n    border: none;\n    background: none;\n    border-bottom: 1px solid;\n    color: #fff;\n    border-radius: 0;\n    -webkit-text-decoration-color: #fff;\n            text-decoration-color: #fff;\n    margin-bottom: 30px;\n    font-size: 1.2rem;\n    \n}\n::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n:-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n.btn-rounded{\n    width: 200px;\n    border-radius: 25px;\n    background-color: transparent;\n    font-size: 1.2rem;\n    border-color: #fff;\n    color: #fff;\n}", ""]);
 
 // exports
 
@@ -1112,7 +1162,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-app-header></app-app-header> -->\r\n<div class=\"container login-bg py-5\">\r\n  <div class=\"row\">\r\n      <div class=\"col-md-12\">\r\n        <img src=\"assets/images/block-chain-icon.png\" class=\"app-logo\">\r\n        <div class=\"text-white\">{{config.appTitle}}</div>\r\n          <div class=\"row\">\r\n              <div class=\"col-md-6 mx-auto\">\r\n\r\n                  <!-- form card login -->\r\n                  <div class=\"card rounded-0 login-card\">\r\n                     \r\n                      <div class=\"card-body\">\r\n                        <form name=\"userform\" method=\"post\" #formCtrl=\"ngForm\">\r\n                          <div class=\"form-group\">\r\n                            \r\n                            <input type=\"email\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\" placeholder=\"Email\" required>\r\n                          </div>\r\n<div class=\"form-group\">\r\n                     \r\n                      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"user.password\" name=\"password\" placeholder=\"Password\" required>\r\n                    </div>\r\n                              <!-- <div>\r\n                                  <label class=\"custom-control custom-checkbox\">\r\n                                    <input type=\"checkbox\" class=\"custom-control-input\">\r\n                                    <span class=\"custom-control-indicator\"></span>\r\n                                    <span class=\"custom-control-description small text-dark\">Remember me on this computer</span>\r\n                                  </label>\r\n                              </div> -->\r\n                              <button type=\"submit\" class=\"btn btn-rounded btn-lg \" (click)=\"signInWithEmail()\"  [disabled]=\"formCtrl.form.invalid\"  id=\"btnLogin\">Login</button>\r\n                          </form>\r\n                      </div>\r\n                      <!--/card-block-->\r\n                  </div>\r\n                  <!-- /form card login -->\r\n\r\n              </div>\r\n\r\n\r\n          </div>\r\n          <!--/row-->\r\n\r\n      </div>\r\n      <!--/col-->\r\n  </div>\r\n  <!--/row-->\r\n</div>\r\n<!--/container-->\r\n"
+module.exports = "<!-- <app-app-header></app-app-header> -->\n<div class=\"container login-bg py-5\">\n  <div class=\"row\">\n      <div class=\"col-md-12\">\n        <img src=\"assets/images/block-chain-icon.png\" class=\"app-logo\">\n        <div class=\"text-white\">{{config.appTitle}}</div>\n          <div class=\"row\">\n              <div class=\"col-md-6 mx-auto\">\n\n                  <!-- form card login -->\n                  <div class=\"card rounded-0 login-card\">\n                     \n                      <div class=\"card-body\">\n                        <form name=\"userform\" method=\"post\" #formCtrl=\"ngForm\">\n                          <div class=\"form-group\">\n                            \n                            <input type=\"email\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\" placeholder=\"Email\" required>\n                          </div>\n<div class=\"form-group\">\n                     \n                      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"user.password\" name=\"password\" placeholder=\"Password\" required>\n                    </div>\n                              <!-- <div>\n                                  <label class=\"custom-control custom-checkbox\">\n                                    <input type=\"checkbox\" class=\"custom-control-input\">\n                                    <span class=\"custom-control-indicator\"></span>\n                                    <span class=\"custom-control-description small text-dark\">Remember me on this computer</span>\n                                  </label>\n                              </div> -->\n                              <button type=\"submit\" class=\"btn btn-rounded btn-lg \" (click)=\"signInWithEmail()\"  [disabled]=\"formCtrl.form.invalid\"  id=\"btnLogin\">Login</button>\n                          </form>\n                      </div>\n                      <!--/card-block-->\n                  </div>\n                  <!-- /form card login -->\n\n              </div>\n\n\n          </div>\n          <!--/row-->\n\n      </div>\n      <!--/col-->\n  </div>\n  <!--/row-->\n</div>\n<!--/container-->\n"
 
 /***/ }),
 
@@ -1280,7 +1330,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/menu/menu.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ul class=\"list-group\">\r\n    <!-- <li class=\"list-group-item\" routerLink=\"/dashboard\">Checkin</li> -->\r\n    <li class=\"list-group-item\" routerLink=\"/dashboard/history\">History</li>\r\n    <!-- <li class=\"list-group-item\" routerLink=\"/dashboard/checkout\">Checkout</li> -->\r\n    <li class=\"list-group-item\" routerLink=\"/\">Logout</li>\r\n\r\n  </ul>"
+module.exports = "<ul class=\"list-group\">\n    <!-- <li class=\"list-group-item\" routerLink=\"/dashboard\">Checkin</li> -->\n    <li class=\"list-group-item\" routerLink=\"/dashboard/history\">History</li>\n    <!-- <li class=\"list-group-item\" routerLink=\"/dashboard/checkout\">Checkout</li> -->\n    <li class=\"list-group-item\" routerLink=\"/\">Logout</li>\n\n  </ul>"
 
 /***/ }),
 
@@ -1375,6 +1425,14 @@ var AuthService = /** @class */ (function () {
             "faceId2": (originalImageUrl)
         };
         return this.http.post(__WEBPACK_IMPORTED_MODULE_7__config_app_config__["a" /* config */].FaceAPI.url + 'verify', dataToVerify, options)
+            .map(function (res) {
+            return (res.json());
+        });
+    };
+    AuthService.prototype.getSentimentsOfComments = function (clientComments) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Headers */](__WEBPACK_IMPORTED_MODULE_7__config_app_config__["a" /* config */].SentimentalAnalysisAPI.JSONtypeHeader);
+        var options = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        return this.http.post(__WEBPACK_IMPORTED_MODULE_7__config_app_config__["a" /* config */].SentimentalAnalysisAPI.URL, clientComments, options)
             .map(function (res) {
             return (res.json());
         });
@@ -1716,7 +1774,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".verify-header{\r\n    height: 70px;\r\n    background: #ffc000;\r\n    text-align: center;\r\n    position: relative;\r\n}", ""]);
+exports.push([module.i, ".verify-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}", ""]);
 
 // exports
 
@@ -1729,7 +1787,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/verify/verify.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"verify-section\" >\r\n\r\n    <div class=\"app-sub-header\">\r\n  <h4>Verification</h4>\r\n   </div>\r\n   \r\n    <div class=\"image-container\">\r\n        <img src=\"data:image/jpg;base64,{{base64Image}}\" alt=\"\" class=\"img-fluid\">\r\n    </div>\r\n  \r\n  \r\n  \r\n  \r\n    \r\n    \r\n  \r\n\r\n    <div class=\"footer-container\" (click)=\"verifyImage();\">\r\n     <h4>Verify</h4>\r\n    </div>\r\n  </section>"
+module.exports = "<section class=\"verify-section\" >\n\n    <div class=\"app-sub-header\">\n  <h4>Verification</h4>\n   </div>\n   \n    <div class=\"image-container\">\n        <img src=\"data:image/jpg;base64,{{base64Image}}\" alt=\"\" class=\"img-fluid\">\n    </div>\n  \n  \n  \n  \n    \n    \n  \n\n    <div class=\"footer-container\" (click)=\"verifyImage();\">\n     <h4>Verify</h4>\n    </div>\n  </section>"
 
 /***/ }),
 
@@ -1832,14 +1890,20 @@ var VerifyComponent = /** @class */ (function () {
             var date = new Date();
             var dateStamp = (date.getMonth() + 1) + '' + date.getDate() + '' + date.getFullYear();
             if (this.globals.isCheckIn) {
-                var checkinData = { "checkin-emotion": response[0].faceAttributes.emotion };
+                var checkinData = { "checkin-emotion": response[0].faceAttributes.emotion,
+                    "agentid": this.globals.agentData[0].agentId,
+                    "date": new Date().toLocaleDateString('en-US').toString() };
                 this.emeotionCollection.doc(dateStamp.toString() + this.globals.agentData[0].agentId).set(checkinData)
                     .catch(function (err) {
                     console.log(err);
                 });
+                this.globals.checkinEmotion = response[0].faceAttributes.emotion;
             }
             else {
-                var checkoutData = { "checkout-emotion": response[0].faceAttributes.emotion };
+                var checkoutData = { "checkout-emotion": response[0].faceAttributes.emotion,
+                    "checkin-emotion": this.globals.checkinEmotion,
+                    "agentid": this.globals.agentData[0].agentId,
+                    "date": new Date().toLocaleDateString('en-US').toString() };
                 this.emeotionCollection.doc(dateStamp.toString() + this.globals.agentData[0].agentId).set(checkoutData)
                     .catch(function (err) {
                     console.log(err);
@@ -1851,13 +1915,13 @@ var VerifyComponent = /** @class */ (function () {
         var date = new Date();
         var dateStamp = (date.getMonth() + 1) + '' + date.getDate() + '' + date.getFullYear();
         if (this.globals.isCheckIn) {
-            this.prodcollection.doc(dateStamp.toString()).set(this.checkinDataToSave)
+            this.prodcollection.doc(dateStamp.toString() + this.globals.agentData[0].agentId).set(this.checkinDataToSave)
                 .catch(function (err) {
                 console.log(err);
             });
         }
         else {
-            this.prodcollection.doc(dateStamp.toString()).update(this.checkinDataToSave)
+            this.prodcollection.doc(dateStamp.toString() + this.globals.agentData[0].agentId).update(this.checkinDataToSave)
                 .catch(function (err) {
                 console.log(err);
             });
@@ -1906,6 +1970,8 @@ var VerifyComponent = /** @class */ (function () {
             this.globals.checkinDate = new Date();
         }
         else {
+            var messageIndex = Math.floor(Math.random() * 10) + 1;
+            var clientMessage = this.globals.client_comments.messages[messageIndex];
             this.checkinDataToSave = {
                 datastoreId: 7103,
                 agentid: this.globals.agentData[0].agentId,
@@ -1916,6 +1982,7 @@ var VerifyComponent = /** @class */ (function () {
                 latlocation: locationData.lat,
                 longlocation: locationData.long,
                 checkouttime: new Date(),
+                client_comment: clientMessage
             };
         }
         this.saveCheckinDataToFireBase(false);

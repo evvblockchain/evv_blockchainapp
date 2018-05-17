@@ -10,4 +10,19 @@ export class Globals {
    agentData: any;
    checkinDate:any;
    isCheckIn:any;
+   checkinEmotion:any;
+   client_comments:any={
+     "messages":[
+       "Happy",
+       "Sad",
+       "Average",
+       "Neutral",
+       "Not punctual",
+       "Very Good",
+       "Responsible",
+       "Kind person",
+       "Loved him",
+       "Hated him"
+     ]
+   }
 }

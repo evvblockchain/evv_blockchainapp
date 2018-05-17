@@ -94,13 +94,19 @@ export class VerifyComponent implements OnInit {
     var dateStamp=(date.getMonth() + 1) + '' + date.getDate() + '' +  date.getFullYear();
     if(this.globals.isCheckIn){
       
-      var checkinData = { "checkin-emotion" :response[0].faceAttributes.emotion};
+      var checkinData = { "checkin-emotion" :response[0].faceAttributes.emotion,
+      "agentid":this.globals.agentData[0].agentId,
+    "date":new Date().toLocaleDateString('en-US').toString()};
       this.emeotionCollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkinData)
       .catch((err) => {
       console.log(err);
     })
+    this.globals.checkinEmotion=response[0].faceAttributes.emotion;
     }else{
-      var checkoutData = { "checkout-emotion" :response[0].faceAttributes.emotion};
+      var checkoutData = { "checkout-emotion" :response[0].faceAttributes.emotion,
+      "checkin-emotion" :this.globals.checkinEmotion,
+      "agentid":this.globals.agentData[0].agentId,
+      "date":new Date().toLocaleDateString('en-US').toString()};
       this.emeotionCollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkoutData)
       .catch((err) => {
       console.log(err);
@@ -116,12 +122,12 @@ export class VerifyComponent implements OnInit {
     var date=new Date();
     var dateStamp=(date.getMonth() + 1) + '' + date.getDate() + '' +  date.getFullYear();
     if(this.globals.isCheckIn){
-    this.prodcollection.doc(dateStamp.toString()).set( this.checkinDataToSave)
+    this.prodcollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set( this.checkinDataToSave)
       .catch((err) => {
       console.log(err);
     })
   }else{
-    this.prodcollection.doc(dateStamp.toString()).update( this.checkinDataToSave)
+    this.prodcollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).update( this.checkinDataToSave)
     .catch((err) => {
     console.log(err);
   })
@@ -156,6 +162,7 @@ export class VerifyComponent implements OnInit {
     
   }
   createCheckinData(locationData){
+   
 
     if(this.globals.isCheckIn){
     this.checkinDataToSave={
@@ -171,6 +178,8 @@ export class VerifyComponent implements OnInit {
     };
     this.globals.checkinDate=new Date();
   }else{
+    var messageIndex=Math.floor(Math.random() * 10) + 1;
+    var clientMessage=this.globals.client_comments.messages[messageIndex];
     this.checkinDataToSave={
       datastoreId:7103,
       agentid: this.globals.agentData[0].agentId,
@@ -181,6 +190,7 @@ export class VerifyComponent implements OnInit {
       latlocation:locationData.lat,
       longlocation:locationData.long,
       checkouttime:new Date(),
+      client_comment:clientMessage
     
 
     };
