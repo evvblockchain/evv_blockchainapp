@@ -11,6 +11,7 @@ export class Globals {
    checkinDate:any;
    isCheckIn:any;
    checkinEmotion:any;
+   isLoggedin:any=false;
    client_comments:any={
      "messages":[
        "Happy",

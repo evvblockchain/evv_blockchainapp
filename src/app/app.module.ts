@@ -39,6 +39,8 @@ import {TierionService} from './services/tierion.service';
 import {CameraService} from './services/camera.service';
 import { DatePipe } from '@angular/common';
 import {WindowRef} from './services/window.ref.service';
+import {AuthGuard} from './services/auth-guard.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +72,7 @@ import {WindowRef} from './services/window.ref.service';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAykt0P59dSaId2Od4AhIyHaeGtFR3rda0'
     }),
-    HttpModule,
+    HttpModule, 
     
   ],
   providers: [AuthService,
@@ -81,7 +83,8 @@ import {WindowRef} from './services/window.ref.service';
               TierionService,
               CameraService,
               DatePipe,
-              WindowRef],
+              WindowRef,
+              AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

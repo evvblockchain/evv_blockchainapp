@@ -174,6 +174,8 @@ export class VerifyComponent implements OnInit {
       checkintime:new Date(),
       latlocation:locationData.lat,
       longlocation:locationData.long,
+      checkindate:new Date().toLocaleDateString("en-US"),
+      checkoutdate:""
 
     };
     this.globals.checkinDate=new Date();
@@ -190,7 +192,9 @@ export class VerifyComponent implements OnInit {
       latlocation:locationData.lat,
       longlocation:locationData.long,
       checkouttime:new Date(),
-      client_comment:clientMessage
+      client_comment:clientMessage,
+      checkindate:new Date().toLocaleDateString("en-US"),
+      checkoutdate:new Date().toLocaleDateString("en-US")
     
 
     };

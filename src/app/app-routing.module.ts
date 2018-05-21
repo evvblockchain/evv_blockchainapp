@@ -7,7 +7,7 @@ import { ClientinfoComponent } from './clientinfo/clientinfo.component';
 import { HistoryComponent } from './history/history.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { VerifyComponent } from './verify/verify.component';
-
+import {AuthGuard} from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -17,6 +17,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
     children:[
       {
         path:'',

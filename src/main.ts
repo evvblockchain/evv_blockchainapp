@@ -4,7 +4,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import 'hammerjs';
+import {} from '@types/googlemaps';
 import * as FastClick from 'fastclick';
+
 FastClick['attach'](document.body);
 if (environment.production) {
   enableProdMode();
