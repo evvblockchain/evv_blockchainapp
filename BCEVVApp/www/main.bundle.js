@@ -92,12 +92,14 @@ var AppHeaderComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__history_history_component__ = __webpack_require__("../../../../../src/app/history/history.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__checkout_checkout_component__ = __webpack_require__("../../../../../src/app/checkout/checkout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__verify_verify_component__ = __webpack_require__("../../../../../src/app/verify/verify.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_auth_guard_service__ = __webpack_require__("../../../../../src/app/services/auth-guard.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -115,6 +117,7 @@ var routes = [
     {
         path: 'dashboard',
         component: __WEBPACK_IMPORTED_MODULE_2__dashboard_dashboard_component__["a" /* DashboardComponent */],
+        canActivate: [__WEBPACK_IMPORTED_MODULE_9__services_auth_guard_service__["a" /* AuthGuard */]],
         children: [
             {
                 path: '',
@@ -257,12 +260,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_camera_service__ = __webpack_require__("../../../../../src/app/services/camera.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__services_window_ref_service__ = __webpack_require__("../../../../../src/app/services/window.ref.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__services_auth_guard_service__ = __webpack_require__("../../../../../src/app/services/auth-guard.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -341,7 +346,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_31__services_tierion_service__["a" /* TierionService */],
                 __WEBPACK_IMPORTED_MODULE_32__services_camera_service__["a" /* CameraService */],
                 __WEBPACK_IMPORTED_MODULE_33__angular_common__["DatePipe"],
-                __WEBPACK_IMPORTED_MODULE_34__services_window_ref_service__["a" /* WindowRef */]],
+                __WEBPACK_IMPORTED_MODULE_34__services_window_ref_service__["a" /* WindowRef */],
+                __WEBPACK_IMPORTED_MODULE_35__services_auth_guard_service__["a" /* AuthGuard */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -570,6 +576,7 @@ var CheckoutComponent = /** @class */ (function () {
         this.agentData = this.db.collection('/evvagents', function (ref) { return ref.where('email', '==', _this.currentUser.email); }).valueChanges();
         //this.agentData = this.db.collection('evvagents', ref => ref.where('Agents.email', '==', 'jince.george@xe04.ey.com')).valueChanges();
         this.clientdata.subscribe(function (result) {
+            _this.globals.clientdata = result;
             _this.spinnerService.hide();
             // this.messageService.sendMessage(result[0].clientname);
             console.log(result);
@@ -879,6 +886,7 @@ var Globals = /** @class */ (function () {
     function Globals() {
         this.role = 'test';
         this.loggedUserFaceId = '';
+        this.isLoggedin = false;
         this.client_comments = {
             "messages": [
                 "Happy",
@@ -1049,10 +1057,13 @@ var HistoryComponent = /** @class */ (function () {
             agentname: history.agentname,
             clientid: history.clientid,
             clientname: history.clientname,
-            checkintime: this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy h:mm:ss a'),
+            checkintime: history.checkintime ? this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy h:mm:ss a') : "",
             latlocation: history.latlocation.toString(),
             longlocation: history.longlocation.toString(),
-            checkouttime: this.datePipe.transform(new Date(history.checkouttime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy h:mm:ss a'),
+            checkouttime: history.checkouttime ? this.datePipe.transform(new Date(history.checkouttime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy h:mm:ss a') : "",
+            client_comment: history.client_comment,
+            checkindate: history.checkindate,
+            checkoutdate: history.checkoutdate
         };
         var dateUTC = this.datePipe.transform(new Date(history.checkintime.toUTCString().replace(' GMT', '')), 'M/dd/yyyy hh:mm:ss a');
         var sha256Data = __WEBPACK_IMPORTED_MODULE_4_sha_js__('sha256').update(JSON.stringify(localCheckInData)).digest('hex');
@@ -1207,6 +1218,7 @@ var LoginComponent = /** @class */ (function () {
             email: 'jince.george@xe04.ey.com',
             password: 'test123'
         };
+        this.globals.isLoggedin = false;
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
@@ -1216,23 +1228,64 @@ var LoginComponent = /** @class */ (function () {
         this.authService.signInRegular(this.user.email, this.user.password)
             .then(function (res) {
             console.log(res);
-            _this.spinnerService.hide();
             _this.userData = _this.db.collection('/evvagents', function (ref) { return ref.where('email', '==', res.email); }).valueChanges();
             _this.userData.subscribe(function (result) {
                 _this.globals.agentData = result;
                 _this.spinnerService.hide();
+                _this.authService.getFaceId(result[0].photo).subscribe(function (res) {
+                    console.log(res);
+                    _this.globals.loggedUserFaceId = res[0].faceId;
+                });
                 // this.messageService.sendMessage(result[0].clientname);
                 console.log(result);
-                if (result[0].role === "vendor")
+                if (result[0].role === "vendor") {
+                    _this.spinnerService.hide();
+                    _this.globals.isLoggedin = true;
                     _this.router.navigate(['dashboard/history']);
-                else
-                    _this.router.navigate(['dashboard']);
+                }
+                else {
+                    _this.isCheckdeInToday(result);
+                }
             });
         })
             .catch(function (err) {
             console.log('error: ' + err);
             alert(__WEBPACK_IMPORTED_MODULE_5__config_app_config__["a" /* config */].messages.LOGIN_ERROR);
             _this.spinnerService.hide();
+        });
+    };
+    LoginComponent.prototype.isCheckdeInToday = function (result) {
+        var _this = this;
+        this.checkinData = this.db.collection('/agent_c_inout', function (ref) { return ref.where('agentid', '==', result[0].agentId).where("checkindate", "==", new Date().toLocaleDateString("en-US")); }).valueChanges();
+        this.checkinData.subscribe(function (checkinDataResult) {
+            _this.spinnerService.hide();
+            if (!_this.globals.isLoggedin) {
+                console.log(checkinDataResult);
+                if (checkinDataResult.length > 0) {
+                    if (checkinDataResult[0].checkoutdate != "") {
+                        _this.router.navigate(['dashboard/history']);
+                    }
+                    else {
+                        _this.checkinEmotion = _this.db.collection('/agency-c-emotion', function (ref) { return ref.where('agentid', '==', result[0].agentId).where("date", "==", new Date().toLocaleDateString("en-US")); }).valueChanges();
+                        _this.checkinEmotion.subscribe(function (checkinEmotionResult) {
+                            _this.spinnerService.hide();
+                            if (!_this.globals.isLoggedin) {
+                                console.log(checkinEmotionResult);
+                                _this.globals.checkinEmotion = checkinEmotionResult[0]["checkin-emotion"];
+                                _this.globals.checkinDate = checkinDataResult[0].checkintime;
+                                _this.globals.isLoggedin = true;
+                                _this.globals.isCheckIn = false;
+                                _this.router.navigate(['dashboard/checkout']);
+                            }
+                        });
+                    }
+                }
+                else {
+                    _this.spinnerService.hide();
+                    _this.globals.isLoggedin = true;
+                    _this.router.navigate(['dashboard']);
+                }
+            }
         });
     };
     LoginComponent = __decorate([
@@ -1364,6 +1417,49 @@ var MenuComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], MenuComponent);
     return MenuComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/auth-guard.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthGuard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard(router, authService) {
+        this.router = router;
+        this.authService = authService;
+    }
+    AuthGuard.prototype.canActivate = function () {
+        if (this.authService.getLoggedInUser()) {
+            return true;
+        }
+        this.router.navigate(['/']);
+        return false;
+    };
+    AuthGuard = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_0__auth_service__["a" /* AuthService */]])
+    ], AuthGuard);
+    return AuthGuard;
 }());
 
 
@@ -1580,7 +1676,6 @@ var ClockService = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export WindowRef */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LocationService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1592,19 +1687,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-var WindowRef = /** @class */ (function () {
-    function WindowRef() {
-    }
-    WindowRef.prototype.getNativeWindow = function () {
-        return window;
-    };
-    WindowRef = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [])
-    ], WindowRef);
-    return WindowRef;
-}());
 
 var LocationService = /** @class */ (function () {
     function LocationService() {
@@ -1633,6 +1715,10 @@ var LocationService = /** @class */ (function () {
             return true;
         return false;
     };
+    LocationService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], LocationService);
     return LocationService;
 }());
 
@@ -1966,6 +2052,8 @@ var VerifyComponent = /** @class */ (function () {
                 checkintime: new Date(),
                 latlocation: locationData.lat,
                 longlocation: locationData.long,
+                checkindate: new Date().toLocaleDateString("en-US"),
+                checkoutdate: ""
             };
             this.globals.checkinDate = new Date();
         }
@@ -1982,7 +2070,9 @@ var VerifyComponent = /** @class */ (function () {
                 latlocation: locationData.lat,
                 longlocation: locationData.long,
                 checkouttime: new Date(),
-                client_comment: clientMessage
+                client_comment: clientMessage,
+                checkindate: new Date().toLocaleDateString("en-US"),
+                checkoutdate: new Date().toLocaleDateString("en-US")
             };
         }
         this.saveCheckinDataToFireBase(false);

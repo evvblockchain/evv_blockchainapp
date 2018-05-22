@@ -49,7 +49,7 @@ export class CheckoutComponent implements OnInit {
     //this.agentData = this.db.collection('evvagents', ref => ref.where('Agents.email', '==', 'jince.george@xe04.ey.com')).valueChanges();
    
     this.clientdata.subscribe(result => {
-      
+      this.globals.clientdata= result;
       this.spinnerService.hide();
      // this.messageService.sendMessage(result[0].clientname);
       console.log(result);
