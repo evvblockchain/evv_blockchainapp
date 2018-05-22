@@ -25,6 +25,7 @@ export class HistoryComponent implements OnInit {
   @ViewChild('FailedmodalContent') FailedmodalContent:ElementRef;
   public historyData: Observable<any[]>;
   public agentData: Observable<any[]>;
+  public emotionData: Observable<any[]>;
   historyLength=0;
   userRole;
   verified:any;
@@ -37,6 +38,9 @@ export class HistoryComponent implements OnInit {
   clientCommentsObj:any={
     "documents":[]
   };
+  checkInEmotionAverage : any ;
+  checkOutEmotionAverage : any;
+  emotionGeneralAverge : any;
   constructor(private db: AngularFirestore,
     private tierionService: TierionService,
     private datePipe: DatePipe,
@@ -63,6 +67,37 @@ export class HistoryComponent implements OnInit {
    
 
   }
+
+  captureEmotionAverage(){
+    this.emotionData =  this.db.collection('/agencyEmotion', ref => ref.where('agentId', '==', this.globals.agentData.agentId)).valueChanges();
+    this.emotionData.subscribe(result => {
+      console.log(result);
+      let sumOfHappinessIndexForCheckout = 0;
+      let sumOfHappinessIndex = 0;
+      for (let emotion of result) {
+        console.log("Emotion Data"+emotion); // 1, "string", false
+        //checkin Emotion
+        
+        if(emotion.checkInEmotion){
+           sumOfHappinessIndex = sumOfHappinessIndex + emotion.checkInEmotion.happiness;
+        }
+        //checkout Emotion
+       
+       if(emotion.checkOutEmotion){
+        sumOfHappinessIndexForCheckout = sumOfHappinessIndexForCheckout + emotion.checkOutEmotion.happiness;
+       }
+       
+       
+      }
+      this.checkInEmotionAverage = sumOfHappinessIndex/ result.length;
+      this.checkOutEmotionAverage = sumOfHappinessIndexForCheckout/ result.length;
+      this.emotionGeneralAverge = (this.checkInEmotionAverage + this.checkInEmotionAverage) * 50 
+    });
+    
+    
+  }
+
+
   changeAction(agent){
     this.selectedAgent=agent.name;
    // this.clientCommentsObj.documents=[];

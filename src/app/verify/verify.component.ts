@@ -24,7 +24,7 @@ export class VerifyComponent implements OnInit {
   clientLocation:any;
   checkinDataToSave:any;
   prodcollection: AngularFirestoreCollection<any> = this.db.collection('agent_c_inout');
-  emeotionCollection :AngularFirestoreCollection<any> = this.db.collection('agency-c-emotion');
+  emeotionCollection :AngularFirestoreCollection<any> = this.db.collection('agencyEmotion');
   constructor(private db: AngularFirestore,
     private route: ActivatedRoute,
     private spinnerService: Ng4LoadingSpinnerService,
@@ -94,8 +94,8 @@ export class VerifyComponent implements OnInit {
     var dateStamp=(date.getMonth() + 1) + '' + date.getDate() + '' +  date.getFullYear();
     if(this.globals.isCheckIn){
       
-      var checkinData = { "checkin-emotion" :response[0].faceAttributes.emotion,
-      "agentid":this.globals.agentData[0].agentId,
+      var checkinData = { "checkInEmotion" :response[0].faceAttributes.emotion,
+      "agentId":this.globals.agentData[0].agentId,
     "date":new Date().toLocaleDateString('en-US').toString()};
       this.emeotionCollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkinData)
       .catch((err) => {
@@ -103,11 +103,12 @@ export class VerifyComponent implements OnInit {
     })
     this.globals.checkinEmotion=response[0].faceAttributes.emotion;
     }else{
-      var checkoutData = { "checkout-emotion" :response[0].faceAttributes.emotion,
-      "checkin-emotion" :this.globals.checkinEmotion,
-      "agentid":this.globals.agentData[0].agentId,
+      
+      var checkoutData = { "checkOutEmotion" :response[0].faceAttributes.emotion,
+      "checkInEmotion" :this.globals.checkinEmotion,
+      "agentId":this.globals.agentData[0].agentId,
       "date":new Date().toLocaleDateString('en-US').toString()};
-      this.emeotionCollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkoutData)
+       this.emeotionCollection.doc(dateStamp.toString()+this.globals.agentData[0].agentId).set(checkoutData)
       .catch((err) => {
       console.log(err);
     })
