@@ -21,7 +21,7 @@
             <p>Client Feedback:</p>
             <p><ngb-progressbar showValue="true" type="{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}" [value]="percentageOfFeedback"></ngb-progressbar></p>
             <p>Attitude:</p>
-            <p><ngb-progressbar showValue="true" type="info" [value]=emotionGeneralAverge></ngb-progressbar></p>
+            <p><ngb-progressbar showValue="true" type="info" [value]=emotionGeneralAverge type="{{emotionGeneralAverge>75?'success':emotionGeneralAverge>25?'warning':'danger'}}"></ngb-progressbar></p>
             <p>Punctuality:</p>
             <p><ngb-progressbar showValue="true" type="warning" [value]="75"></ngb-progressbar></p>
             <p>Dedication:</p>

@@ -7,7 +7,7 @@
   <div *ngFor="let client of clientdata | async">
   <div class="time-container">
     <h4>
-      {{client.timing.date | date}}
+      {{today | date}}
     </h4>
     <h3>
         {{ time  | date:'h:mm a'}}

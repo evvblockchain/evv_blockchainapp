@@ -933,7 +933,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\n        <div class=\"col\">\n          <div ngbDropdown class=\"d-inline-block\">\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\n\n            </div>\n          </div>\n        </div>\n      \n      \n      </div>\n\n      <div class=\"agent-info\" [hidden]=\"!agentInfo\" >\n        <div class=\"card\" style=\"width: 100%;\">\n          <img class=\"card-img-top\" src=\"data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}\" alt=\"Card image cap\">\n          <div class=\"card-body\">\n            <h5 class=\"card-title\">{{agentInfo?agentInfo.name:''}}</h5>\n            <p>Client Feedback:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}\" [value]=\"percentageOfFeedback\"></ngb-progressbar></p>\n            <p>Attitude:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"info\" [value]=\"50\"></ngb-progressbar></p>\n            <p>Punctuality:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"warning\" [value]=\"75\"></ngb-progressbar></p>\n            <p>Dedication:</p>\n            <p><ngb-progressbar showValue=\"true\" type=\"danger\" [value]=\"100\"></ngb-progressbar></p>\n            <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>\n          </div>\n        </div>\n      </div>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\n      <div class=\"row\">\n          <div class=\"col-9 vertical-center\"  >\n             <h5> {{history.checkintime | date }}</h5>\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\n              Hours Worked: {{calculateHours(history)}}<br>\n              Client Name: {{history.clientname }} <br>\n              Client Comment: {{history.client_comment }}</p>\n\n            \n            </div>\n            <div class=\"col-3 vertical-center float-right\">\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\n       \n                \n            </div>  \n          \n      </div>\n    </li>\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\n  \n\n  </ul>\n\n</div>\n\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\n    <div class=\"modal-header text-center\">\n      <h4 class=\"modal-title\">EVV</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body text-center\">\n      <h4>Verification Success&hellip;</h4>\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \n    <p [hidden]=\"!terionResultId\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\n         </div>\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n    </div>\n  </ng-template>\n\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\n      <div class=\"modal-header text-center\">\n        <h4 class=\"modal-title\">EVV</h4>\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body text-center\">\n        <h4>Verification Failed&hellip;</h4>\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\n           </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\n      </div>\n    </ng-template>\n\n  "
+module.exports = "<div class=\"history-section\">\r\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\r\n        <div class=\"col\">\r\n          <div ngbDropdown class=\"d-inline-block\">\r\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\r\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\r\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      \r\n      \r\n      </div>\r\n\r\n      <div class=\"agent-info\" [hidden]=\"!agentInfo\" >\r\n        <div class=\"card\" style=\"width: 100%;\">\r\n          <img class=\"card-img-top\" src=\"data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}\" alt=\"Card image cap\">\r\n          <div class=\"card-body\">\r\n            <h5 class=\"card-title\">{{agentInfo?agentInfo.name:''}}</h5>\r\n            <p>Client Feedback:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}\" [value]=\"percentageOfFeedback\"></ngb-progressbar></p>\r\n            <p>Attitude:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"info\" [value]=emotionGeneralAverge type=\"{{emotionGeneralAverge>75?'success':emotionGeneralAverge>25?'warning':'danger'}}\"></ngb-progressbar></p>\r\n            <p>Punctuality:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"warning\" [value]=\"75\"></ngb-progressbar></p>\r\n            <p>Dedication:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"danger\" [value]=\"100\"></ngb-progressbar></p>\r\n            <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\r\n      <div class=\"row\">\r\n          <div class=\"col-9 vertical-center\"  >\r\n             <h5> {{history.checkintime | date }}</h5>\r\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\r\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\r\n              Hours Worked: {{calculateHours(history)}}<br>\r\n              Client Name: {{history.clientname }} <br>\r\n              Client Comment: {{history.client_comment }}</p>\r\n\r\n            \r\n            </div>\r\n            <div class=\"col-3 vertical-center float-right\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\r\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\r\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\r\n       \r\n                \r\n            </div>  \r\n          \r\n      </div>\r\n    </li>\r\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\r\n  \r\n\r\n  </ul>\r\n\r\n</div>\r\n\r\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-header text-center\">\r\n      <h4 class=\"modal-title\">EVV</h4>\r\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n        <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-body text-center\">\r\n      <h4>Verification Success&hellip;</h4>\r\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \r\n    <p [hidden]=\"!terionResultId\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\r\n         </div>\r\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\r\n      <div class=\"modal-header text-center\">\r\n        <h4 class=\"modal-title\">EVV</h4>\r\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body text-center\">\r\n        <h4>Verification Failed&hellip;</h4>\r\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \r\n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\r\n           </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n      </div>\r\n    </ng-template>\r\n\r\n  "
 
 /***/ }),
 
@@ -1001,6 +1001,30 @@ var HistoryComponent = /** @class */ (function () {
             });
         }
     };
+    HistoryComponent.prototype.captureEmotionAverage = function (agent) {
+        var _this = this;
+        this.emotionData = this.db.collection('/agencyEmotion', function (ref) { return ref.where('agentId', '==', agent.agentId); }).valueChanges();
+        this.emotionData.subscribe(function (result) {
+            console.log(result);
+            var sumOfHappinessIndexForCheckout = 0;
+            var sumOfHappinessIndex = 0;
+            for (var _i = 0, result_1 = result; _i < result_1.length; _i++) {
+                var emotion = result_1[_i];
+                console.log("Emotion Data" + emotion); // 1, "string", false
+                //checkin Emotion
+                if (emotion.checkInEmotion) {
+                    sumOfHappinessIndex = sumOfHappinessIndex + emotion.checkInEmotion.happiness;
+                }
+                //checkout Emotion
+                if (emotion.checkOutEmotion) {
+                    sumOfHappinessIndexForCheckout = sumOfHappinessIndexForCheckout + emotion.checkOutEmotion.happiness;
+                }
+            }
+            _this.checkInEmotionAverage = sumOfHappinessIndex / result.length;
+            _this.checkOutEmotionAverage = sumOfHappinessIndexForCheckout / result.length;
+            _this.emotionGeneralAverge = Math.round((_this.checkInEmotionAverage + _this.checkInEmotionAverage) * 50);
+        });
+    };
     HistoryComponent.prototype.changeAction = function (agent) {
         var _this = this;
         this.selectedAgent = agent.name;
@@ -1033,6 +1057,7 @@ var HistoryComponent = /** @class */ (function () {
                 });
             }
         });
+        this.captureEmotionAverage(agent);
     };
     HistoryComponent.prototype.verifyData = function (history, element, text) {
         var _this = this;
@@ -1266,12 +1291,12 @@ var LoginComponent = /** @class */ (function () {
                         _this.router.navigate(['dashboard/history']);
                     }
                     else {
-                        _this.checkinEmotion = _this.db.collection('/agency-c-emotion', function (ref) { return ref.where('agentid', '==', result[0].agentId).where("date", "==", new Date().toLocaleDateString("en-US")); }).valueChanges();
+                        _this.checkinEmotion = _this.db.collection('/agencyEmotion', function (ref) { return ref.where('agentid', '==', result[0].agentId).where("date", "==", new Date().toLocaleDateString("en-US")); }).valueChanges();
                         _this.checkinEmotion.subscribe(function (checkinEmotionResult) {
                             _this.spinnerService.hide();
                             if (!_this.globals.isLoggedin) {
                                 console.log(checkinEmotionResult);
-                                _this.globals.checkinEmotion = checkinEmotionResult[0]["checkin-emotion"];
+                                _this.globals.checkinEmotion = checkinEmotionResult[0]["checkInEmotion"];
                                 _this.globals.checkinDate = checkinDataResult[0].checkintime;
                                 _this.globals.isLoggedin = true;
                                 _this.globals.isCheckIn = false;
@@ -1923,7 +1948,7 @@ var VerifyComponent = /** @class */ (function () {
         this.router = router;
         this._location = _location;
         this.prodcollection = this.db.collection('agent_c_inout');
-        this.emeotionCollection = this.db.collection('agency-c-emotion');
+        this.emeotionCollection = this.db.collection('agencyEmotion');
         this.route.params.subscribe(function (params) {
             console.log(params);
             _this.base64Image = params['imagePath'];
@@ -1976,8 +2001,8 @@ var VerifyComponent = /** @class */ (function () {
             var date = new Date();
             var dateStamp = (date.getMonth() + 1) + '' + date.getDate() + '' + date.getFullYear();
             if (this.globals.isCheckIn) {
-                var checkinData = { "checkin-emotion": response[0].faceAttributes.emotion,
-                    "agentid": this.globals.agentData[0].agentId,
+                var checkinData = { "checkInEmotion": response[0].faceAttributes.emotion,
+                    "agentId": this.globals.agentData[0].agentId,
                     "date": new Date().toLocaleDateString('en-US').toString() };
                 this.emeotionCollection.doc(dateStamp.toString() + this.globals.agentData[0].agentId).set(checkinData)
                     .catch(function (err) {
@@ -1986,9 +2011,9 @@ var VerifyComponent = /** @class */ (function () {
                 this.globals.checkinEmotion = response[0].faceAttributes.emotion;
             }
             else {
-                var checkoutData = { "checkout-emotion": response[0].faceAttributes.emotion,
-                    "checkin-emotion": this.globals.checkinEmotion,
-                    "agentid": this.globals.agentData[0].agentId,
+                var checkoutData = { "checkOutEmotion": response[0].faceAttributes.emotion,
+                    "checkInEmotion": this.globals.checkinEmotion,
+                    "agentId": this.globals.agentData[0].agentId,
                     "date": new Date().toLocaleDateString('en-US').toString() };
                 this.emeotionCollection.doc(dateStamp.toString() + this.globals.agentData[0].agentId).set(checkoutData)
                     .catch(function (err) {

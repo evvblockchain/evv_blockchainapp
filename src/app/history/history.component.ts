@@ -68,8 +68,8 @@ export class HistoryComponent implements OnInit {
 
   }
 
-  captureEmotionAverage(){
-    this.emotionData =  this.db.collection('/agencyEmotion', ref => ref.where('agentId', '==', this.globals.agentData.agentId)).valueChanges();
+  captureEmotionAverage(agent){
+    this.emotionData =  this.db.collection('/agencyEmotion', ref => ref.where('agentId', '==', agent.agentId)).valueChanges();
     this.emotionData.subscribe(result => {
       console.log(result);
       let sumOfHappinessIndexForCheckout = 0;
@@ -91,7 +91,7 @@ export class HistoryComponent implements OnInit {
       }
       this.checkInEmotionAverage = sumOfHappinessIndex/ result.length;
       this.checkOutEmotionAverage = sumOfHappinessIndexForCheckout/ result.length;
-      this.emotionGeneralAverge = (this.checkInEmotionAverage + this.checkInEmotionAverage) * 50 
+      this.emotionGeneralAverge = Math.round((this.checkInEmotionAverage + this.checkInEmotionAverage) * 50); 
     });
     
     
@@ -134,6 +134,7 @@ export class HistoryComponent implements OnInit {
         })
       }
     });
+    this.captureEmotionAverage(agent);
   }
   verifyData(history, element, text){
     element.textContent = text;
