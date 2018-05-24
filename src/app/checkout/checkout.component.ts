@@ -20,6 +20,7 @@ export class CheckoutComponent implements OnInit {
   time: Date;
   totalHours:any;
   currentUser;
+  checkedInTime;
   workingSession:any="00:00:00 Hrs";
   
   prodcollection: AngularFirestoreCollection<any> = this.db.collection('agent_c_inout');
@@ -69,7 +70,7 @@ export class CheckoutComponent implements OnInit {
     let timer = Observable.timer(1000,1000);
     let checkinTime=this.globals.checkinDate?this.globals.checkinDate:new Date();
     var dif =  new Date().getTime()-checkinTime.getTime();
-
+    this.checkedInTime=checkinTime;
     var Seconds_from_T1_to_T2 = dif / 1000;
     var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
     timer.subscribe(t=>{

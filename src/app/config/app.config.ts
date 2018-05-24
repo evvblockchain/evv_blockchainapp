@@ -26,10 +26,10 @@ export const config = {
         "DataStoreId":"7103"
     },
     "SentimentalAnalysisAPI":{
-        "URL":"https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
+        "URL":"https://eastasia.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
         "JSONtypeHeader":{
             'Content-Type':'application/json',
-            'Ocp-Apim-Subscription-Key':'5da3576d216a430bb50973ad7c5b0068'
+            'Ocp-Apim-Subscription-Key':'6c63c66929c54c049552bd42b1df2d2d'
           },
     }
 };

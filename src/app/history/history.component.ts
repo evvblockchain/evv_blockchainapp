@@ -29,12 +29,14 @@ export class HistoryComponent implements OnInit {
   historyLength=0;
   userRole;
   verified:any;
+  currentRate=1.35;
   closeResult: string;
   terionResultId:any;
   nativeWindow: any
   agentInfo:any=null;
   selectedAgent:string="Select Agent";
   percentageOfFeedback:any=0;
+  emotionGeneralAverge:any=0;
   clientCommentsObj:any={
     "documents":[]
   };

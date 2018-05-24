@@ -4,7 +4,7 @@
 <h4>Welcome {{agent.name}}</h4>
 <img src="data:image/jpg;base64,{{agent.photo}}" alt="" class="user-avatar">
   </div>
-  <div *ngFor="let client of clientdata | async">
+  <div *ngFor="let client of clientdata | async" class="checkout-container">
   <div class="time-container">
     <h4>
       {{today | date}}
@@ -17,11 +17,13 @@
 
   <div class="client-container text-white" >
     <div class="row">
-      <div class="col-9 vertical-center"  >
+      <div class="col-9 vertical-center client-info-container"  >
         <div>Client Name: {{client.clientname}}</div>
         <div>ID: {{client.clientid}}</div>
         <div>Address:  {{client.Address}}</div>
-
+        <div>Allocated Checkin Time:  {{client.timing?.intime| date:'h:mm a'}}</div>
+        <div>Allocated Checkout Time::  {{client.timing?.outtime| date:'h:mm a'}}</div>
+     
       </div>
       <div class="col-3 vertical-center">
           <div (click)="onInfoClick()"><i class="fa fa-info-circle info-icon" aria-hidden="true"></i></div>
@@ -32,7 +34,8 @@
 
   
   <div class="timer-container container">
-    <div class="text-center">  <h4>You are in work mode</h4>
+      <div class="text-center">  <h6>Checked in today at: {{checkedInTime | date:'h:mm a'}} </h6> </div>
+    <div class="text-center">  <h5>You are in work mode</h5>
     </div>
   
     <div class="row">

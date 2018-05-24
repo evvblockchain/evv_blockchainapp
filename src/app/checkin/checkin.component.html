@@ -21,7 +21,8 @@
         <div>Client Name: {{client.clientname}}</div>
         <div>ID: {{client.clientid}}</div>
         <div>Address:  {{client.Address}}</div>
-
+        <div>Allocated Checkin Time:  {{client.timing?.intime| date:'h:mm a'}}</div>
+        <div>Allocated Checkout Time::  {{client.timing?.outtime| date:'h:mm a'}}</div>
       </div>
       <div class="col-3 vertical-center">
           <div (click)="onInfoClick()"><i class="fa fa-info-circle info-icon" aria-hidden="true"></i></div>

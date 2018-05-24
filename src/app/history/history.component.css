@@ -4,3 +4,9 @@
 .agent-info .card{
     margin: 0 auto;
 }
+
+.card-img-top{
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 50%;
+}
