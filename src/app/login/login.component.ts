@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   config=config;
   user = {
-    email: 'jince.george@xe04.ey.com',
+    email: 'evvuser@gmail.com',
     password: 'test123'
  };
 
@@ -87,7 +87,7 @@ isCheckdeInToday(result){
         this.router.navigate(['dashboard/history']);
       }else{
       
-        this.checkinEmotion = this.db.collection('/agencyEmotion', ref => ref.where('agentid', '==', result[0].agentId).where("date", "==", new Date().toLocaleDateString("en-US"))).valueChanges();
+        this.checkinEmotion = this.db.collection('/agencyEmotion', ref => ref.where('agentId', '==', result[0].agentId).where("date", "==", new Date().toLocaleDateString("en-US"))).valueChanges();
         this.checkinEmotion.subscribe(checkinEmotionResult => {
           this.spinnerService.hide();
           if(!this.globals.isLoggedin){

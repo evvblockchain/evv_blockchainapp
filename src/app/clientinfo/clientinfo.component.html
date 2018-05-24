@@ -1,21 +1,22 @@
 <div class="clientinfo-section">
-  <div class="row">
-    <div class="col-12 title">Client Information</div> 
+  <div class="row header-info grid-margin">
+    <div class="col-10 title"> <h3>Client Information</h3></div> 
+    <div class="col-2 align-right vertical-center close-icon" (click)="closePage()"><i class="fa fa-times-circle" aria-hidden="true"></i> </div>
  </div>
- <div class="row card bg-light text-dark"> 
+ <div class="row card bg-light text-dark grid-margin"> 
    <div class="card-body">
   <div class="col-12 label">Name:   {{clientInfo.clientname}}</div>
   <div class="col-12 label"> ID :   {{clientInfo.clientid}} </div>
-  <div class="col-12 label">DOB :   {{clientInfo.dob}}</div>
+  <div class="col-12 label">DOB :   {{clientInfo.dob | date}}</div>
   </div>
 
   <div class="card bg-light text-dark">
     <div class="card-body">
   <div class="col-12 label extraTopMargin">Service Offered : {{clientInfo.service}}</div>
-  <div class="col-12 label">Date:   {{clientInfo.timing?.date}}</div>
-  <div class="col-12 label">Assigned Check in time:   {{clientInfo.timing?.intime}}</div>
-  <div class="col-12 label">Assigned Check out time:  {{clientInfo.timing?.outtime}}</div>
-  <div class="col-12 label">Allocated hours:   {{clientInfo.DOB}}</div>
+  <div class="col-12 label">Date:   {{today | date}}</div>
+  <div class="col-12 label">Assigned Check in time:   {{clientInfo.timing?.intime| date:'h:mm a'}}</div>
+  <div class="col-12 label">Assigned Check out time:  {{clientInfo.timing?.outtime| date:'h:mm a'}}</div>
+  <div class="col-12 label">Allocated hours:   {{clientInfo.DOB | date}}</div>
   </div>
   </div>
 

@@ -41,6 +41,7 @@ import { DatePipe } from '@angular/common';
 import {WindowRef} from './services/window.ref.service';
 import {AuthGuard} from './services/auth-guard.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,

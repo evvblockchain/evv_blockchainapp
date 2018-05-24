@@ -24,7 +24,8 @@
 
       </div>
       <div class="col-3 vertical-center">
-        <img src="assets/images/info-icon.png" alt="" class="img-fluid" (click)="onInfoClick()">
+          <div (click)="onInfoClick()"><i class="fa fa-info-circle info-icon" aria-hidden="true"></i></div>
+       
       </div>
     </div>  </div>
 
@@ -36,11 +37,11 @@
   
     <div class="row">
       <div class="col-6 vertical-center" style="border-right: 1px solid;" >
-        <h5>Todays working hours</h5>
+        <h6>Assigned hours</h6>
         <h3>{{totalHours}} Hrs</h3>
       </div>
       <div class="col-6 vertical-center"  >
-          <h5>Todays working hours</h5>
+          <h6>Todays working hours</h6>
         <h3>{{workingSession}}</h3>
       </div>
     </div>

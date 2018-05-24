@@ -150,13 +150,15 @@ export class VerifyComponent implements OnInit {
       }
       this.checkinDataToSave.blockChanData=blockChainData;
       this.saveCheckinDataToFireBase(true);
-      this.spinnerService.hide();
+      
 
       if(this.globals.isCheckIn){
       alert('You are successfully checked in.');
+      this.spinnerService.hide();
       this.router.navigate(['dashboard/checkout']);
       }else{
         alert('You are successfully checked out.');
+        this.spinnerService.hide();
         this.router.navigate(['dashboard/history']);
       }
     });

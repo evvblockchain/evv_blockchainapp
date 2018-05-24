@@ -49,3 +49,6 @@ margin-bottom: auto;
 agm-map {
     height: calc(100vh - 400px);
   }
+  .timer-container{
+      margin: 20px 0;
+  }

@@ -7,6 +7,7 @@ import { Globals } from '../globals';
 import { MessageService } from '../services/message.service';
 import {ClockService} from '../services/clock.service';
 import { Observable } from 'rxjs/Observable';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-clientinfo',
@@ -19,12 +20,13 @@ export class ClientinfoComponent implements OnInit {
   lat: number = 51.678418;
   lng: number = 7.809007;
   public clientdata: Observable<any[]>;
-  
+  today = Date.now();
 
   constructor(private db: AngularFirestore,private authService: AuthService,
     private spinnerService: Ng4LoadingSpinnerService,
     private router: Router,private globals: Globals,
-    private messageService: MessageService) { 
+    private messageService: MessageService,
+    private _location: Location) { 
     this.spinnerService.show();
     
   }
@@ -44,7 +46,11 @@ export class ClientinfoComponent implements OnInit {
        this.clientInfo = result[0];
       }
     });
+  
     
+  }
+  closePage(){
+    this._location.back();
   }
 
 }
