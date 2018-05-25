@@ -37,12 +37,12 @@ export class HistoryComponent implements OnInit {
   selectedAgent:string="Select Agent";
   percentageOfFeedback:any=0;
   emotionGeneralAverge:any=0;
+  percentageOfPunctuality:any=0;
   clientCommentsObj:any={
     "documents":[]
   };
   checkInEmotionAverage : any ;
   checkOutEmotionAverage : any;
-  emotionGeneralAverge : any;
   constructor(private db: AngularFirestore,
     private tierionService: TierionService,
     private datePipe: DatePipe,
@@ -98,9 +98,25 @@ export class HistoryComponent implements OnInit {
     
     
   }
+  calculatePunctulityAverage(historyData){
+    let totalTimeDelayed=0;
+    historyData.forEach((item, index) => {
+      totalTimeDelayed += Date.parse(item.checkintime)-Date.parse(new Date(new Date(item.checkintime).setHours(9,0,0)).toString());
+    
+     // totalTimeDelayed+=new Date(this.globals.clientdata[0].) item.checkintime
 
+    });
+    let diffInHours: number = totalTimeDelayed / 1000 / 60 / 60;
+    let totalHoursToBeWorked=historyData.length*8;
+    this.percentageOfPunctuality=Math.round(((totalHoursToBeWorked-diffInHours)/totalHoursToBeWorked)*100);
+    console.log(this.percentageOfPunctuality);
+    console.log(diffInHours);
+  } 
 
   changeAction(agent){
+    this.percentageOfFeedback=0;
+  this.emotionGeneralAverge=0;
+  this.percentageOfPunctuality=0;
     this.selectedAgent=agent.name;
    // this.clientCommentsObj.documents=[];
     this.agentInfo=agent;
@@ -135,6 +151,7 @@ export class HistoryComponent implements OnInit {
         }
         })
       }
+      this.calculatePunctulityAverage(result);
     });
     this.captureEmotionAverage(agent);
   }

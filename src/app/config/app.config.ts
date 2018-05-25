@@ -5,14 +5,14 @@ export const config = {
         "LOGIN_ERROR":"Invalid username and password."
     },
     "FaceAPI":{
-        "url":"https://westcentralus.api.cognitive.microsoft.com/face/v1.0/",
+        "url":"https://eastasia.api.cognitive.microsoft.com/face/v1.0/",
         "JSONtypeHeader":{
             'Content-Type':'application/json',
-            'Ocp-Apim-Subscription-Key':'415a491cc97e480490105a7b19703e66'
+            'Ocp-Apim-Subscription-Key':'d698c564245c4dad94074069fae51d67'
           },
           "OctectTypeHeader":{
             'Content-Type':'application/octet-stream',
-            'Ocp-Apim-Subscription-Key':'415a491cc97e480490105a7b19703e66'
+            'Ocp-Apim-Subscription-Key':'d698c564245c4dad94074069fae51d67'
           }
 
     },

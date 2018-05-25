@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { config } from '../config/app.config';
 import { Globals } from '../globals';
+declare let AppVersion:any;
 
 @Component({
   selector: 'app-login',
@@ -16,18 +17,24 @@ export class LoginComponent implements OnInit {
   public userData: Observable<any[]>;
   public checkinData: Observable<any[]>;
   public checkinEmotion: Observable<any[]>;
-  
+  appVersion:any;
   constructor(private db: AngularFirestore,
     private authService: AuthService,
      private router: Router,
      private spinnerService: Ng4LoadingSpinnerService,
      private globals: Globals,) {
       this.globals.isLoggedin=false;
+      if (typeof(<any>AppVersion) !== 'undefined') {
+        this.appVersion=AppVersion.version;
+      }else
+      this.appVersion=this.globals.appVersion
+    
   }
 
   config=config;
+  
   user = {
-    email: 'evvuser@gmail.com',
+    email: 'jince.george@xe04.ey.com',
     password: 'test123'
  };
 

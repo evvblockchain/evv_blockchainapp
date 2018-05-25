@@ -188,20 +188,32 @@ module.exports = "\n<ng4-loading-spinner> </ng4-loading-spinner>\n<router-outlet
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(globals) {
+        this.globals = globals;
     }
     AppComponent.prototype.ngOnInit = function () {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            alert(device.platform);
+            //alert(device.platform);
+            document.addEventListener("backbutton", handleBackButtonTrigger, false);
+            function handleBackButtonTrigger() {
+                if (confirm("Are you sure you want to exit?")) {
+                    navigator.app.exitApp();
+                }
+            }
         }
     };
     AppComponent = __decorate([
@@ -209,7 +221,8 @@ var AppComponent = /** @class */ (function () {
             selector: 'app-root',
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* Globals */]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -366,7 +379,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".checkin-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}\n.user-avatar{\n    width: 80px;\n    border-radius: 50%;\n    position: absolute;\n    bottom: -57px;\n    left: 40%;\n}\n.time-container{\n    text-align: center;\n    margin-top: 60px;\n}\n.client-container{\n    background: #4472c4;\n    padding: 5px 10px;\n}\n.client-container .row{\n    margin: 0;\n}\n.client-info{\n    width: 80%;\n}\n.client-image{\n    width: 20%;\n}\n.client-image img{\n    width: 80px;\n}\n.footer-container{\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: #70ad47;\n    text-align: center;\n    color: #fff;\n    padding: 15px 0;\n    \n}\nagm-map {\n    height: calc(100vh - 400px);\n  }", ""]);
+exports.push([module.i, ".checkin-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}\n.user-avatar{\n    width: 80px;\n    border-radius: 50%;\n    position: absolute;\n    bottom: -57px;\n    left: 40%;\n}\n.time-container{\n    text-align: center;\n    margin-top: 60px;\n}\n.client-container{\n    background: #4472c4;\n    padding: 5px 10px;\n}\n.client-container .row{\n    margin: 0;\n}\n.client-info{\n    width: 80%;\n}\n.client-image{\n    width: 20%;\n}\n.client-image img{\n    width: 80px;\n}\n.footer-container{\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: #70ad47;\n    text-align: center;\n    color: #fff;\n    padding: 15px 0;\n    \n}\nagm-map {\n    height: calc(100vh - 400px);\n  }\n.client-info-container{\n    height: 120px;\n    overflow: auto;\n  }", ""]);
 
 // exports
 
@@ -379,7 +392,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/checkin/checkin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"checkin-section\" >\r\n\r\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\r\n<h4>Welcome {{agent.name}}</h4>\r\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\r\n  </div>\r\n  <div *ngFor=\"let client of clientdata | async\">\r\n  <div class=\"time-container\">\r\n    <h4>\r\n      {{today | date}}\r\n    </h4>\r\n    <h3>\r\n        {{ time  | date:'h:mm a'}}\r\n    </h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"client-container text-white\" >\r\n    <div class=\"row\">\r\n      <div class=\"col-9 vertical-center\"  >\r\n        <div>Client Name: {{client.clientname}}</div>\r\n        <div>ID: {{client.clientid}}</div>\r\n        <div>Address:  {{client.Address}}</div>\r\n        <div>Allocated Checkin Time:  {{client.timing?.intime| date:'h:mm a'}}</div>\r\n        <div>Allocated Checkout Time::  {{client.timing?.outtime| date:'h:mm a'}}</div>\r\n      </div>\r\n      <div class=\"col-3 vertical-center\">\r\n          <div (click)=\"onInfoClick()\"><i class=\"fa fa-info-circle info-icon\" aria-hidden=\"true\"></i></div>\r\n      </div>\r\n    </div>  </div>\r\n\r\n  \r\n  \r\n\r\n  <div class=\"map-container\">\r\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\r\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\r\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\r\n    </agm-map>\r\n  </div></div>\r\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\r\n   <h4>Checkin</h4>\r\n  </Button>\r\n</section>"
+module.exports = "<section class=\"checkin-section\" >\r\n\r\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\r\n<h4>Welcome {{agent.name}}</h4>\r\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\r\n</div>\r\n  <div *ngFor=\"let client of clientdata | async\">\r\n  <div class=\"time-container\">\r\n    <h4>\r\n      {{today | date}}\r\n    </h4>\r\n    <h3>\r\n        {{ time  | date:'h:mm a'}}\r\n    </h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"client-container text-white \" >\r\n    <div class=\"row\">\r\n      <div class=\"col-9 vertical-center client-info-container\"  >\r\n        <div>Client Name: {{client.clientname}}</div>\r\n        <div>ID: {{client.clientid}}</div>\r\n        <div>Address:  {{client.Address}}</div>\r\n        <div>Allocated Checkin Time:  {{client.timing?.intime| date:'h:mm a'}}</div>\r\n        <div>Allocated Checkout Time::  {{client.timing?.outtime| date:'h:mm a'}}</div>\r\n      </div>\r\n      <div class=\"col-3 vertical-center\">\r\n          <div (click)=\"onInfoClick()\"><i class=\"fa fa-info-circle info-icon\" aria-hidden=\"true\"></i></div>\r\n      </div>\r\n    </div>  </div>\r\n\r\n  \r\n  \r\n\r\n  <div class=\"map-container\">\r\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\r\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\r\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\r\n    </agm-map>\r\n  </div></div>\r\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\r\n   <h4>Checkin</h4>\r\n  </Button>\r\n</section>"
 
 /***/ }),
 
@@ -782,14 +795,14 @@ var config = {
         "LOGIN_ERROR": "Invalid username and password."
     },
     "FaceAPI": {
-        "url": "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/",
+        "url": "https://eastasia.api.cognitive.microsoft.com/face/v1.0/",
         "JSONtypeHeader": {
             'Content-Type': 'application/json',
-            'Ocp-Apim-Subscription-Key': '415a491cc97e480490105a7b19703e66'
+            'Ocp-Apim-Subscription-Key': 'd698c564245c4dad94074069fae51d67'
         },
         "OctectTypeHeader": {
             'Content-Type': 'application/octet-stream',
-            'Ocp-Apim-Subscription-Key': '415a491cc97e480490105a7b19703e66'
+            'Ocp-Apim-Subscription-Key': 'd698c564245c4dad94074069fae51d67'
         }
     },
     "TierionAPI": {
@@ -910,6 +923,7 @@ var Globals = /** @class */ (function () {
                 "Hated him"
             ]
         };
+        this.appVersion = "1.0";
     }
     Globals = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
@@ -929,7 +943,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".drp-container{\r\n    margin: 10px 0;\r\n}\r\n.agent-info .card{\r\n    margin: 0 auto;\r\n}\r\n\r\n", ""]);
+exports.push([module.i, ".drp-container{\r\n    margin: 10px 0;\r\n}\r\n.agent-info .card{\r\n    margin: 0 auto;\r\n}\r\n.card-img-top{\r\n    width: 50%;\r\n    margin: 0 auto;\r\n    border-radius: 50%;\r\n    border: 5px solid #eee;\r\n    -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);\r\n            box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);  \r\n}", ""]);
 
 // exports
 
@@ -942,7 +956,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\r\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\r\n        <div class=\"col\">\r\n          <div ngbDropdown class=\"d-inline-block\">\r\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\r\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\r\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      \r\n      \r\n      </div>\r\n\r\n      <div class=\"agent-info\" [hidden]=\"!agentInfo\" >\r\n        <div class=\"card\" style=\"width: 100%;\">\r\n          <img class=\"card-img-top\" src=\"data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}\" alt=\"Card image cap\">\r\n          <div class=\"card-body\">\r\n            <h5 class=\"card-title\">{{agentInfo?agentInfo.name:''}}</h5>\r\n            <p>Client Feedback:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}\" [value]=\"percentageOfFeedback\"></ngb-progressbar></p>\r\n            <p>Attitude:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"info\" [value]=emotionGeneralAverge type=\"{{emotionGeneralAverge>75?'success':emotionGeneralAverge>25?'warning':'danger'}}\"></ngb-progressbar></p>\r\n            <p>Punctuality:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"warning\" [value]=\"75\"></ngb-progressbar></p>\r\n             \r\n          </div>\r\n        </div>\r\n      </div>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\r\n      <div class=\"row\">\r\n          <div class=\"col-9 vertical-center\"  >\r\n             <h5> {{history.checkintime | date }}</h5>\r\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\r\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\r\n              Hours Worked: {{calculateHours(history)}}<br>\r\n              Client Name: {{history.clientname }} <br>\r\n              Client Comment: {{history.client_comment }}</p>\r\n\r\n            \r\n            </div>\r\n            <div class=\"col-3 vertical-center float-right\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\r\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\r\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\r\n       \r\n                \r\n            </div>  \r\n          \r\n      </div>\r\n    </li>\r\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\r\n  \r\n\r\n  </ul>\r\n\r\n</div>\r\n\r\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-header text-center\">\r\n      <h4 class=\"modal-title\">EVV</h4>\r\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n        <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-body text-center\">\r\n      <h4>Verification Success&hellip;</h4>\r\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \r\n    <p [hidden]=\"!terionResultId\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\r\n         </div>\r\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\r\n      <div class=\"modal-header text-center\">\r\n        <h4 class=\"modal-title\">EVV</h4>\r\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body text-center\">\r\n        <h4>Verification Failed&hellip;</h4>\r\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \r\n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\r\n           </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n      </div>\r\n    </ng-template>\r\n\r\n  "
+module.exports = "<div class=\"history-section\">\r\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\r\n        <div class=\"col\">\r\n          <div ngbDropdown class=\"d-inline-block\">\r\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\r\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\r\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      \r\n      \r\n      </div>\r\n\r\n      <div class=\"agent-info\" [hidden]=\"!agentInfo\" >\r\n        <div class=\"card\" style=\"width: 100%;\">\r\n          <img class=\"card-img-top\" src=\"data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}\" alt=\"Card image cap\">\r\n        \r\n          <div class=\"card-body\">\r\n            <h5 class=\"card-title\">{{agentInfo?agentInfo.name:''}}</h5>\r\n            <p>Client Feedback:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}\" [value]=\"percentageOfFeedback\"></ngb-progressbar></p>\r\n            <p>Attitude:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"info\" [value]=emotionGeneralAverge type=\"{{emotionGeneralAverge>75?'success':emotionGeneralAverge>25?'warning':'danger'}}\"></ngb-progressbar></p>\r\n            <p>Punctuality:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"warning\" [value]=percentageOfPunctuality type=\"{{percentageOfPunctuality>75?'success':percentageOfPunctuality>25?'warning':'danger'}}\"></ngb-progressbar></p>\r\n             \r\n          </div>\r\n        </div>\r\n      </div>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\r\n      <div class=\"row\">\r\n          <div class=\"col-9 vertical-center\"  >\r\n             <h5> {{history.checkintime | date }}</h5>\r\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\r\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\r\n              Hours Worked: {{calculateHours(history)}}<br>\r\n              Client Name: {{history.clientname }} <br>\r\n              Client Comment: {{history.client_comment }}</p>\r\n\r\n            \r\n            </div>\r\n            <div class=\"col-3 vertical-center float-right\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\r\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\r\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\r\n       \r\n                \r\n            </div>  \r\n          \r\n      </div>\r\n    </li>\r\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\r\n  \r\n\r\n  </ul>\r\n\r\n</div>\r\n\r\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-header text-center\">\r\n      <h4 class=\"modal-title\">EVV</h4>\r\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n        <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-body text-center\">\r\n      <h4>Verification Success&hellip;</h4>\r\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \r\n    <p [hidden]=\"!terionResultId\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\r\n         </div>\r\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\r\n      <div class=\"modal-header text-center\">\r\n        <h4 class=\"modal-title\">EVV</h4>\r\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body text-center\">\r\n        <h4>Verification Failed&hellip;</h4>\r\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \r\n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\r\n           </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n      </div>\r\n    </ng-template>\r\n\r\n  "
 
 /***/ }),
 
@@ -994,6 +1008,8 @@ var HistoryComponent = /** @class */ (function () {
         this.agentInfo = null;
         this.selectedAgent = "Select Agent";
         this.percentageOfFeedback = 0;
+        this.emotionGeneralAverge = 0;
+        this.percentageOfPunctuality = 0;
         this.clientCommentsObj = {
             "documents": []
         };
@@ -1035,8 +1051,23 @@ var HistoryComponent = /** @class */ (function () {
             _this.emotionGeneralAverge = Math.round((_this.checkInEmotionAverage + _this.checkInEmotionAverage) * 50);
         });
     };
+    HistoryComponent.prototype.calculatePunctulityAverage = function (historyData) {
+        var totalTimeDelayed = 0;
+        historyData.forEach(function (item, index) {
+            totalTimeDelayed += Date.parse(item.checkintime) - Date.parse(new Date(new Date(item.checkintime).setHours(9, 0, 0)).toString());
+            // totalTimeDelayed+=new Date(this.globals.clientdata[0].) item.checkintime
+        });
+        var diffInHours = totalTimeDelayed / 1000 / 60 / 60;
+        var totalHoursToBeWorked = historyData.length * 8;
+        this.percentageOfPunctuality = Math.round(((totalHoursToBeWorked - diffInHours) / totalHoursToBeWorked) * 100);
+        console.log(this.percentageOfPunctuality);
+        console.log(diffInHours);
+    };
     HistoryComponent.prototype.changeAction = function (agent) {
         var _this = this;
+        this.percentageOfFeedback = 0;
+        this.emotionGeneralAverge = 0;
+        this.percentageOfPunctuality = 0;
         this.selectedAgent = agent.name;
         // this.clientCommentsObj.documents=[];
         this.agentInfo = agent;
@@ -1066,6 +1097,7 @@ var HistoryComponent = /** @class */ (function () {
                     }
                 });
             }
+            _this.calculatePunctulityAverage(result);
         });
         this.captureEmotionAverage(agent);
     };
@@ -1195,7 +1227,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\n\n.login-bg{\n    background-image: url(" + escape(__webpack_require__("../../../../../src/assets/images/login-bg.jpg")) + ");\n    height: 100%;\n    position: fixed;\n    text-align: center;\n    font-size: 1.5rem;\n}\n.login-card{\n    background-color:transparent;\n  margin-top: 100px;\n  border: none;\n}\n.app-logo{\n    height: 100px;\n}\n.form-control, .form-control:focus,.form-control:active{\n    border: none;\n    background: none;\n    border-bottom: 1px solid;\n    color: #fff;\n    border-radius: 0;\n    -webkit-text-decoration-color: #fff;\n            text-decoration-color: #fff;\n    margin-bottom: 30px;\n    font-size: 1.2rem;\n    \n}\n::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n:-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n.btn-rounded{\n    width: 200px;\n    border-radius: 25px;\n    background-color: transparent;\n    font-size: 1.2rem;\n    border-color: #fff;\n    color: #fff;\n}", ""]);
+exports.push([module.i, "\n\n.login-bg{\n    background-image: url(" + escape(__webpack_require__("../../../../../src/assets/images/login-bg.jpg")) + ");\n    height: 100%;\n    position: fixed;\n    text-align: center;\n    font-size: 1.5rem;\n}\n.login-card{\n    background-color:transparent;\n  margin-top: 100px;\n  border: none;\n}\n.app-logo{\n    height: 100px;\n}\n.form-control, .form-control:focus,.form-control:active{\n    border: none;\n    background: none;\n    border-bottom: 1px solid;\n    color: #fff;\n    border-radius: 0;\n    -webkit-text-decoration-color: #fff;\n            text-decoration-color: #fff;\n    margin-bottom: 30px;\n    font-size: 1.2rem;\n    \n}\n::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n:-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n.btn-rounded{\n    width: 200px;\n    border-radius: 25px;\n    background-color: transparent;\n    font-size: 1.2rem;\n    border-color: #fff;\n    color: #fff;\n}\n.footer{\n    position: fixed;\n    left: 0;\n    bottom: 0;\n    width: 100%;\n    color: white;\n    text-align: center;\n}\npre{\n    color: white;\n    font-size: 1rem;\n}", ""]);
 
 // exports
 
@@ -1208,7 +1240,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-app-header></app-app-header> -->\n<div class=\"container login-bg py-5\">\n  <div class=\"row\">\n      <div class=\"col-md-12\">\n        <img src=\"assets/images/block-chain-icon.png\" class=\"app-logo\">\n        <div class=\"text-white\">{{config.appTitle}}</div>\n          <div class=\"row\">\n              <div class=\"col-md-6 mx-auto\">\n\n                  <!-- form card login -->\n                  <div class=\"card rounded-0 login-card\">\n                     \n                      <div class=\"card-body\">\n                        <form name=\"userform\" method=\"post\" #formCtrl=\"ngForm\">\n                          <div class=\"form-group\">\n                            \n                            <input type=\"email\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\" placeholder=\"Email\" required>\n                          </div>\n<div class=\"form-group\">\n                     \n                      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"user.password\" name=\"password\" placeholder=\"Password\" required>\n                    </div>\n                              <!-- <div>\n                                  <label class=\"custom-control custom-checkbox\">\n                                    <input type=\"checkbox\" class=\"custom-control-input\">\n                                    <span class=\"custom-control-indicator\"></span>\n                                    <span class=\"custom-control-description small text-dark\">Remember me on this computer</span>\n                                  </label>\n                              </div> -->\n                              <button type=\"submit\" class=\"btn btn-rounded btn-lg \" (click)=\"signInWithEmail()\"  [disabled]=\"formCtrl.form.invalid\"  id=\"btnLogin\">Login</button>\n                          </form>\n                      </div>\n                      <!--/card-block-->\n                  </div>\n                  <!-- /form card login -->\n\n              </div>\n\n\n          </div>\n          <!--/row-->\n\n      </div>\n      <!--/col-->\n  </div>\n  <!--/row-->\n</div>\n<!--/container-->\n"
+module.exports = "<!-- <app-app-header></app-app-header> -->\n<div class=\"container login-bg py-5\">\n  <div class=\"row\">\n      <div class=\"col-md-12\">\n        <img src=\"assets/images/block-chain-icon.png\" class=\"app-logo\">\n        <div class=\"text-white\">{{config.appTitle}}</div>\n          <div class=\"row\">\n              <div class=\"col-md-6 mx-auto\">\n\n                  <!-- form card login -->\n                  <div class=\"card rounded-0 login-card\">\n                     \n                      <div class=\"card-body\">\n                        <form name=\"userform\" method=\"post\" #formCtrl=\"ngForm\">\n                          <div class=\"form-group\">\n                            \n                            <input type=\"email\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\" placeholder=\"Email\" required>\n                          </div>\n<div class=\"form-group\">\n                     \n                      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"user.password\" name=\"password\" placeholder=\"Password\" required>\n                    </div>\n                              <!-- <div>\n                                  <label class=\"custom-control custom-checkbox\">\n                                    <input type=\"checkbox\" class=\"custom-control-input\">\n                                    <span class=\"custom-control-indicator\"></span>\n                                    <span class=\"custom-control-description small text-dark\">Remember me on this computer</span>\n                                  </label>\n                              </div> -->\n                              <button type=\"submit\" class=\"btn btn-rounded btn-lg \" (click)=\"signInWithEmail()\"  [disabled]=\"formCtrl.form.invalid\"  id=\"btnLogin\">Login</button>\n                          </form>\n                      </div>\n                      <!--/card-block-->\n                  </div>\n                  <!-- /form card login -->\n\n              </div>\n\n\n          </div>\n          <!--/row-->\n\n      </div>\n      <!--/col-->\n  </div>\n  <!--/row-->\n  <div class=\"footer\">\n      <pre>version: {{appVersion}}</pre>\n  </div>\n</div>\n<!--/container-->\n"
 
 /***/ }),
 
@@ -1250,10 +1282,15 @@ var LoginComponent = /** @class */ (function () {
         this.globals = globals;
         this.config = __WEBPACK_IMPORTED_MODULE_5__config_app_config__["a" /* config */];
         this.user = {
-            email: 'evvuser@gmail.com',
+            email: 'jince.george@xe04.ey.com',
             password: 'test123'
         };
         this.globals.isLoggedin = false;
+        if (typeof AppVersion !== 'undefined') {
+            this.appVersion = AppVersion.version;
+        }
+        else
+            this.appVersion = this.globals.appVersion;
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
