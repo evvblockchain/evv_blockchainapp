@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~font-awesome/css/font-awesome.css";
  .starter-template {
      padding: 3rem 1.5rem;
      text-align: center;
@@ -33,3 +34,10 @@ margin-bottom: auto;
 agm-map {
     height: calc(100vh - 400px);
   }
+  .grid-margin{
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .info-icon{
+    font-size: 70px;
+}

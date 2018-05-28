@@ -15,4 +15,13 @@
     margin-top: 20px;
 }
 
-
+.close-icon{
+    font-size: 40px;
+    color: #fff;
+}
+.header-info{
+    background:#ffc000; 
+}
+.card-body{
+    padding: 5px 10px;
+}

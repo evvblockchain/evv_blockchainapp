@@ -5,7 +5,7 @@ export const config = {
         "LOGIN_ERROR":"Invalid username and password."
     },
     "FaceAPI":{
-        "url":"https://westcentralus.api.cognitive.microsoft.com/face/v1.0/",
+        "url":"https://eastasia.api.cognitive.microsoft.com/face/v1.0/",
         "JSONtypeHeader":{
             'Content-Type':'application/json',
             'Ocp-Apim-Subscription-Key':''
@@ -26,7 +26,7 @@ export const config = {
         "DataStoreId":"7103"
     },
     "SentimentalAnalysisAPI":{
-        "URL":"https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
+        "URL":"https://eastasia.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
         "JSONtypeHeader":{
             'Content-Type':'application/json',
             'Ocp-Apim-Subscription-Key':''

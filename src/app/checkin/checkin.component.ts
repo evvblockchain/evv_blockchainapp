@@ -46,6 +46,7 @@ export class CheckinComponent implements OnInit {
 
   ngOnInit() {
     
+    
     this.currentUser=this.authService.getLoggedInUser();
     console.log( this.currentUser.email);
     this.clientdata = this.db.collection('/clientlist').valueChanges();

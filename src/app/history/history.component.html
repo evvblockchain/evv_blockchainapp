@@ -16,6 +16,7 @@
       <div class="agent-info" [hidden]="!agentInfo" >
         <div class="card" style="width: 100%;">
           <img class="card-img-top" src="data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}" alt="Card image cap">
+        
           <div class="card-body">
             <h5 class="card-title">{{agentInfo?agentInfo.name:''}}</h5>
             <p>Client Feedback:</p>
@@ -23,10 +24,8 @@
             <p>Attitude:</p>
             <p><ngb-progressbar showValue="true" type="info" [value]=emotionGeneralAverge type="{{emotionGeneralAverge>75?'success':emotionGeneralAverge>25?'warning':'danger'}}"></ngb-progressbar></p>
             <p>Punctuality:</p>
-            <p><ngb-progressbar showValue="true" type="warning" [value]="75"></ngb-progressbar></p>
-            <p>Dedication:</p>
-            <p><ngb-progressbar showValue="true" type="danger" [value]="100"></ngb-progressbar></p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p><ngb-progressbar showValue="true" type="warning" [value]=percentageOfPunctuality type="{{percentageOfPunctuality>75?'success':percentageOfPunctuality>25?'warning':'danger'}}"></ngb-progressbar></p>
+             
           </div>
         </div>
       </div>

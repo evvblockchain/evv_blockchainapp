@@ -25,5 +25,6 @@ export class Globals {
        "Loved him",
        "Hated him"
      ]
-   }
+   };
+   appVersion:any="1.0";
 }

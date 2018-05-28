@@ -188,20 +188,32 @@ module.exports = "\n<ng4-loading-spinner> </ng4-loading-spinner>\n<router-outlet
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(globals) {
+        this.globals = globals;
     }
     AppComponent.prototype.ngOnInit = function () {
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
-            alert(device.platform);
+            //alert(device.platform);
+            document.addEventListener("backbutton", handleBackButtonTrigger, false);
+            function handleBackButtonTrigger() {
+                if (confirm("Are you sure you want to exit?")) {
+                    navigator.app.exitApp();
+                }
+            }
         }
     };
     AppComponent = __decorate([
@@ -209,7 +221,8 @@ var AppComponent = /** @class */ (function () {
             selector: 'app-root',
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* Globals */]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -366,7 +379,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".checkin-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}\n.user-avatar{\n    width: 80px;\n    border-radius: 50%;\n    position: absolute;\n    bottom: -57px;\n    left: 40%;\n}\n.time-container{\n    text-align: center;\n    margin-top: 60px;\n}\n.client-container{\n    background: #4472c4;\n    padding: 5px 10px;\n}\n.client-container .row{\n    margin: 0;\n}\n.client-info{\n    width: 80%;\n}\n.client-image{\n    width: 20%;\n}\n.client-image img{\n    width: 80px;\n}\n.footer-container{\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: #70ad47;\n    text-align: center;\n    color: #fff;\n    padding: 15px 0;\n    \n}\nagm-map {\n    height: calc(100vh - 400px);\n  }", ""]);
+exports.push([module.i, ".checkin-header{\n    height: 70px;\n    background: #ffc000;\n    text-align: center;\n    position: relative;\n}\n.user-avatar{\n    width: 80px;\n    border-radius: 50%;\n    position: absolute;\n    bottom: -57px;\n    left: 40%;\n}\n.time-container{\n    text-align: center;\n    margin-top: 60px;\n}\n.client-container{\n    background: #4472c4;\n    padding: 5px 10px;\n}\n.client-container .row{\n    margin: 0;\n}\n.client-info{\n    width: 80%;\n}\n.client-image{\n    width: 20%;\n}\n.client-image img{\n    width: 80px;\n}\n.footer-container{\n    position: fixed;\n    bottom: 0;\n    width: 100%;\n    height: 60px;\n    background: #70ad47;\n    text-align: center;\n    color: #fff;\n    padding: 15px 0;\n    \n}\nagm-map {\n    height: calc(100vh - 400px);\n  }\n.client-info-container{\n    height: 120px;\n    overflow: auto;\n  }", ""]);
 
 // exports
 
@@ -379,7 +392,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/checkin/checkin.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"checkin-section\" >\r\n\r\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\r\n<h4>Welcome {{agent.name}}</h4>\r\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\r\n  </div>\r\n  <div *ngFor=\"let client of clientdata | async\">\r\n  <div class=\"time-container\">\r\n    <h4>\r\n      {{client.timing.date | date}}\r\n    </h4>\r\n    <h3>\r\n        {{ time  | date:'h:mm a'}}\r\n    </h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"client-container text-white\" >\r\n    <div class=\"row\">\r\n      <div class=\"col-9 vertical-center\"  >\r\n        <div>Client Name: {{client.clientname}}</div>\r\n        <div>ID: {{client.clientid}}</div>\r\n        <div>Address:  {{client.Address}}</div>\r\n\r\n      </div>\r\n      <div class=\"col-3 vertical-center\">\r\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\" (click)=\"onInfoClick()\">\r\n      </div>\r\n    </div>  </div>\r\n\r\n  \r\n  \r\n\r\n  <div class=\"map-container\">\r\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\r\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\r\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\r\n    </agm-map>\r\n  </div></div>\r\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\r\n   <h4>Checkin</h4>\r\n  </Button>\r\n</section>"
+module.exports = "<section class=\"checkin-section\" >\r\n\r\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async\">\r\n<h4>Welcome {{agent.name}}</h4>\r\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\r\n</div>\r\n  <div *ngFor=\"let client of clientdata | async\">\r\n  <div class=\"time-container\">\r\n    <h4>\r\n      {{today | date}}\r\n    </h4>\r\n    <h3>\r\n        {{ time  | date:'h:mm a'}}\r\n    </h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"client-container text-white \" >\r\n    <div class=\"row\">\r\n      <div class=\"col-9 vertical-center client-info-container\"  >\r\n        <div>Client Name: {{client.clientname}}</div>\r\n        <div>ID: {{client.clientid}}</div>\r\n        <div>Address:  {{client.Address}}</div>\r\n        <div>Allocated Checkin Time:  {{client.timing?.intime| date:'h:mm a'}}</div>\r\n        <div>Allocated Checkout Time::  {{client.timing?.outtime| date:'h:mm a'}}</div>\r\n      </div>\r\n      <div class=\"col-3 vertical-center\">\r\n          <div (click)=\"onInfoClick()\"><i class=\"fa fa-info-circle info-icon\" aria-hidden=\"true\"></i></div>\r\n      </div>\r\n    </div>  </div>\r\n\r\n  \r\n  \r\n\r\n  <div class=\"map-container\">\r\n    <agm-map [zoom]=\"15\" [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\r\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\r\n      <agm-circle [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\" [radius]=\"10\"></agm-circle>\r\n    </agm-map>\r\n  </div></div>\r\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\r\n   <h4>Checkin</h4>\r\n  </Button>\r\n</section>"
 
 /***/ }),
 
@@ -501,7 +514,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".checkin-header{\r\n    height: 70px;\r\n    background: #ffc000;\r\n    text-align: center;\r\n    position: relative;\r\n}\r\n.user-avatar{\r\n    width: 80px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    bottom: -57px;\r\n    left: 40%;\r\n}\r\n.time-container{\r\n    text-align: center;\r\n    margin-top: 60px;\r\n}\r\n.client-container{\r\n    background: #4472c4;\r\n    padding: 5px 10px;\r\n}\r\n.client-container .row{\r\n    margin: 0;\r\n}\r\n.client-info{\r\n    width: 80%;\r\n}\r\n.client-image{\r\n    width: 20%;\r\n}\r\n.client-image img{\r\n    width: 80px;\r\n}\r\n.footer-container{\r\n    position: fixed;\r\n    bottom: 0;\r\n    width: 100%;\r\n    height: 60px;\r\n    background: #70ad47;\r\n    text-align: center;\r\n    color: #fff;\r\n    padding: 15px 0;\r\n    \r\n}\r\n.vertical-center{\r\n    margin-top: auto;\r\nmargin-bottom: auto;\r\n}\r\nagm-map {\r\n    height: calc(100vh - 400px);\r\n  }", ""]);
+exports.push([module.i, ".checkin-header{\r\n    height: 70px;\r\n    background: #ffc000;\r\n    text-align: center;\r\n    position: relative;\r\n}\r\n.user-avatar{\r\n    width: 80px;\r\n    border-radius: 50%;\r\n    position: absolute;\r\n    bottom: -57px;\r\n    left: 40%;\r\n}\r\n.time-container{\r\n    text-align: center;\r\n    margin-top: 60px;\r\n}\r\n.client-container{\r\n    background: #4472c4;\r\n    padding: 5px 10px;\r\n}\r\n.client-container .row{\r\n    margin: 0;\r\n}\r\n.client-info{\r\n    width: 80%;\r\n}\r\n.client-image{\r\n    width: 20%;\r\n}\r\n.client-image img{\r\n    width: 80px;\r\n}\r\n.footer-container{\r\n    position: fixed;\r\n    bottom: 0;\r\n    width: 100%;\r\n    height: 60px;\r\n    background: #70ad47;\r\n    text-align: center;\r\n    color: #fff;\r\n    padding: 15px 0;\r\n    \r\n}\r\n.vertical-center{\r\n    margin-top: auto;\r\nmargin-bottom: auto;\r\n}\r\nagm-map {\r\n    height: calc(100vh - 400px);\r\n  }\r\n.timer-container{\r\n      margin: 5px 0;\r\n  }\r\n.checkout-container{\r\n      overflow: auto;\r\n      margin-bottom: 50px;\r\n  }\r\n.client-info-container{\r\n    height: 120px;\r\n    overflow: auto;\r\n  }", ""]);
 
 // exports
 
@@ -514,7 +527,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/checkout/checkout.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"checkin-section\" >\r\n\r\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async \">\r\n<h4>Welcome {{agent.name}}</h4>\r\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\r\n  </div>\r\n  <div *ngFor=\"let client of clientdata | async\">\r\n  <div class=\"time-container\">\r\n    <h4>\r\n      {{client.timing.date | date}}\r\n    </h4>\r\n    <h3>\r\n      {{ time  | date:'h:mm a'}}\r\n    </h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"client-container text-white\" >\r\n    <div class=\"row\">\r\n      <div class=\"col-9 vertical-center\"  >\r\n        <div>Client Name: {{client.clientname}}</div>\r\n        <div>ID: {{client.clientid}}</div>\r\n        <div>Address:  {{client.Address}}</div>\r\n\r\n      </div>\r\n      <div class=\"col-3 vertical-center\">\r\n        <img src=\"assets/images/info-icon.png\" alt=\"\" class=\"img-fluid\" (click)=\"onInfoClick()\">\r\n      </div>\r\n    </div>  </div>\r\n\r\n\r\n  \r\n  <div class=\"timer-container container\">\r\n    <div class=\"text-center\">  <h4>You are in work mode</h4>\r\n    </div>\r\n  \r\n    <div class=\"row\">\r\n      <div class=\"col-6 vertical-center\" style=\"border-right: 1px solid;\" >\r\n        <h5>Todays working hours</h5>\r\n        <h3>{{totalHours}} Hrs</h3>\r\n      </div>\r\n      <div class=\"col-6 vertical-center\"  >\r\n          <h5>Todays working hours</h5>\r\n        <h3>{{workingSession}}</h3>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- <div class=\"map-container\">\r\n    <agm-map [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\r\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\r\n    </agm-map>\r\n  </div>--></div> \r\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\r\n   <h4>Checkout</h4>\r\n  </Button>\r\n</section>"
+module.exports = "<section class=\"checkin-section\" >\r\n\r\n  <div class=\"app-sub-header\" *ngFor=\"let agent of agentData | async \">\r\n<h4>Welcome {{agent.name}}</h4>\r\n<img src=\"data:image/jpg;base64,{{agent.photo}}\" alt=\"\" class=\"user-avatar\">\r\n  </div>\r\n  <div *ngFor=\"let client of clientdata | async\" class=\"checkout-container\">\r\n  <div class=\"time-container\">\r\n    <h4>\r\n      {{today | date}}\r\n    </h4>\r\n    <h3>\r\n      {{ time  | date:'h:mm a'}}\r\n    </h3>\r\n  </div>\r\n\r\n\r\n  <div class=\"client-container text-white\" >\r\n    <div class=\"row\">\r\n      <div class=\"col-9 vertical-center client-info-container\"  >\r\n        <div>Client Name: {{client.clientname}}</div>\r\n        <div>ID: {{client.clientid}}</div>\r\n        <div>Address:  {{client.Address}}</div>\r\n        <div>Allocated Checkin Time:  {{client.timing?.intime| date:'h:mm a'}}</div>\r\n        <div>Allocated Checkout Time::  {{client.timing?.outtime| date:'h:mm a'}}</div>\r\n     \r\n      </div>\r\n      <div class=\"col-3 vertical-center\">\r\n          <div (click)=\"onInfoClick()\"><i class=\"fa fa-info-circle info-icon\" aria-hidden=\"true\"></i></div>\r\n       \r\n      </div>\r\n    </div>  </div>\r\n\r\n\r\n  \r\n  <div class=\"timer-container container\">\r\n      <div class=\"text-center\">  <h6>Checked in today at: {{checkedInTime | date:'h:mm a'}} </h6> </div>\r\n    <div class=\"text-center\">  <h5>You are in work mode</h5>\r\n    </div>\r\n  \r\n    <div class=\"row\">\r\n      <div class=\"col-6 vertical-center\" style=\"border-right: 1px solid;\" >\r\n        <h6>Assigned hours</h6>\r\n        <h3>{{totalHours}} Hrs</h3>\r\n      </div>\r\n      <div class=\"col-6 vertical-center\"  >\r\n          <h6>Todays working hours</h6>\r\n        <h3>{{workingSession}}</h3>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- <div class=\"map-container\">\r\n    <agm-map [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\">\r\n      <agm-marker [latitude]=\"client.location.lat\" [longitude]=\"client.location.long\"></agm-marker>\r\n    </agm-map>\r\n  </div>--></div> \r\n  <Button class=\"footer-container\" (click)=\"takeSelfie();\">\r\n   <h4>Checkout</h4>\r\n  </Button>\r\n</section>"
 
 /***/ }),
 
@@ -592,6 +605,7 @@ var CheckoutComponent = /** @class */ (function () {
         var timer = __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["a" /* Observable */].timer(1000, 1000);
         var checkinTime = this.globals.checkinDate ? this.globals.checkinDate : new Date();
         var dif = new Date().getTime() - checkinTime.getTime();
+        this.checkedInTime = checkinTime;
         var Seconds_from_T1_to_T2 = dif / 1000;
         var Seconds_Between_Dates = Math.abs(Seconds_from_T1_to_T2);
         timer.subscribe(function (t) {
@@ -671,7 +685,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".title{\r\n    height: 70px;\r\n    background: #ffc000;\r\n    text-align: center;\r\n    position: relative;\r\n    padding: 20px 0;\r\n}\r\n.label{\r\n    margin-left: 20px;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n.extraTopMargin{\r\n    margin-top: 20px;\r\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, ".title{\r\n    height: 70px;\r\n    background: #ffc000;\r\n    text-align: center;\r\n    position: relative;\r\n    padding: 20px 0;\r\n}\r\n.label{\r\n    margin-left: 20px;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n.extraTopMargin{\r\n    margin-top: 20px;\r\n}\r\n.close-icon{\r\n    font-size: 40px;\r\n    color: #fff;\r\n}\r\n.header-info{\r\n    background:#ffc000; \r\n}\r\n.card-body{\r\n    padding: 5px 10px;\r\n}", ""]);
 
 // exports
 
@@ -684,7 +698,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/clientinfo/clientinfo.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"clientinfo-section\">\r\n  <div class=\"row\">\r\n    <div class=\"col-12 title\">Client Information</div> \r\n </div>\r\n <div class=\"row card bg-light text-dark\"> \r\n   <div class=\"card-body\">\r\n  <div class=\"col-12 label\">Name:   {{clientInfo.clientname}}</div>\r\n  <div class=\"col-12 label\"> ID :   {{clientInfo.clientid}} </div>\r\n  <div class=\"col-12 label\">DOB :   {{clientInfo.dob}}</div>\r\n  </div>\r\n\r\n  <div class=\"card bg-light text-dark\">\r\n    <div class=\"card-body\">\r\n  <div class=\"col-12 label extraTopMargin\">Service Offered : {{clientInfo.service}}</div>\r\n  <div class=\"col-12 label\">Date:   {{clientInfo.timing?.date}}</div>\r\n  <div class=\"col-12 label\">Assigned Check in time:   {{clientInfo.timing?.intime}}</div>\r\n  <div class=\"col-12 label\">Assigned Check out time:  {{clientInfo.timing?.outtime}}</div>\r\n  <div class=\"col-12 label\">Allocated hours:   {{clientInfo.DOB}}</div>\r\n  </div>\r\n  </div>\r\n\r\n  <div class=\"card bg-light text-dark\">\r\n      <div class=\"card-body\">\r\n  <div class=\"col-12 label extraTopMargin\">Address  : {{clientInfo.Address}}</div>\r\n </div>\r\n </div>\r\n \r\n<div class=\"map-container\">\r\n  <agm-map [zoom]=\"15\" [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\">\r\n    <agm-marker [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\"></agm-marker>\r\n    <agm-circle [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\" [radius]=\"10\"></agm-circle>\r\n  </agm-map>\r\n</div> \r\n</div>\r\n"
+module.exports = "<div class=\"clientinfo-section\">\r\n  <div class=\"row header-info grid-margin\">\r\n    <div class=\"col-10 title\"> <h3>Client Information</h3></div> \r\n    <div class=\"col-2 align-right vertical-center close-icon\" (click)=\"closePage()\"><i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i> </div>\r\n </div>\r\n <div class=\"row card bg-light text-dark grid-margin\"> \r\n   <div class=\"card-body\">\r\n  <div class=\"col-12 label\">Name:   {{clientInfo.clientname}}</div>\r\n  <div class=\"col-12 label\"> ID :   {{clientInfo.clientid}} </div>\r\n  <div class=\"col-12 label\">DOB :   {{clientInfo.dob | date}}</div>\r\n  </div>\r\n\r\n  <div class=\"card bg-light text-dark\">\r\n    <div class=\"card-body\">\r\n  <div class=\"col-12 label extraTopMargin\">Service Offered : {{clientInfo.service}}</div>\r\n  <div class=\"col-12 label\">Date:   {{today | date}}</div>\r\n  <div class=\"col-12 label\">Assigned Check in time:   {{clientInfo.timing?.intime| date:'h:mm a'}}</div>\r\n  <div class=\"col-12 label\">Assigned Check out time:  {{clientInfo.timing?.outtime| date:'h:mm a'}}</div>\r\n  <div class=\"col-12 label\">Allocated hours:   {{clientInfo.DOB | date}}</div>\r\n  </div>\r\n  </div>\r\n\r\n  <div class=\"card bg-light text-dark\">\r\n      <div class=\"card-body\">\r\n  <div class=\"col-12 label extraTopMargin\">Address  : {{clientInfo.Address}}</div>\r\n </div>\r\n </div>\r\n \r\n<div class=\"map-container\">\r\n  <agm-map [zoom]=\"15\" [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\">\r\n    <agm-marker [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\"></agm-marker>\r\n    <agm-circle [latitude]=\"clientInfo.location?.lat\" [longitude]=\"clientInfo.location?.long\" [radius]=\"10\"></agm-circle>\r\n  </agm-map>\r\n</div> \r\n</div>\r\n"
 
 /***/ }),
 
@@ -701,6 +715,7 @@ module.exports = "<div class=\"clientinfo-section\">\r\n  <div class=\"row\">\r\
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__globals__ = __webpack_require__("../../../../../src/app/globals.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_message_service__ = __webpack_require__("../../../../../src/app/services/message.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -717,17 +732,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ClientinfoComponent = /** @class */ (function () {
-    function ClientinfoComponent(db, authService, spinnerService, router, globals, messageService) {
+    function ClientinfoComponent(db, authService, spinnerService, router, globals, messageService, _location) {
         this.db = db;
         this.authService = authService;
         this.spinnerService = spinnerService;
         this.router = router;
         this.globals = globals;
         this.messageService = messageService;
+        this._location = _location;
         this.clientInfo = {};
         this.lat = 51.678418;
         this.lng = 7.809007;
+        this.today = Date.now();
         this.spinnerService.show();
     }
     ClientinfoComponent.prototype.ngOnInit = function () {
@@ -743,6 +761,9 @@ var ClientinfoComponent = /** @class */ (function () {
             }
         });
     };
+    ClientinfoComponent.prototype.closePage = function () {
+        this._location.back();
+    };
     ClientinfoComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-clientinfo',
@@ -752,7 +773,8 @@ var ClientinfoComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_firestore__["a" /* AngularFirestore */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
             __WEBPACK_IMPORTED_MODULE_3_ng4_loading_spinner__["Ng4LoadingSpinnerService"],
             __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_5__globals__["a" /* Globals */],
-            __WEBPACK_IMPORTED_MODULE_6__services_message_service__["a" /* MessageService */]])
+            __WEBPACK_IMPORTED_MODULE_6__services_message_service__["a" /* MessageService */],
+            __WEBPACK_IMPORTED_MODULE_7__angular_common__["Location"]])
     ], ClientinfoComponent);
     return ClientinfoComponent;
 }());
@@ -773,14 +795,14 @@ var config = {
         "LOGIN_ERROR": "Invalid username and password."
     },
     "FaceAPI": {
-        "url": "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/",
+        "url": "https://eastasia.api.cognitive.microsoft.com/face/v1.0/",
         "JSONtypeHeader": {
             'Content-Type': 'application/json',
-            'Ocp-Apim-Subscription-Key': '415a491cc97e480490105a7b19703e66'
+            'Ocp-Apim-Subscription-Key': 'd698c564245c4dad94074069fae51d67'
         },
         "OctectTypeHeader": {
             'Content-Type': 'application/octet-stream',
-            'Ocp-Apim-Subscription-Key': '415a491cc97e480490105a7b19703e66'
+            'Ocp-Apim-Subscription-Key': 'd698c564245c4dad94074069fae51d67'
         }
     },
     "TierionAPI": {
@@ -793,10 +815,10 @@ var config = {
         "DataStoreId": "7103"
     },
     "SentimentalAnalysisAPI": {
-        "URL": "https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
+        "URL": "https://eastasia.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment",
         "JSONtypeHeader": {
             'Content-Type': 'application/json',
-            'Ocp-Apim-Subscription-Key': '5da3576d216a430bb50973ad7c5b0068'
+            'Ocp-Apim-Subscription-Key': '6c63c66929c54c049552bd42b1df2d2d'
         },
     }
 };
@@ -812,7 +834,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".app-nav-bar{\n    background: #4472c4;\n   \n}\n\n.example-container {\n    width: 500px;\n    height: 300px;\n    border: 1px solid rgba(0, 0, 0, 0.5);\n  }\n\n.example-sidenav-content {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    height: 100%;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n.example-sidenav {\n    padding: 20px;\n  }\n\n.mat-sidenav-container{\n      height: 80%;\n  }\n\n.mat-drawer-container{\n      height: calc(100vh - 56px);\n     \n     \n  }\n\n.mat-drawer{\n      width: 45%;\n  }\n\n.mat-drawer-content{\n      padding:0;\n  }\n\n.hamburger{\n    background: none;\n    border: none;\n    color: #fff;\n  }", ""]);
+exports.push([module.i, ".app-nav-bar{\n    background: #4472c4;\n   \n}\n\n.example-container {\n    width: 500px;\n    height: 300px;\n    border: 1px solid rgba(0, 0, 0, 0.5);\n  }\n\n.example-sidenav-content {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    height: 100%;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n  }\n\n.example-sidenav {\n    padding: 20px;\n  }\n\n.mat-sidenav-container{\n      height: 80%;\n  }\n\n.mat-drawer-container{\n      height: calc(100vh - 56px);\n     \n     \n  }\n\n.mat-drawer{\n      width: 45%;\n  }\n\n.mat-drawer-content{\n      padding:0;\n  }\n\n.hamburger{\n    background: none;\n    border: none;\n    color: #fff;\n  }\n  ", ""]);
 
 // exports
 
@@ -825,7 +847,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"app-nav-bar navbar navbar-toggleable-md navbar-light bg-faded\">\n  <button class=\"navbar-toggler navbar-toggler-right\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavDropdown\" aria-controls=\"navbarNavDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" (click)=\"sidenav.toggle()\" class=\"hamburger\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand text-white\" href=\"#\">{{config.appTitle}}</a>\n\n</nav>\n<mat-sidenav-container>\n  <mat-sidenav #sidenav mode=\"slide\">\n\n    <app-menu  (click)=\"sidenav.close()\"></app-menu>\n  </mat-sidenav>\n  <mat-sidenav-content> \n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n"
+module.exports = "<nav class=\"app-nav-bar navbar navbar-toggleable-md navbar-light bg-faded\">\n  <button class=\"navbar-toggler navbar-toggler-right\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNavDropdown\" aria-controls=\"navbarNavDropdown\" aria-expanded=\"false\" aria-label=\"Toggle navigation\" (click)=\"sidenav.toggle()\" class=\"hamburger\">\n    <span class=\"navbar-toggler-icon\"></span>\n  </button>\n  <a class=\"navbar-brand text-white\">{{config.appTitle}}</a>\n\n</nav>\n<mat-sidenav-container>\n  <mat-sidenav #sidenav mode=\"slide\">\n\n    <app-menu  (click)=\"sidenav.close()\"></app-menu>\n  </mat-sidenav>\n  <mat-sidenav-content> \n    <router-outlet></router-outlet>\n  </mat-sidenav-content>\n</mat-sidenav-container>\n"
 
 /***/ }),
 
@@ -901,6 +923,7 @@ var Globals = /** @class */ (function () {
                 "Hated him"
             ]
         };
+        this.appVersion = "1.0";
     }
     Globals = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])()
@@ -920,7 +943,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".drp-container{\r\n    margin: 10px 0;\r\n}\r\n.agent-info .card{\r\n    margin: 0 auto;\r\n}", ""]);
+exports.push([module.i, ".drp-container{\r\n    margin: 10px 0;\r\n}\r\n.agent-info .card{\r\n    margin: 0 auto;\r\n}\r\n.card-img-top{\r\n    width: 50%;\r\n    margin: 0 auto;\r\n    border-radius: 50%;\r\n    border: 5px solid #eee;\r\n    -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);\r\n            box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);  \r\n}", ""]);
 
 // exports
 
@@ -933,7 +956,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/history/history.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"history-section\">\r\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\r\n        <div class=\"col\">\r\n          <div ngbDropdown class=\"d-inline-block\">\r\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\r\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\r\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      \r\n      \r\n      </div>\r\n\r\n      <div class=\"agent-info\" [hidden]=\"!agentInfo\" >\r\n        <div class=\"card\" style=\"width: 100%;\">\r\n          <img class=\"card-img-top\" src=\"data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}\" alt=\"Card image cap\">\r\n          <div class=\"card-body\">\r\n            <h5 class=\"card-title\">{{agentInfo?agentInfo.name:''}}</h5>\r\n            <p>Client Feedback:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}\" [value]=\"percentageOfFeedback\"></ngb-progressbar></p>\r\n            <p>Attitude:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"info\" [value]=emotionGeneralAverge type=\"{{emotionGeneralAverge>75?'success':emotionGeneralAverge>25?'warning':'danger'}}\"></ngb-progressbar></p>\r\n            <p>Punctuality:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"warning\" [value]=\"75\"></ngb-progressbar></p>\r\n            <p>Dedication:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"danger\" [value]=\"100\"></ngb-progressbar></p>\r\n            <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>\r\n          </div>\r\n        </div>\r\n      </div>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\r\n      <div class=\"row\">\r\n          <div class=\"col-9 vertical-center\"  >\r\n             <h5> {{history.checkintime | date }}</h5>\r\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\r\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\r\n              Hours Worked: {{calculateHours(history)}}<br>\r\n              Client Name: {{history.clientname }} <br>\r\n              Client Comment: {{history.client_comment }}</p>\r\n\r\n            \r\n            </div>\r\n            <div class=\"col-3 vertical-center float-right\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\r\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\r\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\r\n       \r\n                \r\n            </div>  \r\n          \r\n      </div>\r\n    </li>\r\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\r\n  \r\n\r\n  </ul>\r\n\r\n</div>\r\n\r\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-header text-center\">\r\n      <h4 class=\"modal-title\">EVV</h4>\r\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n        <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-body text-center\">\r\n      <h4>Verification Success&hellip;</h4>\r\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \r\n    <p [hidden]=\"!terionResultId\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\r\n         </div>\r\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\r\n      <div class=\"modal-header text-center\">\r\n        <h4 class=\"modal-title\">EVV</h4>\r\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body text-center\">\r\n        <h4>Verification Failed&hellip;</h4>\r\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \r\n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\r\n           </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n      </div>\r\n    </ng-template>\r\n\r\n  "
+module.exports = "<div class=\"history-section\">\r\n    <div class=\"row text-center drp-container\" [hidden]=\"userRole==='agent'\">\r\n        <div class=\"col\">\r\n          <div ngbDropdown class=\"d-inline-block\">\r\n            <button class=\"btn btn-outline-primary\" id=\"dropdownBasic1\" ngbDropdownToggle>{{selectedAgent}}</button>\r\n            <div ngbDropdownMenu aria-labelledby=\"dropdownBasic1\">\r\n              <button (click)=\"changeAction(agent)\" class=\"dropdown-item\"  *ngFor=\"let agent of agentData | async\">{{agent.name}}</button>\r\n\r\n            </div>\r\n          </div>\r\n        </div>\r\n      \r\n      \r\n      </div>\r\n\r\n      <div class=\"agent-info\" [hidden]=\"!agentInfo\" >\r\n        <div class=\"card\" style=\"width: 100%;\">\r\n          <img class=\"card-img-top\" src=\"data:image/jpg;base64,{{agentInfo?agentInfo.photo:''}}\" alt=\"Card image cap\">\r\n        \r\n          <div class=\"card-body\">\r\n            <h5 class=\"card-title\">{{agentInfo?agentInfo.name:''}}</h5>\r\n            <p>Client Feedback:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"{{percentageOfFeedback>75?'success':percentageOfFeedback>25?'warning':'danger'}}\" [value]=\"percentageOfFeedback\"></ngb-progressbar></p>\r\n            <p>Attitude:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"info\" [value]=emotionGeneralAverge type=\"{{emotionGeneralAverge>75?'success':emotionGeneralAverge>25?'warning':'danger'}}\"></ngb-progressbar></p>\r\n            <p>Punctuality:</p>\r\n            <p><ngb-progressbar showValue=\"true\" type=\"warning\" [value]=percentageOfPunctuality type=\"{{percentageOfPunctuality>75?'success':percentageOfPunctuality>25?'warning':'danger'}}\"></ngb-progressbar></p>\r\n             \r\n          </div>\r\n        </div>\r\n      </div>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item\" *ngFor=\"let history of historyData | async\">\r\n      <div class=\"row\">\r\n          <div class=\"col-9 vertical-center\"  >\r\n             <h5> {{history.checkintime | date }}</h5>\r\n             <p>Check In Time: {{history.checkintime | date :'h:mm a' }}  <br>\r\n              Check Out Time: {{history.checkouttime | date :'h:mm a' }}<br>\r\n              Hours Worked: {{calculateHours(history)}}<br>\r\n              Client Name: {{history.clientname }} <br>\r\n              Client Comment: {{history.client_comment }}</p>\r\n\r\n            \r\n            </div>\r\n            <div class=\"col-3 vertical-center float-right\">\r\n                <button type=\"button\" class=\"btn btn-primary\" (click)=\"verifyData(history,$event.target, 'verifying')\" [hidden]=\"history.isVerified || history.isVerified==false\">Verify</button>\r\n                <img   src=\"assets/images/success.png\" alt=\"\" [hidden]=\"!history.isVerified || history.isVerified==undefined\">\r\n                <img  src=\"assets/images/error.png\" alt=\"\" [hidden]=\"history.isVerified || history.isVerified==undefined\">\r\n       \r\n                \r\n            </div>  \r\n          \r\n      </div>\r\n    </li>\r\n    <li class=\"list-group-item text-center\" [hidden]=\"historyLength>0\" >No Records Found</li>\r\n  \r\n\r\n  </ul>\r\n\r\n</div>\r\n\r\n<ng-template #modalContent let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-header text-center\">\r\n      <h4 class=\"modal-title\">EVV</h4>\r\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n        <span aria-hidden=\"true\">&times;</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"modal-body text-center\">\r\n      <h4>Verification Success&hellip;</h4>\r\n      <p><img   src=\"assets/images/success.png\" alt=\"\"></p> \r\n    <p [hidden]=\"!terionResultId\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"viewBCTransaction()\">View Bitcoin transaction</button>\r\n         </div>\r\n         <p class=\"text-center\" [hidden]=\"terionResultId\">Waiting For Response from Blockchain</p>\r\n    <div class=\"modal-footer\">\r\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #FailedmodalContent let-c=\"close\" let-d=\"dismiss\">\r\n      <div class=\"modal-header text-center\">\r\n        <h4 class=\"modal-title\">EVV</h4>\r\n        <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"d('Cross click')\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body text-center\">\r\n        <h4>Verification Failed&hellip;</h4>\r\n      <p> <img   src=\"assets/images/error.png\" alt=\"\"></p> \r\n    <p class=\"text-center\">There is a mismatch in the record with data in Blockchain.</p>\r\n           </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"c('Close click')\">Close</button>\r\n      </div>\r\n    </ng-template>\r\n\r\n  "
 
 /***/ }),
 
@@ -981,9 +1004,12 @@ var HistoryComponent = /** @class */ (function () {
         this.winRef = winRef;
         this._authService = _authService;
         this.historyLength = 0;
+        this.currentRate = 1.35;
         this.agentInfo = null;
         this.selectedAgent = "Select Agent";
         this.percentageOfFeedback = 0;
+        this.emotionGeneralAverge = 0;
+        this.percentageOfPunctuality = 0;
         this.clientCommentsObj = {
             "documents": []
         };
@@ -1025,8 +1051,23 @@ var HistoryComponent = /** @class */ (function () {
             _this.emotionGeneralAverge = Math.round((_this.checkInEmotionAverage + _this.checkInEmotionAverage) * 50);
         });
     };
+    HistoryComponent.prototype.calculatePunctulityAverage = function (historyData) {
+        var totalTimeDelayed = 0;
+        historyData.forEach(function (item, index) {
+            totalTimeDelayed += Date.parse(item.checkintime) - Date.parse(new Date(new Date(item.checkintime).setHours(9, 0, 0)).toString());
+            // totalTimeDelayed+=new Date(this.globals.clientdata[0].) item.checkintime
+        });
+        var diffInHours = totalTimeDelayed / 1000 / 60 / 60;
+        var totalHoursToBeWorked = historyData.length * 8;
+        this.percentageOfPunctuality = Math.round(((totalHoursToBeWorked - diffInHours) / totalHoursToBeWorked) * 100);
+        console.log(this.percentageOfPunctuality);
+        console.log(diffInHours);
+    };
     HistoryComponent.prototype.changeAction = function (agent) {
         var _this = this;
+        this.percentageOfFeedback = 0;
+        this.emotionGeneralAverge = 0;
+        this.percentageOfPunctuality = 0;
         this.selectedAgent = agent.name;
         // this.clientCommentsObj.documents=[];
         this.agentInfo = agent;
@@ -1056,6 +1097,7 @@ var HistoryComponent = /** @class */ (function () {
                     }
                 });
             }
+            _this.calculatePunctulityAverage(result);
         });
         this.captureEmotionAverage(agent);
     };
@@ -1185,7 +1227,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\n\n.login-bg{\n    background-image: url(" + escape(__webpack_require__("../../../../../src/assets/images/login-bg.jpg")) + ");\n    height: 100%;\n    position: fixed;\n    text-align: center;\n    font-size: 1.5rem;\n}\n.login-card{\n    background-color:transparent;\n  margin-top: 100px;\n  border: none;\n}\n.app-logo{\n    height: 100px;\n}\n.form-control, .form-control:focus,.form-control:active{\n    border: none;\n    background: none;\n    border-bottom: 1px solid;\n    color: #fff;\n    border-radius: 0;\n    -webkit-text-decoration-color: #fff;\n            text-decoration-color: #fff;\n    margin-bottom: 30px;\n    font-size: 1.2rem;\n    \n}\n::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n:-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n.btn-rounded{\n    width: 200px;\n    border-radius: 25px;\n    background-color: transparent;\n    font-size: 1.2rem;\n    border-color: #fff;\n    color: #fff;\n}", ""]);
+exports.push([module.i, "\n\n.login-bg{\n    background-image: url(" + escape(__webpack_require__("../../../../../src/assets/images/login-bg.jpg")) + ");\n    height: 100%;\n    position: fixed;\n    text-align: center;\n    font-size: 1.5rem;\n}\n.login-card{\n    background-color:transparent;\n  margin-top: 100px;\n  border: none;\n}\n.app-logo{\n    height: 100px;\n}\n.form-control, .form-control:focus,.form-control:active{\n    border: none;\n    background: none;\n    border-bottom: 1px solid;\n    color: #fff;\n    border-radius: 0;\n    -webkit-text-decoration-color: #fff;\n            text-decoration-color: #fff;\n    margin-bottom: 30px;\n    font-size: 1.2rem;\n    \n}\n::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n:-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */\n    color: #fff;\n    opacity: 1; /* Firefox */\n}\n.btn-rounded{\n    width: 200px;\n    border-radius: 25px;\n    background-color: transparent;\n    font-size: 1.2rem;\n    border-color: #fff;\n    color: #fff;\n}\n.footer{\n    position: fixed;\n    left: 0;\n    bottom: 0;\n    width: 100%;\n    color: white;\n    text-align: center;\n}\npre{\n    color: white;\n    font-size: 1rem;\n}", ""]);
 
 // exports
 
@@ -1198,7 +1240,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-app-header></app-app-header> -->\n<div class=\"container login-bg py-5\">\n  <div class=\"row\">\n      <div class=\"col-md-12\">\n        <img src=\"assets/images/block-chain-icon.png\" class=\"app-logo\">\n        <div class=\"text-white\">{{config.appTitle}}</div>\n          <div class=\"row\">\n              <div class=\"col-md-6 mx-auto\">\n\n                  <!-- form card login -->\n                  <div class=\"card rounded-0 login-card\">\n                     \n                      <div class=\"card-body\">\n                        <form name=\"userform\" method=\"post\" #formCtrl=\"ngForm\">\n                          <div class=\"form-group\">\n                            \n                            <input type=\"email\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\" placeholder=\"Email\" required>\n                          </div>\n<div class=\"form-group\">\n                     \n                      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"user.password\" name=\"password\" placeholder=\"Password\" required>\n                    </div>\n                              <!-- <div>\n                                  <label class=\"custom-control custom-checkbox\">\n                                    <input type=\"checkbox\" class=\"custom-control-input\">\n                                    <span class=\"custom-control-indicator\"></span>\n                                    <span class=\"custom-control-description small text-dark\">Remember me on this computer</span>\n                                  </label>\n                              </div> -->\n                              <button type=\"submit\" class=\"btn btn-rounded btn-lg \" (click)=\"signInWithEmail()\"  [disabled]=\"formCtrl.form.invalid\"  id=\"btnLogin\">Login</button>\n                          </form>\n                      </div>\n                      <!--/card-block-->\n                  </div>\n                  <!-- /form card login -->\n\n              </div>\n\n\n          </div>\n          <!--/row-->\n\n      </div>\n      <!--/col-->\n  </div>\n  <!--/row-->\n</div>\n<!--/container-->\n"
+module.exports = "<!-- <app-app-header></app-app-header> -->\n<div class=\"container login-bg py-5\">\n  <div class=\"row\">\n      <div class=\"col-md-12\">\n        <img src=\"assets/images/block-chain-icon.png\" class=\"app-logo\">\n        <div class=\"text-white\">{{config.appTitle}}</div>\n          <div class=\"row\">\n              <div class=\"col-md-6 mx-auto\">\n\n                  <!-- form card login -->\n                  <div class=\"card rounded-0 login-card\">\n                     \n                      <div class=\"card-body\">\n                        <form name=\"userform\" method=\"post\" #formCtrl=\"ngForm\">\n                          <div class=\"form-group\">\n                            \n                            <input type=\"email\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\" placeholder=\"Email\" required>\n                          </div>\n<div class=\"form-group\">\n                     \n                      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"user.password\" name=\"password\" placeholder=\"Password\" required>\n                    </div>\n                              <!-- <div>\n                                  <label class=\"custom-control custom-checkbox\">\n                                    <input type=\"checkbox\" class=\"custom-control-input\">\n                                    <span class=\"custom-control-indicator\"></span>\n                                    <span class=\"custom-control-description small text-dark\">Remember me on this computer</span>\n                                  </label>\n                              </div> -->\n                              <button type=\"submit\" class=\"btn btn-rounded btn-lg \" (click)=\"signInWithEmail()\"  [disabled]=\"formCtrl.form.invalid\"  id=\"btnLogin\">Login</button>\n                          </form>\n                      </div>\n                      <!--/card-block-->\n                  </div>\n                  <!-- /form card login -->\n\n              </div>\n\n\n          </div>\n          <!--/row-->\n\n      </div>\n      <!--/col-->\n  </div>\n  <!--/row-->\n  <div class=\"footer\">\n      <pre>version: {{appVersion}}</pre>\n  </div>\n</div>\n<!--/container-->\n"
 
 /***/ }),
 
@@ -1244,6 +1286,11 @@ var LoginComponent = /** @class */ (function () {
             password: 'test123'
         };
         this.globals.isLoggedin = false;
+        if (typeof AppVersion !== 'undefined') {
+            this.appVersion = AppVersion.version;
+        }
+        else
+            this.appVersion = this.globals.appVersion;
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
@@ -1291,7 +1338,7 @@ var LoginComponent = /** @class */ (function () {
                         _this.router.navigate(['dashboard/history']);
                     }
                     else {
-                        _this.checkinEmotion = _this.db.collection('/agencyEmotion', function (ref) { return ref.where('agentid', '==', result[0].agentId).where("date", "==", new Date().toLocaleDateString("en-US")); }).valueChanges();
+                        _this.checkinEmotion = _this.db.collection('/agencyEmotion', function (ref) { return ref.where('agentId', '==', result[0].agentId).where("date", "==", new Date().toLocaleDateString("en-US")); }).valueChanges();
                         _this.checkinEmotion.subscribe(function (checkinEmotionResult) {
                             _this.spinnerService.hide();
                             if (!_this.globals.isLoggedin) {
@@ -2055,13 +2102,14 @@ var VerifyComponent = /** @class */ (function () {
             };
             _this.checkinDataToSave.blockChanData = blockChainData;
             _this.saveCheckinDataToFireBase(true);
-            _this.spinnerService.hide();
             if (_this.globals.isCheckIn) {
                 alert('You are successfully checked in.');
+                _this.spinnerService.hide();
                 _this.router.navigate(['dashboard/checkout']);
             }
             else {
                 alert('You are successfully checked out.');
+                _this.spinnerService.hide();
                 _this.router.navigate(['dashboard/history']);
             }
         });
